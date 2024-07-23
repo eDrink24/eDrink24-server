@@ -1,17 +1,17 @@
-CREATE TABLE `CUSTOMERS` (
-                             `userId`	INT	NOT NULL,
-                             `userName`	VARCHAR(20)	NOT NULL,
-                             `loginId`	VARCHAR(20)	NOT NULL,
-                             `pw`	VARCHAR(20)	NOT NULL,
-                             `birthdate`	DATETIME	NOT NULL,
-                             `phoneNum`	VARCHAR(20)	NOT NULL,
-                             `email`	VARCHAR(50)	NOT NULL,
-                             `address1`	VARCHAR(20)	NOT NULL,
-                             `address2`	VARCHAR(20)	NOT NULL,
-                             `currentLocation`	VARCHAR(50)	NULL,
-                             `currentStore`	VARCHAR(50)	NULL,
-                             `totalPoint`	INT	NOT NULL	DEFAULT 0,
-                             `role`	VARCHAR(20)	NOT NULL	DEFAULT '일반회읜'
+CREATE TABLE `CUSTOMER` (
+                            `userId`	INT	NOT NULL,
+                            `userName`	VARCHAR(20)	NOT NULL,
+                            `loginId`	VARCHAR(20)	NOT NULL,
+                            `pw`	VARCHAR(20)	NOT NULL,
+                            `birthdate`	DATETIME	NOT NULL,
+                            `phoneNum`	VARCHAR(20)	NOT NULL,
+                            `email`	VARCHAR(50)	NOT NULL,
+                            `address1`	VARCHAR(20)	NOT NULL,
+                            `address2`	VARCHAR(20)	NOT NULL,
+                            `currentLocation`	VARCHAR(50)	NULL,
+                            `currentStore`	VARCHAR(50)	NULL,
+                            `totalPoint`	INT	NOT NULL	DEFAULT 0,
+                            `role`	VARCHAR(20)	NOT NULL	DEFAULT '일반회읜'
 );
 
 CREATE TABLE `StandardProducts` (
@@ -122,8 +122,8 @@ CREATE TABLE `ORDERHISTORY` (
                                 `changeDate`	TIMESTAMP	NULL
 );
 
-ALTER TABLE `CUSTOMERS` ADD CONSTRAINT `PK_CUSTOMERS` PRIMARY KEY (
-                                                                   `userId`
+ALTER TABLE `CUSTOMER` ADD CONSTRAINT `PK_CUSTOMER` PRIMARY KEY (
+                                                                 `userId`
     );
 
 ALTER TABLE `StandardProducts` ADD CONSTRAINT `PK_STANDARDPRODUCTS` PRIMARY KEY (

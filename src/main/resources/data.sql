@@ -1,4 +1,4 @@
-INSERT INTO `CUSTOMERS` (
+INSERT INTO `CUSTOMER` (
     `userId`,
     `userName`,
     `loginId`,

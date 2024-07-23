@@ -19,4 +19,6 @@ public class mainController {
     public List<ProductDTO> findAll() {
         return productService.findAll();
     }
+
+    // Test
 }

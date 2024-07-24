@@ -5,6 +5,7 @@ import org.apache.ibatis.type.Alias;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Alias("CustomerDTO")
@@ -22,7 +23,7 @@ public class CustomerDTO {
     @Size(min = 4, max = 12 ,message = "password 8~12 크기 입력")
     private String pw;
     private String gender;
-    private LocalDateTime birthdate;
+    private LocalDate birthdate;
     @NotBlank(message = "전화번호는 필수 입력")
     private String phoneNum;
     private String email;

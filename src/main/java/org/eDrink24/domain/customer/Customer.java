@@ -21,11 +21,15 @@ public class Customer {
     @Column(name = "userName", nullable = false, length = 20)
     private String userName;
 
+
     @Column(name = "loginId", nullable = false, length = 20)
     private String loginId;
 
     @Column(name = "pw", nullable = false, length = 20)
     private String pw;
+
+    @Column(name = "gender", nullable = false, length = 10)
+    private String gender;
 
     @Column(name = "birthdate", nullable = false)
     private LocalDateTime birthdate;
@@ -35,6 +39,9 @@ public class Customer {
 
     @Column(name = "email", nullable = false, length = 50)
     private String email;
+
+    @Column(name = "postalCode", nullable = false, length = 20)
+    private String postalCode;
 
     @Column(name = "address1", nullable = false, length = 20)
     private String address1;

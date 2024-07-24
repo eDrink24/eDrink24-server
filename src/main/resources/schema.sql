@@ -1,28 +1,30 @@
 CREATE TABLE `CUSTOMER` (
-                            `userId`	INT	NOT NULL,
-                            `userName`	VARCHAR(20)	NOT NULL,
-                            `loginId`	VARCHAR(20)	NOT NULL,
-                            `pw`	VARCHAR(20)	NOT NULL,
-                            `birthdate`	DATETIME	NOT NULL,
-                            `phoneNum`	VARCHAR(20)	NOT NULL,
-                            `email`	VARCHAR(50)	NOT NULL,
-                            `address1`	VARCHAR(20)	NOT NULL,
-                            `address2`	VARCHAR(20)	NOT NULL,
-                            `currentLocation`	VARCHAR(50)	NULL,
-                            `currentStore`	VARCHAR(50)	NULL,
-                            `totalPoint`	INT	NOT NULL	DEFAULT 0,
-                            `role`	VARCHAR(20)	NOT NULL	DEFAULT '일반회읜'
+                            `userId`  INT   NOT NULL AUTO_INCREMENT,
+                            `userName`   VARCHAR(20)   NOT NULL,
+                            `loginId`   VARCHAR(50)   NOT NULL,
+                            `pw`   VARCHAR(100)   NOT NULL,
+                            `gender` ENUM('남','여') NOT NULL DEFAUlT('남'),
+                            `birthdate`   DATETIME   NOT NULL,
+                            `phoneNum`   VARCHAR(20)   NOT NULL,
+                            `email`   VARCHAR(50)   NOT NULL,
+                            `postalCode` VARCHAR(50)   NOT NULL,
+                            `address1`   VARCHAR(20)   NOT NULL,
+                            `address2`   VARCHAR(20)   NOT NULL,
+                            `currentLocation`   VARCHAR(50)   NULL,
+                            `currentStore`   VARCHAR(50)   NULL,
+                            `totalPoint`   INT   NOT NULL   DEFAULT 0,
+                            `role`   VARCHAR(20)   NOT NULL   DEFAULT '일반회읜'
 );
 
 CREATE TABLE `StandardProducts` (
-                                    `productId`	INT	NOT NULL,
+                                    `productId`	INT	NOT NULL AUTO_INCREMENT,
                                     `productName`	VARCHAR(30)	NOT NULL,
                                     `category1`	VARCHAR(30)	NOT NULL,
                                     `category2`	VARCHAR(30)	NULL
 );
 
 CREATE TABLE `STORE` (
-                         `storeId`	INT	NOT NULL,
+                         `storeId`	INT	NOT NULL AUTO_INCREMENT,
                          `userId`	INT	NOT NULL,
                          `storeName`	VARCHAR(50)	NOT NULL,
                          `storeAddress`	VARCHAR(100)	NOT NULL,
@@ -30,20 +32,20 @@ CREATE TABLE `STORE` (
 );
 
 CREATE TABLE `dibs` (
-                        `DibsId`	INT	NOT NULL,
+                        `DibsId`	INT	NOT NULL AUTO_INCREMENT,
                         `userId`	INT	NOT NULL,
                         `dProductId`	int	NOT NULL
 );
 
 CREATE TABLE `INVENTORY` (
-                             `inventoryId`	INT	NOT NULL,
+                             `inventoryId`	INT	NOT NULL AUTO_INCREMENT,
                              `storeId`	INT	NOT NULL,
                              `dProductId`	INT	NOT NULL,
                              `quantity`	INT	NOT NULL	DEFAULT 0
 );
 
 CREATE TABLE `ORDER` (
-                         `orderId`	INT	NOT NULL,
+                         `orderId`	INT	NOT NULL AUTO_INCREMENT,
                          `storeId`	INT	NOT NULL,
                          `userId`	INT	NOT NULL,
                          `dProductId`	INT	NOT NULL,
@@ -54,7 +56,7 @@ CREATE TABLE `ORDER` (
 );
 
 CREATE TABLE `coupon` (
-                          `couponId`	INT	NOT NULL,
+                          `couponId`	INT	NOT NULL AUTO_INCREMENT,
                           `userId`	INT	NOT NULL	DEFAULT 0,
                           `discountAmout`	INT	NULL,
                           `issueDate`	TIMESTAMP	NOT NULL,
@@ -64,27 +66,27 @@ CREATE TABLE `coupon` (
 );
 
 CREATE TABLE `POINTDETAILS` (
-                                `pointDetailsId`	INT	NOT NULL,
+                                `pointDetailsId`	INT	NOT NULL AUTO_INCREMENT,
                                 `orderId`	INT	NOT NULL,
                                 `saveDate`	TIMESTAMP	NOT NULL,
                                 `point`	INT	NOT NULL
 );
 
 CREATE TABLE `BASKET` (
-                          `basketId`	INT	NOT NULL,
+                          `basketId`	INT	NOT NULL AUTO_INCREMENT,
                           `userId`	INT	NOT NULL,
                           `dProductId`	int	NOT NULL,
                           `basketQuantity`	INT	NOT NULL	DEFAULT 1
 );
 
 CREATE TABLE `PRODUCTIMAGE` (
-                                `productImageId`	INT	NOT NULL,
+                                `productImageId`	INT	NOT NULL AUTO_INCREMENT,
                                 `productOptionId`	int	NOT NULL,
                                 `detailImage`	VARCHAR(50)	NOT NULL
 );
 
 CREATE TABLE `REVIEW` (
-                          `reviewId`	INT	NOT NULL,
+                          `reviewId`	INT	NOT NULL AUTO_INCREMENT,
                           `orderId`	INT	NOT NULL,
                           `content`	VARCHAR(255)	NULL,
                           `enrolledDate`	TIMESTAMP	NOT NULL,
@@ -97,7 +99,7 @@ CREATE TABLE `REVIEW` (
 );
 
 CREATE TABLE `DisplayProducts` (
-                                   `dProductId`	INT	NOT NULL,
+                                   `dProductId`	INT	NOT NULL AUTO_INCREMENT,
                                    `productId`	INT	NOT NULL,
                                    `promotionId`	INT	NULL,
                                    `price`	INT	NOT NULL	DEFAULT 0,
@@ -108,7 +110,7 @@ CREATE TABLE `DisplayProducts` (
 );
 
 CREATE TABLE `PROMOTIONS` (
-                              `promotionId`	INT	NOT NULL,
+                              `promotionId`	INT	NOT NULL AUTO_INCREMENT,
                               `title`	VARCHAR(50)	NOT NULL,
                               `contentImage`	VARCHAR(50)	NOT NULL,
                               `startDate`	TIMESTAMP	NOT NULL,
@@ -116,7 +118,7 @@ CREATE TABLE `PROMOTIONS` (
 );
 
 CREATE TABLE `ORDERHISTORY` (
-                                `historyId`	INT	NOT NULL,
+                                `historyId`	INT	NOT NULL AUTO_INCREMENT,
                                 `orderId`	INT	NOT NULL,
                                 `changeStatus`	VARCHAR(20)	NOT NULL	DEFAULT 'ORDERED',
                                 `changeDate`	TIMESTAMP	NULL

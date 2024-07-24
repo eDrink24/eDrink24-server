@@ -14,9 +14,11 @@ public class CustomerDTO {
     private String userName;
     private String loginId;
     private String pw;
+    private String gender;
     private LocalDateTime birthdate;
     private String phoneNum;
     private String email;
+    private String postalCode;
     private String address1;
     private String address2;
     private String currentLocation;

@@ -7,5 +7,5 @@ import java.util.Map;
 
 public interface AuthenticationService {
     public CustomerDTO findByLoginId(String loginId);
-
+    public CustomerDTO authenticate(String loginId, String pw);
 }

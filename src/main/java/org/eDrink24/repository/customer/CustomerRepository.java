@@ -11,4 +11,8 @@ import java.util.Map;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     public Customer findByLoginId(String loginId);
+
+    @Query("select c from Customer c where c.loginId= :loginId AND c.pw= :pw")
+    public Customer authenticate(String loginId, String pw);
+
 }

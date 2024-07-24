@@ -25,4 +25,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         CustomerDTO customerDTO = modelMapper.map(customer, CustomerDTO.class);
         return customerDTO;
     }
+
+    // id+pw => customer 정보 가져오기
+    @Override
+    public CustomerDTO authenticate(String loginId, String pw) {
+        ModelMapper modelMapper = new ModelMapper();
+        Customer customer = customerRepository.authenticate(loginId, pw);
+        CustomerDTO customerDTO = modelMapper.map(customer, CustomerDTO.class);
+        return customerDTO;
+    }
 }

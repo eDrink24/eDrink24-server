@@ -4,6 +4,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.context.annotation.Bean;
@@ -25,6 +26,9 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 import com.nimbusds.jose.JOSEException;
@@ -39,14 +43,16 @@ import com.nimbusds.jose.proc.SecurityContext;
 public class JwtSecurityFilterChainConfig {
 
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, HandlerMappingIntrospector introspector) throws Exception {
+	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity,
+												   HandlerMappingIntrospector introspector,
+												   CorsConfigurationSource corsConfigurationSource) throws Exception {
 
 		// https://github.com/spring-projects/spring-security/issues/12310 참조
 		return httpSecurity
+				.cors(cors -> cors.configurationSource(corsConfigurationSource))
 				.authorizeHttpRequests(auth ->
-						auth.antMatchers("/**", "/eDrink24/signup").permitAll()  // 회원가입 요청 허용.
+						auth.antMatchers("/**", "/signup").permitAll()  // 회원가입 요청 허용.
 								.antMatchers("/authenticate").permitAll()
-//	                    .antMatchers(PathRequest.toH2Console()).permitAll() // h2 사용시 h2-console 허용하기 위한 처리.
 								.antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
 								.anyRequest()
 								.authenticated())
@@ -105,5 +111,18 @@ public class JwtSecurityFilterChainConfig {
 			throw new IllegalStateException(
 					"Unable to generate an RSA Key Pair", e);
 		}
+	}
+
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(List.of("http://localhost:3000")); // 허용할 url
+		configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // 허용할 HTTP 메서드
+		configuration.setAllowedHeaders(List.of("*")); // 허용할 헤더
+		configuration.setAllowCredentials(true); // 자격증명 허용
+
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
 	}
 }

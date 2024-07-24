@@ -118,8 +118,9 @@ public class JwtSecurityFilterChainConfig {
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins(List.of("http://localhost:3000")); // 허용할 url
 		configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // 허용할 HTTP 메서드
-		configuration.setAllowedHeaders(List.of("*")); // 허용할 헤더
-		configuration.setAllowCredentials(true); // 자격증명 허용
+		configuration.setAllowedHeaders(List.of("*")); // 허용할 헤더 + 모든 헤더 허용으로 열어둔거라 보안생각하면 취약함
+//		configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
+		configuration.setAllowCredentials(true); // 자격증명 허용 => Jwt 쓰는데 필요한가?
 
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);

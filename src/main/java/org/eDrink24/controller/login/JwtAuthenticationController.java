@@ -1,5 +1,6 @@
 package org.eDrink24.controller.login;
 
+import lombok.extern.slf4j.Slf4j;
 import org.eDrink24.domain.customer.Customer;
 import org.eDrink24.dto.customer.CustomerDTO;
 import org.eDrink24.security.JwtTokenResponse;
@@ -20,8 +21,8 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@Slf4j
 public class JwtAuthenticationController {
-    private Logger logger = LoggerFactory.getLogger(getClass());
 
     private JwtTokenService tokenService;
     private AuthenticationService authenticationService;
@@ -38,13 +39,10 @@ public class JwtAuthenticationController {
     @PostMapping("/authenticate")
     public ResponseEntity<JwtTokenResponse> authenticate(
             @RequestBody Map<String, String> jwtTokenRequest) {
-        logger.info("logger: jwtTokenRequest: {}", jwtTokenRequest);
+        log.info("logger: jwtTokenRequest: {}", jwtTokenRequest);
 
         CustomerDTO customerDTO = authenticationService.findByLoginId(jwtTokenRequest.get("loginId"));
         UsernamePasswordAuthenticationToken authenticationToken = null;
-
-        System.out.println(customerDTO.toString()); // 1. DTO 받아와짐
-        System.out.println(passwordEncoder.matches(jwtTokenRequest.get("pw"), customerDTO.getPw()));
 
         if (customerDTO != null && passwordEncoder.matches(jwtTokenRequest.get("pw"), customerDTO.getPw())) {
             List<GrantedAuthority> roles = new ArrayList<>();
@@ -55,7 +53,7 @@ public class JwtAuthenticationController {
                             .pw(jwtTokenRequest.get("pw"))
                             .userName(customerDTO.getUserName())
                             .role(customerDTO.getRole()).build();
-            logger.info(authCustomer.toString());
+            log.info(authCustomer.toString());
             authenticationToken =
                     new UsernamePasswordAuthenticationToken(authCustomer, null, roles);
         }

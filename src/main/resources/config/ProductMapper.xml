@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.eDrink24.config.ProductMapper">
+
+
+	<select id="productFilter" parameterType="map" resultType="ProductDTO">
+		SELECT * FROM Product
+		ORDER BY
+		<choose>
+			<when test="order == 'price'">price</when>
+			<when test="order == 'rating'">rating</when>
+			<when test="order == 'countDibs'">countDibs</when>
+			<otherwise>productId</otherwise>
+		</choose>
+		<choose>
+			<when test="direction == 'desc'">DESC</when>
+			<otherwise>ASC</otherwise>
+		</choose>
+	</select>
+
+
+
+</mapper>

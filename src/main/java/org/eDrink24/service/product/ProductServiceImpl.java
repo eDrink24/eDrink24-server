@@ -19,4 +19,11 @@ public class ProductServiceImpl implements  ProductService {
     public List<ProductDTO> showAllProduct() {
         return productMapper.showAllProduct();
     }
+
+    @Override
+    public List<ProductDTO> showProductByCategory1(String category1) {
+        return productMapper.showProductByCategory1(category1);
+    }
+
+
 }

@@ -10,4 +10,7 @@ public interface ProductMapper {
 
     public List<ProductDTO> showAllProduct();
 
+    // category1에 해당하는 제품만 보여줌.
+    public List<ProductDTO> showProductByCategory1(String category1);
+
 }

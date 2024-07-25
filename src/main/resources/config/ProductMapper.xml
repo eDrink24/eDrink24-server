@@ -9,5 +9,11 @@
     from product
 </select>
 
+<select id="showProductByCategory1" resultType="ProductDTO" parameterType="string" >
+    select productName, category1, category2, price, defaultImage, countDibs
+    from product
+    where category1=#{category1}
+</select>
+
 
 </mapper>

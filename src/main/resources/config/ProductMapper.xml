@@ -5,30 +5,39 @@
 
 <mapper namespace="org.eDrink24.config.ProductMapper">
 
-<select id="productFilter" parameterType="map" resultType="ProductDTO">
-		SELECT * FROM Product
-		ORDER BY
-		<choose>
-			<when test="order == 'price'">price</when>
-			<when test="order == 'rating'">rating</when>
-			<when test="order == 'countDibs'">countDibs</when>
-			<otherwise>productId</otherwise>
-		</choose>
-		<choose>
-			<when test="direction == 'desc'">DESC</when>
-			<otherwise>ASC</otherwise>
-		</choose>
-	</select>
+    <select id="productFilter" parameterType="map" resultType="ProductDTO">
+		    SELECT * FROM Product
+		    ORDER BY
+		    <choose>
+			    <when test="order == 'price'">price</when>
+			    <when test="order == 'rating'">rating</when>
+			    <when test="order == 'countDibs'">countDibs</when>
+			    <otherwise>productId</otherwise>
+		    </choose>
+		    <choose>
+			    <when test="direction == 'desc'">DESC</when>
+			    <otherwise>ASC</otherwise>
+		    </choose>
+	    </select>
 
-<select id="showAllProduct" resultType="ProductDTO">
-    select productName, category1, category2, price, defaultImage, countDibs
-    from product
-</select>
+    
+    <select id="showAllProduct" resultType="ProductDTO">
+      select productName, category1, category2, price, defaultImage, countDibs
+      from product
+    </select>
 
-<select id="showProductByCategory1" resultType="ProductDTO" parameterType="string" >
-    select productName, category1, category2, price, defaultImage, countDibs
-    from product
-    where category1=#{category1}
-</select>
+  
+    <select id="showProductByCategory1" resultType="ProductDTO" parameterType="string">
+        select productName, category1, category2, price, defaultImage, countDibs
+        from product
+        where category1=#{category1}
+    </select>
+
+  
+    <select id="showProductByCategory2" resultType="ProductDTO" parameterType="string">
+        select productName, category1, category2, price, defaultImage, countDibs
+        from product
+        where category2=#{category2}
+    </select>
 
 </mapper>

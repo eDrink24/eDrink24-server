@@ -26,11 +26,11 @@ ProductService productService;
    }
 
 	// 상품 필터링
-	@GetMapping("/products/order/{order}/direction/{direction}")
+	@GetMapping("/products/sortProduct/{sortProduct}/sortDirection/{sortDirection}")
 	public List<ProductDTO> filterProduct(
-			@PathVariable String order,
-			@PathVariable String direction) {
-		return productService.productFilter(order, direction);
+			@PathVariable String sortProduct,
+			@PathVariable String sortDirection) {
+		return productService.productFilter(sortProduct, sortDirection);
 	}
 
     // 제품 전체 목록 보여주기

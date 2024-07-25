@@ -1,35 +1,30 @@
 package org.eDrink24.dto.product;
 
 import org.apache.ibatis.type.Alias;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import lombok.*;
+import org.apache.ibatis.type.Alias;
 import java.time.LocalDate;
 
+
+@Alias("ProductDTO")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter
-@Alias("ProductDTO")
+@Setter
+@ToString
 public class ProductDTO {
-	
-	Integer productId;
-	String productName;
-	String category1;
-	String category2;
-	Integer promotionId;
-	int price;
-	String defaultImage;
-	int countDibs;
-	boolean isCoupon;
-	boolean isPoint;
-	LocalDate enrollDate;
 
-	
+    private String productName;
+    private String category1;
+    private String category2;
+    private String promotionId;
+    private String price;
+    private String defaultImage;
+    private String countDibs;
+    private String isCoupon;
+    private String isPoint;
+    private LocalDate enrollDate;
+
 }

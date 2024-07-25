@@ -14,5 +14,12 @@
         from customer
         where loginId=#{loginId}
     </select>
+    
+    <update id="updateCustomerToMyPage" parameterType="CustomerDTO">
+        update customer
+        set pw=#{pw}, phoneNum=#{phoneNum}, email=#{email}, postalCode=#{postalCode}, address1=#{address1}, address2=#{address2}
+        where loginId=#{loginId}
+    </update>
 
+    
 </mapper>

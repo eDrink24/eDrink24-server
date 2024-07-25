@@ -7,4 +7,5 @@ import org.eDrink24.dto.customer.CustomerDTO;
 public interface CustomerMapper {
     public int saveCustomer(CustomerDTO customerDTO);
     public CustomerDTO selectCustomerMyPage(String loginId);
+    public int updateCustomerToMyPage(CustomerDTO customerDTO);
 }

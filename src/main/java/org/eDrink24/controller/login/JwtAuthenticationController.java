@@ -59,11 +59,15 @@ public class JwtAuthenticationController {
         }
 
         String token = null;
+
         // token이 있을때만 생성
         if (authenticationToken != null) {
             token = tokenService.generateToken(authenticationToken);
+            return ResponseEntity.ok(new JwtTokenResponse(token));
+        } else {
+            return ResponseEntity.status(401).body(new JwtTokenResponse(null));
         }
-        return ResponseEntity.ok(new JwtTokenResponse(token));
+
     }
 
 }

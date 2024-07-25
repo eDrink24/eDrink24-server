@@ -12,19 +12,19 @@ import java.util.Map;
 @Service
 public class ProductServiceImpl implements  ProductService {
 
-    ProductMapper productMapper;
+   ProductMapper productMapper;
 
-    public ProductServiceImpl(ProductMapper productMapper) {
-        this.productMapper = productMapper;
+   public ProductServiceImpl(ProductMapper productMapper) {
+      this.productMapper = productMapper;
    }
 
-  @Override
-	public List<ProductDTO> productFilter(String order, String direction) {
+    @Override
+	  public List<ProductDTO> productFilter(String order, String direction) {
         Map<String, Object> params = new HashMap<>();
         params.put("order", order);
         params.put("direction", direction);
         return productMapper.productFilter(params);
-  }
+    }
     
     @Override
     public List<ProductDTO> showAllProduct() {
@@ -34,6 +34,11 @@ public class ProductServiceImpl implements  ProductService {
     @Override
     public List<ProductDTO> showProductByCategory1(String category1) {
         return productMapper.showProductByCategory1(category1);
+    }
+
+    @Override
+    public List<ProductDTO> showProductByCategory2(String category2) {
+        return productMapper.showProductByCategory2(category2);
     }
 
 }

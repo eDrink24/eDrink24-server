@@ -19,11 +19,11 @@ public class ProductController {
 
 private Logger logger = LoggerFactory.getLogger(getClass());
   
-ProductService productService;
+  ProductService productService;
 
-   public ProductController(ProductService productService) {
-        this.productService = productService;
-   }
+  public ProductController(ProductService productService) {
+      this.productService = productService;
+  }
 
 	// 상품 필터링
 	@GetMapping("/products/sortProduct/{sortProduct}/sortDirection/{sortDirection}")
@@ -40,9 +40,16 @@ ProductService productService;
     }
 
     // category1에 해당하는 제품 목록 보여주기
-    @GetMapping(value = {"/showProductByCategory1/{category1}"})
+    @GetMapping(value = {"/showProductByCategory/{category1}"})
     public List<ProductDTO> showProductByCategory1(@PathVariable String category1) {
         return productService.showProductByCategory1(category1);
+    }
+
+    // category2에 해당하는 제품 목록 보여주기
+    @GetMapping(value = {"/showProductByCategory/{category1}/{category2}"})
+    public List<ProductDTO> showProductByCategory2(@PathVariable String category1,
+                                                   @PathVariable String category2) {
+        return productService.showProductByCategory2(category2);
     }
 
 

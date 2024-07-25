@@ -25,5 +25,10 @@ public class ProductServiceImpl implements  ProductService {
         return productMapper.showProductByCategory1(category1);
     }
 
+    @Override
+    public List<ProductDTO> showProductByCategory2(String category2) {
+        return productMapper.showProductByCategory2(category2);
+    }
+
 
 }

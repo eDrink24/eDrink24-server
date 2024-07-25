@@ -6,4 +6,5 @@ import org.eDrink24.dto.customer.CustomerDTO;
 @Mapper
 public interface CustomerMapper {
     public int saveCustomer(CustomerDTO customerDTO);
+    public CustomerDTO selectCustomerMyPage(String loginId);
 }

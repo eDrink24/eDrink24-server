@@ -1,13 +1,13 @@
 package org.eDrink24.dto.product;
 
+import org.apache.ibatis.type.Alias;
 import lombok.*;
 import org.apache.ibatis.type.Alias;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
+
 @Alias("ProductDTO")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

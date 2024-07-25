@@ -22,6 +22,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public CustomerDTO findByLoginId(String loginId) {
         ModelMapper modelMapper = new ModelMapper();
         Customer customer = customerRepository.findByLoginId(loginId);
+        if (customer == null) {
+            return null;
+        }
         CustomerDTO customerDTO = modelMapper.map(customer, CustomerDTO.class);
         return customerDTO;
     }

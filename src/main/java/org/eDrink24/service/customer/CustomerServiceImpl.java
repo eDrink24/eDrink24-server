@@ -30,5 +30,11 @@ public class CustomerServiceImpl implements CustomerService{
         return customerMapper.selectCustomerMyPage(loginId);
     }
 
+    @Override
+    public int updateCustomerToMyPage(CustomerDTO customerDTO) {
+        int n = customerMapper.updateCustomerToMyPage(customerDTO);
+        log.info("수정 여부 확인:" + customerDTO);
+        return n;
+    }
 
 }

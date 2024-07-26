@@ -20,10 +20,10 @@ public class ProductServiceImpl implements  ProductService {
    }
 
     @Override
-	  public List<ProductDTO> productFilter(String order, String direction) {
+	  public List<ProductDTO> productFilter(String sortProduct, String sortDirection) {
         Map<String, Object> params = new HashMap<>();
-        params.put("order", order);
-        params.put("direction", direction);
+        params.put("sortProduct", sortProduct);
+        params.put("sortDirection", sortDirection);
         return productMapper.productFilter(params);
     }
     

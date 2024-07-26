@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.eDrink24.config.OrderMapper">
+
+    <!-- 장바구니에 담긴 상품 불러오기 -->
+    <select id="showAllBasket" resultType="BasketDTO">
+      select
+        BASKET.basketId,
+        BASKET.userId,
+        Product.productName,
+        Product.price,
+        BASKET.productId,
+        BASKET.basketQuantity
+      from BASKET
+      JOIN Product ON BASKET.productId = Product.productId
+    </select>
+
+    <!-- 결제하기(ORDERS 테이블에 저장) -->
+    <insert id="buyProduct" parameterType="OrderDTO">
+        INSERT INTO ORDERS (storeId, userId, productId, orderDate, pickupDate, isCompleted, orderStatus)
+        VALUES
+        <foreach collection="list" item="order" separator=",">
+            (#{order.storeId}, #{order.userId}, #{order.productId}, #{order.orderDate},
+            #{order.pickupDate}, #{order.isCompleted}, #{order.orderStatus})
+        </foreach>
+    </insert>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

@@ -10,7 +10,7 @@ import java.util.Map;
 public interface ProductService {
 
     // 상품 필터링
-    public List<ProductDTO> productFilter(String order, String direction);
+    public List<ProductDTO> productFilter(String sortProduct, String sortDirection);
 
     public List<ProductDTO> showAllProduct();
 

@@ -1,6 +1,7 @@
 package org.eDrink24.service.product;
 
 import org.eDrink24.config.ProductMapper;
+import org.eDrink24.dto.product.DetailProductDTO;
 import org.eDrink24.dto.product.ProductDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +40,11 @@ public class ProductServiceImpl implements  ProductService {
     @Override
     public List<ProductDTO> showProductByCategory2(String category2) {
         return productMapper.showProductByCategory2(category2);
+    }
+
+    @Override
+    public DetailProductDTO showDetailProduct(Integer productId) {
+        return productMapper.showDetailProduct(productId);
     }
 
 }

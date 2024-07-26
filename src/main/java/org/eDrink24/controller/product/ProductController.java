@@ -1,8 +1,6 @@
 package org.eDrink24.controller.product;
 
 import org.eDrink24.service.product.ProductService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,8 +9,6 @@ import java.util.List;
 
 @RestController
 public class ProductController {
-
-private Logger logger = LoggerFactory.getLogger(getClass());
   
   ProductService productService;
 
@@ -46,6 +42,5 @@ private Logger logger = LoggerFactory.getLogger(getClass());
                                                    @PathVariable String category2) {
         return productService.showProductByCategory2(category2);
     }
-
 
 }

@@ -46,4 +46,10 @@
         where category2=#{category2}
     </select>
 
+	<select id="showDetailProduct" resultType="DetailProductDTO">
+		select p.productName, p.category1, p.category2, p.price, p.defaultImage, p.countDibs, pi.detailImage
+		from product p join productImage pi on p.productId = pi.productid
+		where p.productId=#{p.productId}
+	</select>
+
 </mapper>

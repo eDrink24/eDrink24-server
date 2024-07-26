@@ -9,5 +9,6 @@ public interface BasketService {
 
     public void saveProductToBasket(BasketDTO basketDTO);
     public List<BasketJoinProductDTO> showProductInBasket(Integer userId);
+    public void deleteAllProductInBasket();
 
 }

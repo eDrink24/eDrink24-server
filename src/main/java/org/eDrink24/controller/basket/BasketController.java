@@ -28,4 +28,10 @@ public class BasketController {
         return basketService.showProductInBasket(userId);
     }
 
+    // 장바구니에 있는 모든 목록 삭제하기
+    @DeleteMapping(value = {"/deleteAllProductInBasket"})
+    public void deleteAllProductInBasket(){
+        basketService.deleteAllProductInBasket();
+    }
+
 }

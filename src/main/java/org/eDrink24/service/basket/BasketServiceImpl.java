@@ -29,4 +29,9 @@ public class BasketServiceImpl implements BasketService {
         return basketMapper.showProductInBasket(userId);
     }
 
+    @Override
+    public void deleteAllProductInBasket() {
+        basketMapper.deleteAllProductInBasket();
+    }
+
 }

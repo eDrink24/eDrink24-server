@@ -16,5 +16,9 @@
         where b.userId=#{userId}
     </select>
 
+    <delete id="deleteAllProductInBasket">
+        delete from basket
+    </delete>
+
 </mapper>
 

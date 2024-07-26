@@ -20,11 +20,11 @@ public class ProductDTO {
     private String category1;
     private String category2;
     private String promotionId;
-    private String price;
+    private Integer price;
     private String defaultImage;
     private String countDibs;
-    private String isCoupon;
-    private String isPoint;
+    private Boolean isCoupon;
+    private Boolean isPoint;
     private LocalDate enrollDate;
 
 }

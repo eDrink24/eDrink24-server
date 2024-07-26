@@ -38,8 +38,9 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public CustomerDTO CustomerIdCheck(String loginId) {
-        return customerMapper.CustomerIdCheck(loginId);
+    public CustomerDTO customerIdCheck(String loginId) {
+        return customerMapper.customerIdCheck(loginId);
     }
+
 
 }

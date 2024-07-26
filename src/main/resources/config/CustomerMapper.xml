@@ -21,7 +21,7 @@
         where loginId=#{loginId}
     </update>
 
-    <select id="CustomerIdCheck" resultType="CustomerDTO" parameterType="string">
+    <select id="customerIdCheck" resultType="CustomerDTO" parameterType="string">
         select userName, loginId, gender, birthdate, phoneNum, email, postalCode, address1, address2, currentLocation, currentStore, totalPoint, role
         from customer
         where loginId=#{loginId}

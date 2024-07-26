@@ -19,8 +19,8 @@ public class ProductDTO {
     private String productName;
     private String category1;
     private String category2;
-    private int promotionId;
-    private int price;
+    private Integer promotionId;
+    private Integer price;
     private String defaultImage;
     private String countDibs;
     private Boolean isCoupon;

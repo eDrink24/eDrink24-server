@@ -8,5 +8,5 @@ public interface CustomerService {
     public int updateCustomerToMyPage(CustomerDTO customerDTO);
 
     // 회원가입할 때 아이디 중복체크
-    public CustomerDTO CustomerIdCheck(String loginId);
+    public CustomerDTO customerIdCheck(String loginId);
 }

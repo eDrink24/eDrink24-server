@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.eDrink24.config.BasketMapper">
+
+    <insert id="saveProductToBasket" parameterType="BasketDTO">
+        insert into basket (userId, productId, basketQuantity)
+        values (#{userId}, #{productId}, #{basketQuantity})
+    </insert>
+
+    <select id="showProductInBasket" parameterType="Integer" resultType="BasketJoinProductDTO">
+        select p.productName, p.category2, p.price, p.defaultImage, b.basketQuantity
+        from basket b join product p on p.productId = b.productId
+        where b.userId=#{userId}
+    </select>
+
+</mapper>
+

@@ -16,11 +16,11 @@ import java.time.LocalDate;
 @ToString
 public class BasketDTO {
 
-    private int basketId;
-    private int userId;
-    private int productId;
+    private Integer basketId;
+    private Integer userId;
+    private Integer productId;
     private String productName;
-    private int price;
-    private int basketQuantity;
+    private Integer price;
+    private Integer basketQuantity;
 
 }

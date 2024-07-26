@@ -1,6 +1,6 @@
 package org.eDrink24.controller.basket;
 
-import org.eDrink24.dto.basket.BaksetDTO;
+import org.eDrink24.dto.basket.BasketDTO;
 import org.eDrink24.dto.basket.BasketJoinProductDTO;
 import org.eDrink24.service.basket.BasketService;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ public class BasketController {
 
     // basket 테이블에 userId, productId, basketQuantity 저장
     @PostMapping(value = {"/saveProductToBasket"})
-    public void saveProductToBasket(@RequestBody BaksetDTO baksetDTO) {
+    public void saveProductToBasket(@RequestBody BasketDTO baksetDTO) {
         basketService.saveProductToBasket(baksetDTO);
     }
 

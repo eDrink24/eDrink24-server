@@ -37,4 +37,9 @@ public class CustomerServiceImpl implements CustomerService{
         return n;
     }
 
+    @Override
+    public CustomerDTO CustomerIdCheck(String loginId) {
+        return customerMapper.CustomerIdCheck(loginId);
+    }
+
 }

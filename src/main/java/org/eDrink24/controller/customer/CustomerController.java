@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -41,6 +38,18 @@ public class CustomerController {
                 .buildAndExpand(saveCustomer.getLoginId()) //위의 {userid}를 치환시킴.
                 .toUri();
         return ResponseEntity.created(location).build();
+    }
+
+    //회원가입 할 때 아이디 중복체크
+    @GetMapping(value = {"/CustomerIdCheck/{loginId}"})
+    public ResponseEntity<String> customerIdCheck(@PathVariable String loginId) {
+
+        CustomerDTO customerDTO = customerService.CustomerIdCheck(loginId);
+        if(customerDTO != null) {
+            return ResponseEntity.status(409).body("이 아이디는 사용불가합니다.");
+        }
+
+        return ResponseEntity.ok("이 아이디는 사용가능합니다.");
     }
 
 

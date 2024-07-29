@@ -23,8 +23,8 @@ public class OrderServiceImpl implements OrderService {
    }
     
     @Override
-    public List<BasketDTO> showAllBasket() {
-        return orderMapper.showAllBasket();
+    public List<BasketDTO> showAllBasket(Integer userId) {
+        return orderMapper.showAllBasket(userId);
     }
 
     @Override

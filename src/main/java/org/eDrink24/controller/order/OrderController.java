@@ -2,9 +2,7 @@ package org.eDrink24.controller.order;
 
 import org.eDrink24.dto.basket.BasketDTO;
 import org.eDrink24.dto.order.OrderDTO;
-import org.eDrink24.dto.product.ProductDTO;
 import org.eDrink24.service.order.OrderService;
-import org.eDrink24.service.product.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,9 +18,9 @@ public class OrderController {
   }
 
     // 장바구니에 담긴 상품 불러오기
-    @GetMapping("/showAllBasket")
-    public ResponseEntity<List<BasketDTO>> showAllBasket() {
-        List<BasketDTO> baskets = orderService.showAllBasket();
+    @GetMapping("/showAllBasket/userId/{userId}")
+    public ResponseEntity<List<BasketDTO>> showAllBasket(@PathVariable Integer userId) {
+        List<BasketDTO> baskets = orderService.showAllBasket(userId);
         return ResponseEntity.ok(baskets);
     }
 

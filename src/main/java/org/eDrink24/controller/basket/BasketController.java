@@ -17,9 +17,8 @@ public class BasketController {
 
     // basket 테이블에 userId, productId, basketQuantity 저장
     @PostMapping(value = {"/saveProductToBasket"})
-    public void saveProductToBasket(@RequestBody BasketDTO baksetDTO) {
-        basketService.saveProductToBasket(baksetDTO);
-        //basketService.saveProductToBasket(baksetDTO);
+    public void saveProductToBasket(@RequestBody BasketDTO basketDTO) {
+        basketService.saveProductToBasket(basketDTO);
     }
 
     // userId에 따라서 장바구니에 저장한 목록 보여주기
@@ -29,9 +28,16 @@ public class BasketController {
     }
 
     // 장바구니에 있는 모든 목록 삭제하기
-    @DeleteMapping(value = {"/deleteAllProductInBasket"})
-    public void deleteAllProductInBasket(){
-        basketService.deleteAllProductInBasket();
+    @DeleteMapping(value = {"/deleteAllProductInBasket/{userId}"})
+    public void deleteAllProductInBasket(@PathVariable Integer userId){
+        basketService.deleteAllProductInBasket(userId);
+    }
+
+    // 장바구니에 있는 목록 선택해서 삭제하기
+    @DeleteMapping(value = {"/deleteProductByBasketIdInBasket/{userId}/{basketId}"})
+    public void deleteProductByBasketIdInBasket(@PathVariable Integer userId,
+                                                @PathVariable Integer basketId){
+        basketService.deleteProductByBasketIdInBasket(userId,basketId);
     }
 
 }

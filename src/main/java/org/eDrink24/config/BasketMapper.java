@@ -1,7 +1,6 @@
 package org.eDrink24.config;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.eDrink24.dto.basket.BasketJoinProductDTO;
 import org.eDrink24.dto.basket.BasketDTO;
 
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.List;
 public interface BasketMapper {
 
     public void saveProductToBasket(BasketDTO basketDTO);
-    public List<BasketJoinProductDTO> showProductInBasket(Integer userId);
+    public List<BasketDTO> showProductInBasket(Integer userId);
     public void deleteAllProductInBasket(Integer userId);
     public void deleteProductByBasketIdInBasket(Integer userId,Integer basketId);
 

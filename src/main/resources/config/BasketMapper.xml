@@ -10,7 +10,7 @@
         values (#{userId}, #{productId}, #{basketQuantity})
     </insert>
 
-    <select id="showProductInBasket" parameterType="Integer" resultType="BasketJoinProductDTO">
+    <select id="showProductInBasket" parameterType="Integer" resultType="BasketDTO">
         select p.productName, p.price, p.defaultImage, b.basketQuantity
         from basket b join product p on p.productId = b.productId
         where b.userId=#{userId}

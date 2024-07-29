@@ -14,7 +14,6 @@ import org.apache.ibatis.type.Alias;
 public class BasketJoinProductDTO {
 
     private String productName;
-    private String category2;
     private Integer price;
     private String defaultImage;
     private Integer basketQuantity;

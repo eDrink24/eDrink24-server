@@ -19,6 +19,7 @@ public class BasketDTO {
     private Integer basketId;
     private Integer userId;
     private Integer productId;
+    private String defaultImage;
     private String productName;
     private Integer price;
     private Integer basketQuantity;

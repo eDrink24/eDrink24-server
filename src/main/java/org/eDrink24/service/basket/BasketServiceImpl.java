@@ -30,8 +30,14 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
-    public void deleteAllProductInBasket() {
-        basketMapper.deleteAllProductInBasket();
+    public void deleteAllProductInBasket(Integer userId) {
+        basketMapper.deleteAllProductInBasket(userId);
     }
+
+    @Override
+    public void deleteProductByBasketIdInBasket(Integer userId,Integer basketId) {
+        basketMapper.deleteProductByBasketIdInBasket(userId,basketId);
+    }
+
 
 }

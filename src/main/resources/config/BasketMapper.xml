@@ -16,8 +16,14 @@
         where b.userId=#{userId}
     </select>
 
-    <delete id="deleteAllProductInBasket">
+    <delete id="deleteAllProductInBasket" parameterType="Integer">
         delete from basket
+        where userId=#{userId}
+    </delete>
+
+    <delete id="deleteProductByBasketIdInBasket" parameterType="Integer">
+        delete from basket
+        where userId=#{userId} and basketId=#{basketId}
     </delete>
 
 </mapper>

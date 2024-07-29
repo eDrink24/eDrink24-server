@@ -11,7 +11,7 @@ public interface BasketMapper {
 
     public void saveProductToBasket(BasketDTO basketDTO);
     public List<BasketJoinProductDTO> showProductInBasket(Integer userId);
-    public void deleteAllProductInBasket();
-
+    public void deleteAllProductInBasket(Integer userId);
+    public void deleteProductByBasketIdInBasket(Integer userId,Integer basketId);
 
 }

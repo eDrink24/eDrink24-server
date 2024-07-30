@@ -10,20 +10,30 @@
         values (#{userId}, #{productId}, #{basketQuantity})
     </insert>
 
-    <select id="showProductInBasket" parameterType="Integer" resultType="BasketDTO">
-        select p.productName, p.price, p.defaultImage, b.basketQuantity
+    <select id="showProductInBasket" parameterType="String" resultType="BasketDTO">
+        select b.basketId, b.userId, p.productName, p.price, p.defaultImage, b.basketQuantity
         from basket b join product p on p.productId = b.productId
-        where b.userId=#{userId}
+        where b.userId=( select userId
+                         from customer
+                         where loginId=#{loginId}
+                        )
     </select>
 
-    <delete id="deleteAllProductInBasket" parameterType="Integer">
+    <delete id="deleteAllProductInBasket" parameterType="string">
         delete from basket
-        where userId=#{userId}
+        where userId=( select userId
+                       from customer
+                       where loginId=#{loginId}
+                     )
     </delete>
 
-    <delete id="deleteProductByBasketIdInBasket" parameterType="Integer">
+    <delete id="deleteProductByBasketIdInBasket" parameterType="string">
         delete from basket
-        where userId=#{userId} and basketId=#{basketId}
+        where userId=( select userId
+                       from customer
+                       where loginId=#{loginId}
+                     )
+                    and basketId=#{basketId}
     </delete>
 
 </mapper>

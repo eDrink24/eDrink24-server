@@ -21,22 +21,22 @@ public class BasketController {
     }
 
     // userId에 따라서 장바구니에 저장한 목록 보여주기
-    @GetMapping(value = {"/showProductInBasket/{userId}"})
-    public List<BasketDTO> showProductInBasket(@PathVariable Integer userId) {
-        return basketService.showProductInBasket(userId);
+    @GetMapping(value = {"/showProductInBasket/{loginId}"})
+    public List<BasketDTO> showProductInBasket(@PathVariable String loginId) {
+        return basketService.showProductInBasket(loginId);
     }
 
     // 장바구니에 있는 모든 목록 삭제하기
-    @DeleteMapping(value = {"/deleteAllProductInBasket/{userId}"})
-    public void deleteAllProductInBasket(@PathVariable Integer userId){
-        basketService.deleteAllProductInBasket(userId);
+    @DeleteMapping(value = {"/deleteAllProductInBasket/{loginId}"})
+    public void deleteAllProductInBasket(@PathVariable String loginId){
+        basketService.deleteAllProductInBasket(loginId);
     }
 
-    // 장바구니에 있는 목록 선택해서 삭제하기
-    @DeleteMapping(value = {"/deleteProductByBasketIdInBasket/{userId}/{basketId}"})
-    public void deleteProductByBasketIdInBasket(@PathVariable Integer userId,
-                                                @PathVariable Integer basketId){
-        basketService.deleteProductByBasketIdInBasket(userId,basketId);
-    }
+//    // 장바구니에 있는 목록 선택해서 삭제하기
+//    @DeleteMapping(value = {"/deleteProductByBasketIdInBasket/{loginId}/{basketId}"})
+//    public void deleteProductByBasketIdInBasket(@PathVariable String loginId,
+//                                                @PathVariable Integer basketId){
+//        basketService.deleteProductByBasketIdInBasket(loginId,basketId);
+//    }
 
 }

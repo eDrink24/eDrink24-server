@@ -1,17 +1,12 @@
 package org.eDrink24.service.order;
 
 import org.eDrink24.config.OrderMapper;
-import org.eDrink24.config.ProductMapper;
 import org.eDrink24.dto.basket.BasketDTO;
-import org.eDrink24.dto.order.OrderDTO;
-import org.eDrink24.dto.product.DetailProductDTO;
-import org.eDrink24.dto.product.ProductDTO;
-import org.eDrink24.service.product.ProductService;
+import org.eDrink24.dto.order.OrderTransactionDTO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -28,9 +23,26 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public int buyProduct(List<OrderDTO> orderDTO) {
-        return orderMapper.buyProduct(orderDTO);
+    public int buyProduct(List<OrderTransactionDTO> orderTransactionDTO) {
+        return orderMapper.buyProduct(orderTransactionDTO);
     }
 
+    @Override
+    public int saveBuyHistory(List<OrderTransactionDTO> orderTransactionDTO) {
+        return orderMapper.saveBuyHistory(orderTransactionDTO);
+    }
+
+    @Transactional
+    public void buyProductAndSaveHistory(List<OrderTransactionDTO> orderTransactionDTO) {
+        // 주문 저장
+        if (orderTransactionDTO != null && !orderTransactionDTO.isEmpty()) {
+            orderMapper.buyProduct(orderTransactionDTO);
+        }
+
+        // 주문 내역 저장
+        if (orderTransactionDTO != null && !orderTransactionDTO.isEmpty()) {
+            orderMapper.saveBuyHistory(orderTransactionDTO);
+        }
+    }
 
 }

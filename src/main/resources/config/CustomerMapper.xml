@@ -10,7 +10,7 @@
     </insert>
 
     <select id="selectCustomerMyPage" resultType="CustomerDTO" parameterType="string">
-        select userName, loginId, gender, birthdate, phoneNum, email, postalCode, address1, address2, currentLocation, currentStore, totalPoint, role
+        select *
         from customer
         where loginId=#{loginId}
     </select>

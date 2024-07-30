@@ -10,6 +10,7 @@
       select
         BASKET.basketId,
         BASKET.userId,
+        Product.defaultImage,
         Product.productName,
         Product.price,
         BASKET.productId,

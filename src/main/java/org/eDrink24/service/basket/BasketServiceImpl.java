@@ -2,7 +2,6 @@ package org.eDrink24.service.basket;
 
 import org.eDrink24.config.BasketMapper;
 import org.eDrink24.dto.basket.BasketDTO;
-import org.eDrink24.dto.basket.BasketJoinProductDTO;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -25,19 +24,19 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
-    public List<BasketJoinProductDTO> showProductInBasket(Integer userId) {
-        return basketMapper.showProductInBasket(userId);
+    public List<BasketDTO> showProductInBasket(String loginId) {
+        return basketMapper.showProductInBasket(loginId);
     }
 
     @Override
-    public void deleteAllProductInBasket(Integer userId) {
-        basketMapper.deleteAllProductInBasket(userId);
+    public void deleteAllProductInBasket(String loginId) {
+        basketMapper.deleteAllProductInBasket(loginId);
     }
 
-    @Override
-    public void deleteProductByBasketIdInBasket(Integer userId,Integer basketId) {
-        basketMapper.deleteProductByBasketIdInBasket(userId,basketId);
-    }
+//    @Override
+//    public void deleteProductByBasketIdInBasket(String loginId,Integer basketId) {
+//        basketMapper.deleteProductByBasketIdInBasket(loginId,basketId);
+//    }
 
 
 }

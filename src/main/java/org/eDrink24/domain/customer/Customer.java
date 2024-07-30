@@ -3,6 +3,7 @@ package org.eDrink24.domain.customer;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,18 +22,17 @@ public class Customer {
     @Column(name = "userName", nullable = false, length = 20)
     private String userName;
 
-
     @Column(name = "loginId", nullable = false, length = 20)
     private String loginId;
 
-    @Column(name = "pw", nullable = false, length = 20)
+    @Column(name = "pw", nullable = false, length = 60)
     private String pw;
 
     @Column(name = "gender", nullable = false, length = 10)
     private String gender;
 
     @Column(name = "birthdate", nullable = false)
-    private LocalDateTime birthdate;
+    private LocalDate birthdate;
 
     @Column(name = "phoneNum", nullable = false, length = 20)
     private String phoneNum;

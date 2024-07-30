@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 public class CustomerDTO {
+    private Integer userId;
     @NotBlank(message = "username 필드는 필수 입력")
     private String userName;
     @NotBlank(message = "userid 필드는 필수 입력")

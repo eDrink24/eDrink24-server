@@ -1,23 +1,35 @@
 package org.eDrink24.controller.mypage;
 
+import lombok.extern.slf4j.Slf4j;
+import org.eDrink24.domain.customer.Customer;
 import org.eDrink24.dto.customer.CustomerDTO;
 import org.eDrink24.service.customer.CustomerService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.transaction.Transactional;
+import java.util.HashMap;
+import java.util.Map;
 
+@Slf4j
 @RestController
 public class UpdateMyPageCustomerController {
 
     CustomerService customerService;
-
-    public UpdateMyPageCustomerController(CustomerService customerService) {
+    EntityManagerFactory emf;
+    PasswordEncoder passwordEncoder;
+    public UpdateMyPageCustomerController(CustomerService customerService, EntityManagerFactory emf,
+                                          PasswordEncoder passwordEncoder) {
         this.customerService = customerService;
+        this.emf = emf;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PutMapping(value = {"/updateMyPageCustomer/{loginId}"})
@@ -34,4 +46,45 @@ public class UpdateMyPageCustomerController {
         return ResponseEntity.ok(customerDTO);
     }
 
+    @PostMapping("/updateCustomer")
+    public ResponseEntity<Map<String, String>> updateCustomer(@RequestBody CustomerDTO customerDTO) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+
+        try {
+            Customer existingCustomer = em.find(Customer.class, customerDTO.getUserId());
+
+            log.info("Updating customer " + existingCustomer);
+
+            if (existingCustomer == null) {
+                Map<String, String> response = new HashMap<>();
+                response.put("message", "Not find Customer");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+            }
+            // 비밀번호 변경 요청이 있을떼
+            if (customerDTO.getPw() != null && !customerDTO.getPw().isEmpty()) {
+                String newPw = passwordEncoder.encode(customerDTO.getPw());
+                existingCustomer.setPw(newPw);
+            }
+            existingCustomer.setPhoneNum(customerDTO.getPhoneNum());
+            existingCustomer.setEmail(customerDTO.getEmail());
+            existingCustomer.setPostalCode(customerDTO.getPostalCode());
+            existingCustomer.setAddress1(customerDTO.getAddress1());
+            existingCustomer.setAddress2(customerDTO.getAddress2());
+
+            em.merge(existingCustomer);
+            et.commit();
+
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "success");
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            et.rollback();
+            Map<String, String> response = new HashMap<>();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        } finally {
+            em.close();
+        }
+    }
 }

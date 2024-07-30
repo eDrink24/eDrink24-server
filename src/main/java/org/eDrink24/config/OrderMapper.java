@@ -2,12 +2,9 @@ package org.eDrink24.config;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.eDrink24.dto.basket.BasketDTO;
-import org.eDrink24.dto.order.OrderDTO;
-import org.eDrink24.dto.product.DetailProductDTO;
-import org.eDrink24.dto.product.ProductDTO;
+import org.eDrink24.dto.order.OrderTransactionDTO;
 
 import java.util.List;
-import java.util.Map;
 
 
 @Mapper
@@ -17,6 +14,12 @@ public interface OrderMapper {
     public List<BasketDTO> showAllBasket(Integer userId);
 
     // 결제하기(ORDERS 테이블에 저장)
-    public int buyProduct(List<OrderDTO> orderDTO);
+    public int buyProduct(List<OrderTransactionDTO> orderTransactionDTO);
+
+    // 결제내역 저장(ORDERSHISTORY 테이블에 저장)
+    public int saveBuyHistory(List<OrderTransactionDTO> orderTransactionDTO);
+
+    // buyProduct, saveBuyHistory 동시에 트랙잭션으로 처리
+    public void buyProductAndSaveHistory(List<OrderTransactionDTO> orderTransactionDTO);
 
 }

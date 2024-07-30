@@ -20,12 +20,21 @@
     </select>
 
     <!-- 결제하기(ORDERS 테이블에 저장) -->
-    <insert id="buyProduct" parameterType="OrderDTO">
+    <insert id="buyProduct" parameterType="java.util.List">
         INSERT INTO ORDERS (storeId, userId, productId, orderDate, pickupDate, isCompleted, orderStatus)
         VALUES
         <foreach collection="list" item="order" separator=",">
             (#{order.storeId}, #{order.userId}, #{order.productId}, #{order.orderDate},
             #{order.pickupDate}, #{order.isCompleted}, #{order.orderStatus})
+        </foreach>
+    </insert>
+
+    <!-- 결제내역 저장(ORDERSHISTORY 테이블에 저장) -->
+    <insert id="saveBuyHistory" parameterType="java.util.List">
+        INSERT INTO ORDERHISTORY (ordersId, changeStatus, changeDate)
+        VALUES
+        <foreach collection="list" item="orderHistory" separator=",">
+            (#{orderHistory.ordersId}, #{orderHistory.changeStatus}, #{orderHistory.changeDate})
         </foreach>
     </insert>
 

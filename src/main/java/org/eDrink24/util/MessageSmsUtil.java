@@ -1,4 +1,4 @@
-package org.eDrink24.service.message;
+package org.eDrink24.util;
 
 import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.model.Message;
@@ -6,13 +6,13 @@ import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.Random;
 
-@Service
-public class MessageService {
+@Component
+public class MessageSmsUtil {
     @Value("${coolsms.api.key}")
     private String apiKey;
     @Value("${coolsms.api.secret}")
@@ -28,23 +28,23 @@ public class MessageService {
                 = NurigoApp.INSTANCE.initialize(apiKey, apiSecretKey, "https://api.coolsms.co.kr");
     }
 
-    private String createRandomNumber() {
+    public String createCertificateCode() {
         Random rand = new Random();
-        String randomNumber = "";
+        String createCertificateCode = "";
         for (int i = 0; i < 6; i++) {
             String random = Integer.toString(rand.nextInt(10));
-            randomNumber += random;
+            createCertificateCode += random;
         }
-        return randomNumber;
+        return createCertificateCode;
     };
+
     // SingleMessageSentResponse
-    public SingleMessageSentResponse sendMessage(String to) {
+    public SingleMessageSentResponse sendMessage(String phoneNum, String certificateCode) {
         try {
-            String randomNum = createRandomNumber();
             Message message = new Message();
             message.setFrom(fromNumber);
-            message.setTo("01083446235");
-            message.setText("[eDrink24] 인증번호 [" + randomNum + "]");
+            message.setTo(phoneNum);
+            message.setText("[eDrink24] 인증번호 [" + certificateCode + "]");
             SingleMessageSentResponse response = this.defaultMessageService.sendOne(new SingleMessageSendingRequest(message));
             System.out.println(response);
             return response;
@@ -53,4 +53,5 @@ public class MessageService {
             throw new RuntimeException("메시지 전송 중 오류가 발생했습니다: " + e.getMessage());
         }
     }
+
 }

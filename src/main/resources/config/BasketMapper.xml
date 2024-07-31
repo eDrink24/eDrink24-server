@@ -27,7 +27,8 @@
                      )
     </delete>
 
-    <delete id="deleteProductByBasketIdInBasket" parameterType="string">
+    <!-- loginId는 String이고 basketId는 Integer이기 때문에 parameterType을 map으로 수정 -->
+    <delete id="deleteProductByBasketIdInBasket" parameterType="map">
         delete from basket
         where userId=( select userId
                        from customer

@@ -33,10 +33,10 @@ public class BasketServiceImpl implements BasketService {
         basketMapper.deleteAllProductInBasket(loginId);
     }
 
-//    @Override
-//    public void deleteProductByBasketIdInBasket(String loginId,Integer basketId) {
-//        basketMapper.deleteProductByBasketIdInBasket(loginId,basketId);
-//    }
+    @Override
+    public void deleteProductByBasketIdInBasket(String loginId,Integer basketId) {
+        basketMapper.deleteProductByBasketIdInBasket(loginId,basketId);
+    }
 
 
 }

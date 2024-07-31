@@ -6,7 +6,7 @@
 <mapper namespace="org.eDrink24.config.OrderMapper">
 
     <!-- 장바구니에 담긴 상품 불러오기 -->
-    <select id="showAllBasket" parameterType="Integer" resultType="BasketDTO">
+    <select id="showAllBasket" parameterType="String" resultType="BasketDTO">
       select
         BASKET.basketId,
         BASKET.userId,
@@ -17,7 +17,10 @@
         BASKET.basketQuantity
       from BASKET
       JOIN Product ON BASKET.productId = Product.productId
-      WHERE BASKET.userId = #{userId}
+      WHERE BASKET.userId = ( select userId
+                              from customer
+                              where loginId=#{loginId}
+                             )
     </select>
 
     <!-- 결제하기(ORDERS 테이블에 저장) -->

@@ -10,6 +10,6 @@ public interface BasketService {
     public void saveProductToBasket(BasketDTO basketDTO);
     public List<BasketDTO> showProductInBasket(@Param("loginId") String loginId);
     public void deleteAllProductInBasket(@Param("loginId") String loginId);
-//    public void deleteProductByBasketIdInBasket(@Param("loginId") String loginId,@Param("basketId") Integer basketId);
+    public void deleteProductByBasketIdInBasket(@Param("loginId") String loginId,@Param("basketId") Integer basketId);
 
 }

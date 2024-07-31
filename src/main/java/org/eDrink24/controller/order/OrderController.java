@@ -19,9 +19,9 @@ public class OrderController {
   }
 
     // 장바구니에 담긴 상품 불러오기
-    @GetMapping("/showAllBasket/userId/{userId}")
-    public ResponseEntity<List<BasketDTO>> showAllBasket(@PathVariable Integer userId) {
-        List<BasketDTO> baskets = orderService.showAllBasket(userId);
+    @GetMapping("/showAllBasket/userId/{loginId}")
+    public ResponseEntity<List<BasketDTO>> showAllBasket(@PathVariable String loginId) {
+        List<BasketDTO> baskets = orderService.showAllBasket(loginId);
         return ResponseEntity.ok(baskets);
     }
 

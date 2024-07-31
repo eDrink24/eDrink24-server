@@ -32,11 +32,11 @@ public class BasketController {
         basketService.deleteAllProductInBasket(loginId);
     }
 
-//    // 장바구니에 있는 목록 선택해서 삭제하기
-//    @DeleteMapping(value = {"/deleteProductByBasketIdInBasket/{loginId}/{basketId}"})
-//    public void deleteProductByBasketIdInBasket(@PathVariable String loginId,
-//                                                @PathVariable Integer basketId){
-//        basketService.deleteProductByBasketIdInBasket(loginId,basketId);
-//    }
+    // 장바구니에 있는 목록 선택해서 삭제하기
+    @DeleteMapping(value = {"/deleteProductByBasketIdInBasket/{loginId}/{basketId}"})
+    public void deleteProductByBasketIdInBasket(@PathVariable String loginId,
+                                                @PathVariable Integer basketId){
+        basketService.deleteProductByBasketIdInBasket(loginId,basketId);
+    }
 
 }

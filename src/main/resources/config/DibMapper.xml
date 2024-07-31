@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.eDrink24.config.DibMapper">
+
+    <!-- 상품 찜하기(dibs 테이블에 저장) -->
+    <insert id="addDibs" parameterType="DibDTO">
+      INSERT INTO dibs (userId, productId)
+      VALUES ( #{userId}, #{productId} )
+    </insert>
+
+    <!-- 찜 목록 조회 -->
+    <select id="showAllDibs" parameterType="String" resultType="DibDTO">
+      select
+        dibs.userId,
+        dibs.productId
+      from dibs
+      JOIN Product ON dibs.productId = Product.productId
+      JOIN CUSTOMER ON dibs.userId = CUSTOMER.userId
+        WHERE dibs.userId = ( select userId
+        from CUSTOMER
+        where loginId=#{loginId}
+        )
+    </select>
+
+
+</mapper>

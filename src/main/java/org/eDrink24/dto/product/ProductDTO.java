@@ -16,6 +16,7 @@ import java.time.LocalDate;
 @ToString
 public class ProductDTO {
 
+    private Integer productId;
     private String productName;
     private String category1;
     private String category2;

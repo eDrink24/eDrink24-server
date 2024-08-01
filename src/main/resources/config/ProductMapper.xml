@@ -28,27 +28,27 @@
 
     
     <select id="showAllProduct" resultType="ProductDTO">
-      select productName, category1, category2, price, defaultImage, countDibs
+      select productId, productName, category1, category2, price, defaultImage, countDibs, enrollDate
       from product
     </select>
 
   
     <select id="showProductByCategory1" resultType="ProductDTO" parameterType="string">
-        select productName, category1, category2, price, defaultImage, countDibs
+        select productId, productName, category1, category2, price, defaultImage, countDibs, enrollDate
         from product
         where category1=#{category1}
     </select>
 
   
     <select id="showProductByCategory2" resultType="ProductDTO" parameterType="string">
-        select productName, category1, category2, price, defaultImage, countDibs
+        select productId, productName, category1, category2, price, defaultImage, countDibs, enrollDate
         from product
         where category2=#{category2}
     </select>
 
-	<select id="showDetailProduct" resultType="DetailProductDTO">
-		select p.productName, p.category1, p.category2, p.price, p.defaultImage, p.countDibs, pi.detailImage
-		from product p join productImage pi on p.productId = pi.productid
+	<select id="showDetailProduct" resultType="DetailProductDTO" parameterType="Integer">
+		select p.productId, p.productName, p.price, p.defaultImage, p.countDibs, pi.detailImage
+		from product p join productImage pi on p.productId = pi.productId
 		where p.productId=#{p.productId}
 	</select>
 

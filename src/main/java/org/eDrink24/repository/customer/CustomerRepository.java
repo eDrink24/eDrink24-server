@@ -15,4 +15,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     @Query("select c from Customer c where c.loginId= :loginId AND c.pw= :pw")
     public Customer authenticate(String loginId, String pw);
 
+    // sms 인증 전 가입된 번호확인
+    public Customer findByPhoneNum(String phoneNum);
 }

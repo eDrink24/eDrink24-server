@@ -55,8 +55,6 @@ public class UpdateMyPageCustomerController {
         try {
             Customer existingCustomer = em.find(Customer.class, customerDTO.getUserId());
 
-            log.info("Updating customer " + existingCustomer);
-
             if (existingCustomer == null) {
                 Map<String, String> response = new HashMap<>();
                 response.put("message", "Not find Customer");

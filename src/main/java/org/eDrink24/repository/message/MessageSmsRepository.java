@@ -32,4 +32,6 @@ public class MessageSmsRepository {
     public boolean hasKey(String phoneNum) {
         return Boolean.TRUE.equals(stringRedisTemplate.hasKey(phoneNum));
     }
+
+
 }

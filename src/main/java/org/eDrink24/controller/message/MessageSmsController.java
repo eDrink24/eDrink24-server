@@ -31,12 +31,17 @@ public class MessageSmsController {
     @PostMapping("/signup/sms/check")
     public ResponseEntity<String> SmsVerification(@RequestBody MessageSmsDTO messageSmsDTO) {
         try {
-            messageSmsService.verifyMessageSms(messageSmsDTO);
-            return new ResponseEntity<>("인증 성공", HttpStatus.OK);
+            boolean isUsed = messageSmsService.isUsedPhoneNum(messageSmsDTO.getPhoneNum());
+            if (isUsed) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이미 가입된 회원입니다.");
+            } else {
+                messageSmsService.verifyMessageSms(messageSmsDTO);
+                return ResponseEntity.ok("인증 성공");
+            }
         } catch (SmsMismatchException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 }

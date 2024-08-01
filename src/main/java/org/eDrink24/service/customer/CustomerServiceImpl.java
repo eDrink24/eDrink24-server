@@ -2,7 +2,9 @@ package org.eDrink24.service.customer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.eDrink24.config.CustomerMapper;
+import org.eDrink24.domain.customer.Customer;
 import org.eDrink24.dto.customer.CustomerDTO;
+import org.eDrink24.repository.customer.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -13,7 +15,6 @@ import javax.transaction.Transactional;
 public class CustomerServiceImpl implements CustomerService{
 
     CustomerMapper customerMapper;
-
     public CustomerServiceImpl(CustomerMapper customerMapper) {
         this.customerMapper = customerMapper;
     }
@@ -33,7 +34,6 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public int updateCustomerToMyPage(CustomerDTO customerDTO) {
         int n = customerMapper.updateCustomerToMyPage(customerDTO);
-        log.info("수정 여부 확인:" + customerDTO);
         return n;
     }
 
@@ -41,6 +41,4 @@ public class CustomerServiceImpl implements CustomerService{
     public CustomerDTO customerIdCheck(String loginId) {
         return customerMapper.customerIdCheck(loginId);
     }
-
-
 }

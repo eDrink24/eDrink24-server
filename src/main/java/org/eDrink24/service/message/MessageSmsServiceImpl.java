@@ -54,7 +54,10 @@ public class MessageSmsServiceImpl implements MessageSmsService {
     public boolean isUsedPhoneNum(String phoneNum) {
         ModelMapper modelMapper = new ModelMapper();
         Customer customer = customerRepository.findByPhoneNum(phoneNum);
-        CustomerDTO customerDTO = modelMapper.map(customer, CustomerDTO.class);
-        return customerDTO != null;
+        if (customer == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

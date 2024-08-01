@@ -22,9 +22,9 @@ public class MessageSmsController {
     public ResponseEntity<String> sendMessageSms(@RequestBody MessageSmsDTO messageSmsDTO) {
         try {
             messageSmsService.sendMessageSms(messageSmsDTO);
-            return new ResponseEntity<>("SMS 전송성공", HttpStatus.OK);
+            return ResponseEntity.ok("인증번호 전송성공");
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
@@ -33,10 +33,10 @@ public class MessageSmsController {
         try {
             boolean isUsed = messageSmsService.isUsedPhoneNum(messageSmsDTO.getPhoneNum());
             if (isUsed) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이미 가입된 회원입니다.");
+                return ResponseEntity.ok("duplicated");
             } else {
                 messageSmsService.verifyMessageSms(messageSmsDTO);
-                return ResponseEntity.ok("인증 성공");
+                return ResponseEntity.ok("ok");
             }
         } catch (SmsMismatchException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

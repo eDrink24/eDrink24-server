@@ -5,13 +5,16 @@ import org.eDrink24.dto.customer.CustomerDTO;
 import org.eDrink24.security.JwtTokenResponse;
 import org.eDrink24.security.JwtTokenService;
 import org.eDrink24.service.customer.AuthenticationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +22,9 @@ import java.util.Map;
 @RestController
 @Slf4j
 public class JwtAuthenticationController {
+
+    @Autowired
+    ServletContext ctx;
 
     private final JwtTokenService tokenService;
     private final AuthenticationService authenticationService;
@@ -56,6 +62,7 @@ public class JwtAuthenticationController {
                     new UsernamePasswordAuthenticationToken(authCustomer, null, roles);
 
             String token = tokenService.generateToken(authenticationToken);
+
             return ResponseEntity.ok(new JwtTokenResponse(token));
         } else {
             return ResponseEntity.status(401).body(new JwtTokenResponse(null)); // Unauthorized

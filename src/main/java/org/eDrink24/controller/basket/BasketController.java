@@ -1,8 +1,13 @@
 package org.eDrink24.controller.basket;
 
+import com.nimbusds.jose.proc.SecurityContext;
 import org.eDrink24.dto.basket.BasketDTO;
 import org.eDrink24.service.basket.BasketService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.ServletContext;
 import java.util.List;
 
 @RestController
@@ -14,9 +19,15 @@ public class BasketController {
         this.basketService = basketService;
     }
 
+
+
     // basket 테이블에 userId, productId, basketQuantity 저장
+    // loginId에 맞는 userId를 가져와서 BasketDTO 에 저장
     @PostMapping(value = {"/saveProductToBasket"})
     public void saveProductToBasket(@RequestBody BasketDTO basketDTO) {
+       Integer userId = basketService.changeLoginIdToUserId(basketDTO.getLoginId());
+       basketDTO.setUserId(userId);
+       System.out.println(basketDTO);
         basketService.saveProductToBasket(basketDTO);
     }
 

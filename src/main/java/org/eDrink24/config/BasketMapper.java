@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 public interface BasketMapper {
 
+    public Integer changeLoginIdToUserId(String loginId);
     public void saveProductToBasket(BasketDTO basketDTO);
     public List<BasketDTO> showProductInBasket(@Param("loginId") String loginId);
     public void deleteAllProductInBasket(@Param("loginId") String loginId);

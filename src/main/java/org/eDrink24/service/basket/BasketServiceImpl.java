@@ -19,6 +19,11 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
+    public Integer changeLoginIdToUserId(String loginId) {
+        return basketMapper.changeLoginIdToUserId(loginId);
+    }
+
+    @Override
     public void saveProductToBasket(BasketDTO basketDTO) {
         basketMapper.saveProductToBasket(basketDTO);
     }

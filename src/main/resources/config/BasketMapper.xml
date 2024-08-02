@@ -5,6 +5,12 @@
 
 <mapper namespace="org.eDrink24.config.BasketMapper">
 
+    <select id="changeLoginIdToUserId" parameterType="string" resultType="Integer">
+        select userId
+        from customer
+        where loginId=#{loginId}
+    </select>
+
     <insert id="saveProductToBasket" parameterType="BasketDTO">
         insert into basket (userId, productId, basketQuantity)
         values (#{userId}, #{productId}, #{basketQuantity})
@@ -14,27 +20,27 @@
         select b.basketId, b.userId, p.productName, p.price, p.defaultImage, b.basketQuantity
         from basket b join product p on p.productId = b.productId
         where b.userId=( select userId
-                         from customer
-                         where loginId=#{loginId}
-                        )
+        from customer
+        where loginId=#{loginId}
+        )
     </select>
 
     <delete id="deleteAllProductInBasket" parameterType="string">
         delete from basket
         where userId=( select userId
-                       from customer
-                       where loginId=#{loginId}
-                     )
+        from customer
+        where loginId=#{loginId}
+        )
     </delete>
 
     <!-- loginId는 String이고 basketId는 Integer이기 때문에 parameterType을 map으로 수정 -->
     <delete id="deleteProductByBasketIdInBasket" parameterType="map">
         delete from basket
         where userId=( select userId
-                       from customer
-                       where loginId=#{loginId}
-                     )
-                    and basketId=#{basketId}
+        from customer
+        where loginId=#{loginId}
+        )
+        and basketId=#{basketId}
     </delete>
 
 </mapper>

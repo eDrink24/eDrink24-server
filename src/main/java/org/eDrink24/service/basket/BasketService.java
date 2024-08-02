@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface BasketService {
 
+    public Integer changeLoginIdToUserId(String loginId);
     public void saveProductToBasket(BasketDTO basketDTO);
     public List<BasketDTO> showProductInBasket(@Param("loginId") String loginId);
     public void deleteAllProductInBasket(@Param("loginId") String loginId);

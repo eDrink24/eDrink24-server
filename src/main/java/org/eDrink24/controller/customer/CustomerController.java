@@ -43,7 +43,6 @@ public class CustomerController {
     //회원가입 할 때 아이디 중복체크
     @GetMapping(value = {"/customerIdCheck/{loginId}"})
     public ResponseEntity<String> customerIdCheck(@PathVariable String loginId) {
-
         CustomerDTO customerDTO = customerService.customerIdCheck(loginId);
         if(customerDTO != null) {
             return ResponseEntity.status(409).body("이 아이디는 사용불가합니다.");
@@ -51,6 +50,4 @@ public class CustomerController {
 
         return ResponseEntity.ok("이 아이디는 사용가능합니다.");
     }
-
-
 }

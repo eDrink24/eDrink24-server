@@ -5,7 +5,7 @@ import org.eDrink24.dto.customer.CustomerDTO;
 
 public interface CustomerService {
     public CustomerDTO saveCustomer(CustomerDTO customer);
-    public CustomerDTO selectCustomerMyPage(String loginId);
+    public CustomerDTO selectCustomerByLoginId(String loginId);
     public int updateCustomerToMyPage(CustomerDTO customerDTO);
 
     // 회원가입할때 아이디 중복체크

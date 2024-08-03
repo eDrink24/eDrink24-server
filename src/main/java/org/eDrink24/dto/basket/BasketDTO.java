@@ -3,7 +3,7 @@ package org.eDrink24.dto.basket;
 import lombok.*;
 import org.apache.ibatis.type.Alias;
 
-import java.time.LocalDate;
+import java.util.List;
 
 
 @Alias("BasketDTO")
@@ -16,13 +16,20 @@ import java.time.LocalDate;
 @ToString
 public class BasketDTO {
 
-    private Integer basketId;
-    private Integer userId;
-    private  String loginId;
-    private Integer productId;
-    private String defaultImage;
-    private String productName;
-    private Integer price;
-    private Integer basketQuantity;
+	private Integer basketId;
+	private Integer userId;
+	private List<BasketItemDTO> items;
 
+	@Getter
+	@Setter
+	@NoArgsConstructor
+	@AllArgsConstructor
+	public static class BasketItemDTO {
+		private String loginId;
+		private Integer productId;
+		private String defaultImage;
+		private String productName;
+		private Integer price;
+		private Integer basketQuantity;
+	}
 }

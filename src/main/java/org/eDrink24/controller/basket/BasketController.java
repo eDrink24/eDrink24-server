@@ -4,6 +4,7 @@ import com.nimbusds.jose.proc.SecurityContext;
 import org.eDrink24.dto.basket.BasketDTO;
 import org.eDrink24.service.basket.BasketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +33,9 @@ public class BasketController {
     // userId에 따라서 장바구니에 저장한 목록 보여주기
     @GetMapping(value = {"/showProductInBasket/{loginId}"})
     public List<BasketDTO> showProductInBasket(@PathVariable String loginId) {
+//        Object details = SecurityContextHolder.getContext().getAuthentication().getDetails();
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        // 위에서 사용자 아이디 가져옴.
         return basketService.showProductInBasket(loginId);
     }
 

@@ -18,6 +18,7 @@ public class BasketDTO {
 
 	private Integer basketId;
 	private Integer userId;
+	private Boolean deleted;
 	private List<BasketItemDTO> items;
 
 	@Getter

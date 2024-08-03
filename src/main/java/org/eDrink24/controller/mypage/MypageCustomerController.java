@@ -16,7 +16,7 @@ public class MypageCustomerController {
 
     @GetMapping(value = {"/selectCustomerMyPage/{loginId}"})
     public CustomerDTO selectCustomerMyPage(@PathVariable String loginId) {
-        CustomerDTO customerDTO = customerService.selectCustomerMyPage(loginId);
+        CustomerDTO customerDTO = customerService.selectCustomerByLoginId(loginId);
         return customerDTO;
     }
 }

@@ -5,6 +5,7 @@ import org.eDrink24.dto.customer.CustomerDTO;
 import org.eDrink24.security.JwtTokenResponse;
 import org.eDrink24.security.JwtTokenService;
 import org.eDrink24.service.customer.AuthenticationService;
+import org.eDrink24.service.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,13 +17,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @Slf4j
 public class JwtAuthenticationController {
-
     @Autowired
     ServletContext ctx;
 
@@ -39,13 +40,15 @@ public class JwtAuthenticationController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<JwtTokenResponse> authenticate(
-            @RequestBody Map<String, String> jwtTokenRequest) {
+    public ResponseEntity<Map<String, Object>> authenticate(@RequestBody Map<String, String> jwtTokenRequest) {
         log.info("logger: jwtTokenRequest: {}", jwtTokenRequest);
 
         CustomerDTO customerDTO = authenticationService.findByLoginId(jwtTokenRequest.get("loginId"));
         if (customerDTO == null) {
-            return ResponseEntity.status(401).body(new JwtTokenResponse(null)); // Unauthorized
+            Map<String, Object> response = new HashMap<>();
+            response.put("token", null);
+            response.put("userId", null);
+            return ResponseEntity.status(401).body(response); // Unauthorized
         }
 
         if (passwordEncoder.matches(jwtTokenRequest.get("pw"), customerDTO.getPw())) {
@@ -63,9 +66,16 @@ public class JwtAuthenticationController {
 
             String token = tokenService.generateToken(authenticationToken);
 
-            return ResponseEntity.ok(new JwtTokenResponse(token));
+            Map<String, Object> response = new HashMap<>();
+            response.put("token", token);
+            response.put("userId", customerDTO.getUserId());
+            return ResponseEntity.ok(response);
         } else {
-            return ResponseEntity.status(401).body(new JwtTokenResponse(null)); // Unauthorized
+            Map<String, Object> response = new HashMap<>();
+            response.put("token", null);
+            response.put("userId", null);
+            return ResponseEntity.status(401).body(response); // Unauthorized
         }
     }
+
 }

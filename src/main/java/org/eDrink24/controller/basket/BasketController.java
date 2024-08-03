@@ -19,8 +19,6 @@ public class BasketController {
         this.basketService = basketService;
     }
 
-
-
     // basket 테이블에 userId, productId, basketQuantity 저장
     // loginId에 맞는 userId를 가져와서 BasketDTO 에 저장
     @PostMapping(value = {"/saveProductToBasket"})
@@ -28,7 +26,7 @@ public class BasketController {
        Integer userId = basketService.changeLoginIdToUserId(basketDTO.getLoginId());
        basketDTO.setUserId(userId);
        System.out.println(basketDTO);
-        basketService.saveProductToBasket(basketDTO);
+       basketService.saveProductToBasket(basketDTO);
     }
 
     // userId에 따라서 장바구니에 저장한 목록 보여주기

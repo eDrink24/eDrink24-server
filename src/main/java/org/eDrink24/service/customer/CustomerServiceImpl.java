@@ -27,7 +27,7 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public CustomerDTO selectCustomerMyPage(String loginId) {
+    public CustomerDTO selectCustomerByLoginId(String loginId) {
         return customerMapper.selectCustomerMyPage(loginId);
     }
 

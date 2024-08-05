@@ -27,4 +27,5 @@ public class EDrink24ServerApplication {
 		};
 	}
 
+	// Test
 }

@@ -17,4 +17,9 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
     // sms 인증 전 가입된 번호확인
     public Customer findByPhoneNum(String phoneNum);
+    
+    // 아이디 찾기
+    @Query("select c from Customer c where c.userName = :userName AND c.email = :email")
+    public Customer findByUserNameAndEmail(String userName, String email);
+
 }

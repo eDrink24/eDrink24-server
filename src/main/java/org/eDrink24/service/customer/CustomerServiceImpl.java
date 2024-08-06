@@ -15,8 +15,10 @@ import javax.transaction.Transactional;
 public class CustomerServiceImpl implements CustomerService{
 
     CustomerMapper customerMapper;
-    public CustomerServiceImpl(CustomerMapper customerMapper) {
+    CustomerRepository customerRepository;
+    public CustomerServiceImpl(CustomerMapper customerMapper, CustomerRepository customerRepository) {
         this.customerMapper = customerMapper;
+        this.customerRepository = customerRepository;
     }
 
     @Override
@@ -40,5 +42,12 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public CustomerDTO customerIdCheck(String loginId) {
         return customerMapper.customerIdCheck(loginId);
+    }
+
+    @Override
+    public String findByUserNameAndEmail(String userName, String email) {
+        Customer customer = customerRepository.findByUserNameAndEmail(userName, email);
+        String loginId = customer.getLoginId();
+        return loginId;
     }
 }

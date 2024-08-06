@@ -13,7 +13,7 @@
 
     <!-- 찜 목록 조회 -->
     <select id="showAllDibs" parameterType="String" resultType="DibDTO">
-      select
+      select DISTINCT
         dibs.userId,
         dibs.productId
       from dibs

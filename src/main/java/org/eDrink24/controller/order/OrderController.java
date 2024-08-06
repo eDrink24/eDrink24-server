@@ -31,7 +31,6 @@ public class OrderController {
     public ResponseEntity<String> buyProductAndSaveHistory(@RequestBody List<OrderTransactionDTO> orderTransactionDTO,
                                                            @PathVariable Integer userId) {
 
-      System.out.println(orderTransactionDTO);
       
         try {
             orderService.buyProductAndSaveHistory(orderTransactionDTO);

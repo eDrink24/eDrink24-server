@@ -28,4 +28,5 @@ public class EDrink24ServerApplication {
 	}
 
 	// Test
+	// Test-giuk
 }

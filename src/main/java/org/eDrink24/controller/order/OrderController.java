@@ -18,13 +18,6 @@ public class OrderController {
       this.orderService = orderService;
   }
 
-    // 장바구니에 담긴 상품 불러오기
-    @GetMapping("/showAllBasket/userId/{loginId}/{basketIds}")
-    public ResponseEntity<List<BasketDTO>> showAllBasket(@PathVariable String loginId, @PathVariable String basketIds) {
-        System.out.println("basketIds>>>" + basketIds);
-        List<BasketDTO> baskets = orderService.showAllBasket(loginId);
-        return ResponseEntity.ok(baskets);
-    }
 
     // 결제하기(ORDERS, ORDERHISTORY 테이블에 저장)
     @PostMapping("/showAllBasket/userId/{userId}/buyProductAndSaveHistory")

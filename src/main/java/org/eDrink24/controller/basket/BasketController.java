@@ -1,13 +1,8 @@
 package org.eDrink24.controller.basket;
 
-import com.nimbusds.jose.proc.SecurityContext;
 import org.eDrink24.dto.basket.BasketDTO;
 import org.eDrink24.service.basket.BasketService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.ServletContext;
 import java.util.List;
 
 @RestController
@@ -19,33 +14,45 @@ public class BasketController {
         this.basketService = basketService;
     }
 
-    // basket 테이블에 userId, productId, basketQuantity 저장
-    // loginId에 맞는 userId를 가져와서 BasketDTO 에 저장
+   /*
+    BasketDTO에 BaksetItemDTO가 List로 구현되어있기 때문에, 데이터를 넘길 때 배열형태인 []형식으로 넘겨줘야함.
+
+      {
+  "userId":4,
+  "items":
+   [
+   {
+    "productId":81,
+    "defaultImage":"https://sitem.ssgcdn.com/01/22/58/item/1000048582201_i1_290.jpg",
+    "productName":"[레드와인] 도스코파스 까베르네 소비뇽",
+    "price":4900,
+    "basketQuantity":4
+   }
+  ]
+}
+
+    */
     @PostMapping(value = {"/saveProductToBasket"})
     public void saveProductToBasket(@RequestBody BasketDTO basketDTO) {
-       Integer userId = basketService.changeLoginIdToUserId(basketDTO.getLoginId());
-       basketDTO.setUserId(userId);
-       System.out.println(basketDTO);
-       basketService.saveProductToBasket(basketDTO);
+        basketService.saveProductToBasket(basketDTO);
     }
 
-    // userId에 따라서 장바구니에 저장한 목록 보여주기
-    @GetMapping(value = {"/showProductInBasket/{loginId}"})
-    public List<BasketDTO> showProductInBasket(@PathVariable String loginId) {
-        return basketService.showProductInBasket(loginId);
+    @GetMapping(value = {"/showProductInBasket/{userId}"})
+    public List<BasketDTO> showProductInBasket(@PathVariable Integer userId) {
+        return basketService.showProductInBasket(userId);
     }
 
     // 장바구니에 있는 모든 목록 삭제하기
-    @DeleteMapping(value = {"/deleteAllProductInBasket/{loginId}"})
-    public void deleteAllProductInBasket(@PathVariable String loginId){
-        basketService.deleteAllProductInBasket(loginId);
+    @DeleteMapping(value = {"/deleteAllProductInBasket/{userId}"})
+    public void deleteAllProductInBasket(@PathVariable Integer userId){
+        basketService.deleteAllProductInBasket(userId);
     }
 
     // 장바구니에 있는 목록 선택해서 삭제하기
-    @DeleteMapping(value = {"/deleteProductByBasketIdInBasket/{loginId}/{basketId}"})
-    public void deleteProductByBasketIdInBasket(@PathVariable String loginId,
+    @DeleteMapping(value = {"/deleteProductByBasketIdInBasket/{userId}/{basketId}"})
+    public void deleteProductByBasketIdInBasket(@PathVariable Integer userId,
                                                 @PathVariable Integer basketId){
-        basketService.deleteProductByBasketIdInBasket(loginId,basketId);
+        basketService.deleteProductByBasketIdInBasket(userId,basketId);
     }
 
 }

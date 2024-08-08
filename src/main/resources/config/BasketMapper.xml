@@ -5,42 +5,71 @@
 
 <mapper namespace="org.eDrink24.config.BasketMapper">
 
-    <select id="changeLoginIdToUserId" parameterType="string" resultType="Integer">
-        select userId
-        from customer
-        where loginId=#{loginId}
-    </select>
-
-    <insert id="saveProductToBasket" parameterType="BasketDTO">
-        insert into basket (userId, productId, basketQuantity)
-        values (#{userId}, #{productId}, #{basketQuantity})
+    <insert id="saveBasket" parameterType="BasketDTO" useGeneratedKeys="true" keyProperty="basketId">
+        insert into basket (userId)
+        values (#{userId})
     </insert>
 
-    <select id="showProductInBasket" parameterType="String" resultType="BasketDTO">
-        select b.basketId, b.userId, p.productName, p.price, p.defaultImage, b.basketQuantity
-        from basket b join product p on p.productId = b.productId
-        where b.userId=( select userId
-        from customer
-        where loginId=#{loginId}
-        )
+    <!-- 장바구니 목록에 이미 존재하는지 확인 -->
+    <select id="checkBasketItem" parameterType="Integer" resultType="BasketItemDTO">
+        select basketId, itemId, productId, defaultImage, productName, price, basketQuantity
+        from basketItem
+        where productId=#{productId}
     </select>
 
-    <delete id="deleteAllProductInBasket" parameterType="string">
-        delete from basket
-        where userId=( select userId
-        from customer
-        where loginId=#{loginId}
-        )
+    <!-- 장바구니 목록에 이미 존재하면 중복해서 저장하지 않고 수량만 증가 -->
+    <update id="updateBasketQuantity" parameterType="map">
+        update basketItem
+        set basketQuantity = basketQuantity + #{basketQuantity}
+        where productId=#{productId}
+    </update>
+
+    <!-- 없으면 장바구니 목록에 추가 -->
+    <insert id="saveBasketItem" parameterType="map">
+        insert into basketItem (basketId, productId, defaultImage, productName, price, basketQuantity)
+        values (#{basketId}, #{items.productId}, #{items.defaultImage}, #{items.productName}, #{items.price}, #{items.basketQuantity})
+    </insert>
+
+    <select id="showProductInBasket" parameterType="Integer" resultMap="BasketDTOMap">
+        select b.basketId, b.userId, bi.itemId, bi.basketId ,bi.productId, bi.defaultImage, bi.productName, bi.price, bi.basketQuantity
+        from basket b join basketItem bi on b.basketId = bi.basketId
+        where userId=#{userId}
+    </select>
+
+    <select id="getBasketItems" parameterType="Integer" resultType="BasketItemDTO">
+        select itemId, basketId, productId, defaultImage, productName, price, basketQuantity
+        from basketItem
+        where basketId=#{basketId}
+    </select>
+
+    <resultMap id="BasketDTOMap" type="BasketDTO">
+        <id property="basketId" column="basketId" />
+        <result property="userId" column="userId" />
+        <collection property="items" ofType="BasketItemDTO" column="basketId" select="getBasketItems" />
+    </resultMap>
+
+    <!-- 첫번째 delete문은 basketItem테이블에서 userId에 해당하는 장바구니 목록을 삭제
+         두번째 delete문은 basket테이블에서 userId에 해당하는 장바구니를 삭제-->
+    <delete id="deleteAllBasketItems" parameterType="Integer">
+        delete from basketItem
+        where basketId in (select basketId from basket where userId=#{userId})
     </delete>
 
-    <!-- loginId는 String이고 basketId는 Integer이기 때문에 parameterType을 map으로 수정 -->
-    <delete id="deleteProductByBasketIdInBasket" parameterType="map">
+    <delete id="deleteAllBasket" parameterType="Integer">
         delete from basket
-        where userId=( select userId
-        from customer
-        where loginId=#{loginId}
-        )
-        and basketId=#{basketId}
+        where userId=#{userId}
+    </delete>
+
+    <!-- 첫번째 delete문은 basketItem테이블에서 특정 basketId에 해당하는 장바구니 목록을 삭제
+         두번째 delete문은 basket테이블에서 userId와 basketId 해당하는 장바구니를 삭제-->
+    <delete id="deleteSelectedBasketItems" parameterType="Integer">
+        delete from basketItem
+        where basketId=#{basketId}
+    </delete>
+
+    <delete id="deleteSelectedBasket" parameterType="map">
+        delete from basket
+        where userId=#{userId} and basketId=#{basketId}
     </delete>
 
 </mapper>

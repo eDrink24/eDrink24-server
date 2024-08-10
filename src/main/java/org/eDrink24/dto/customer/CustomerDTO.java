@@ -35,4 +35,5 @@ public class CustomerDTO {
     private String currentStore;
     private Integer totalPoint;
     private String role;
+    private Long linkedId;
 }

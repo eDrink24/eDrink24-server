@@ -27,14 +27,14 @@ public class JwtAuthenticationController {
     @Autowired
     ServletContext ctx;
 
-    private final JwtTokenService tokenService;
+    private final JwtTokenService jwtTokenService;
     private final AuthenticationService authenticationService;
     private final PasswordEncoder passwordEncoder;
 
-    public JwtAuthenticationController(JwtTokenService tokenService,
+    public JwtAuthenticationController(JwtTokenService jwtTokenService,
                                        AuthenticationService authenticationService,
                                        PasswordEncoder passwordEncoder) {
-        this.tokenService = tokenService;
+        this.jwtTokenService = jwtTokenService;
         this.authenticationService = authenticationService;
         this.passwordEncoder = passwordEncoder;
     }
@@ -60,11 +60,10 @@ public class JwtAuthenticationController {
                             .pw(jwtTokenRequest.get("pw"))
                             .userName(customerDTO.getUserName())
                             .role(customerDTO.getRole()).build();
-            log.info(authCustomer.toString());
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(authCustomer, null, roles);
 
-            String token = tokenService.generateToken(authenticationToken);
+            String token = jwtTokenService.generateToken(authenticationToken);
 
             Map<String, Object> response = new HashMap<>();
             response.put("token", token);

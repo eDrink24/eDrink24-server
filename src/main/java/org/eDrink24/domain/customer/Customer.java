@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
@@ -60,4 +59,7 @@ public class Customer {
 
     @Column(name = "role", nullable = false, length = 20)
     private String role = "일반회읜";
+
+    @Column(name = "linkedId", nullable = true, length = 100)
+    private Long linkedId;
 }

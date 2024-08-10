@@ -5,8 +5,10 @@
 <mapper namespace="org.eDrink24.config.CustomerMapper">
 
     <insert id="saveCustomer" parameterType="CustomerDTO">
-        insert into customer ( loginId, pw, userName, birthdate, gender, phoneNum, email, postalCode, address1, address2)
-        values (#{loginId}, #{pw}, #{userName}, #{birthdate}, #{gender}, #{phoneNum}, #{email}, #{postalCode}, #{address1}, #{address2})
+        insert into customer ( loginId, pw, userName, birthdate, gender,
+            phoneNum, email, postalCode, address1, address2, linkedId)
+        values (#{loginId}, #{pw}, #{userName}, #{birthdate}, #{gender},
+            #{phoneNum}, #{email}, #{postalCode}, #{address1}, #{address2}, #{linkedId})
     </insert>
 
     <select id="selectCustomerMyPage" resultType="CustomerDTO" parameterType="string">

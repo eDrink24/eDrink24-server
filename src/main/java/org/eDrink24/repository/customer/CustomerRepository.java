@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
+    public Customer findByUserId(int userId);
     public Customer findByLoginId(String loginId);
+    public Customer findByLinkedId(Long linkedId);
 
     @Query("select c from Customer c where c.loginId= :loginId AND c.pw= :pw")
     public Customer authenticate(String loginId, String pw);

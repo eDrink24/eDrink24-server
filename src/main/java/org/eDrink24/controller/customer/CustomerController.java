@@ -47,7 +47,6 @@ public class CustomerController {
         if(customerDTO != null) {
             return ResponseEntity.status(409).body("이 아이디는 사용불가합니다.");
         }
-
         return ResponseEntity.ok("이 아이디는 사용가능합니다.");
     }
 }

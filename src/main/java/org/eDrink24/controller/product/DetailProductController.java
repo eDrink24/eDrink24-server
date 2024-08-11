@@ -16,9 +16,9 @@ public class DetailProductController {
     }
 
     // 제품 사진 누르면 해당 제품 상세 설명 보여줌.
-    @GetMapping(value = {"/showDetailProduct/{productId}"})
-    public DetailProductDTO showDetailProduct(@PathVariable Integer productId) {
-        return productService.showDetailProduct(productId);
+    @GetMapping(value = {"/showDetailProduct/{category1}/{productId}"})
+    public DetailProductDTO showDetailProduct(@PathVariable String category1,@PathVariable Integer productId) {
+        return productService.showDetailProduct(category1,productId);
     }
 
 }

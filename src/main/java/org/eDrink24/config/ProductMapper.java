@@ -12,18 +12,17 @@ import java.util.Map;
 public interface ProductMapper {
 
 
-	public List<ProductDTO> productFilter(Map<String, Object> params); // 상품 필터링
+    public List<ProductDTO> productFilter(Map<String, Object> params); // 상품 필터링
 
-   public List<ProductDTO> showAllProduct();
+    public List<ProductDTO> showAllProduct();
 
-   // category1에 해당하는 제품만 보여줌.
-   public List<ProductDTO> showProductByCategory1(String category1);
-
+    // category1에 해당하는 제품만 보여줌.
+    public List<ProductDTO> showProductByCategory1(String category1);
 
     // category2에 해당하는 제품만 보여줌.
     public List<ProductDTO> showProductByCategory2(String category2);
 
     // 제품 사진 누르면 제품 상세 설명 보여줌.
-    public DetailProductDTO showDetailProduct(Integer productId);
+    public DetailProductDTO showDetailProduct(String category1,Integer productId);
 
 }

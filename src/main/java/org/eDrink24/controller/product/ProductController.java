@@ -39,7 +39,7 @@ public class ProductController {
     // category2에 해당하는 제품 목록 보여주기
     @GetMapping(value = {"/showProductByCategory2/{category2}"})
     public List<ProductDTO> showProductByCategory2(@PathVariable String category2) {
-        return productService.showProductByCategory2(category2);
+      return productService.showProductByCategory2(category2);
     }
 
 }

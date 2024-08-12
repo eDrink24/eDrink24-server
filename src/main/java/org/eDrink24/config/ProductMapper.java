@@ -23,6 +23,6 @@ public interface ProductMapper {
     public List<ProductDTO> showProductByCategory2(String category2);
 
     // 제품 사진 누르면 제품 상세 설명 보여줌.
-    public DetailProductDTO showDetailProduct(String category1,Integer productId);
+    public DetailProductDTO showDetailProduct(String category1,String category2,Integer productId);
 
 }

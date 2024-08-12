@@ -43,8 +43,8 @@ public class ProductServiceImpl implements  ProductService {
     }
 
     @Override
-    public DetailProductDTO showDetailProduct(String category1,Integer productId) {
-        return productMapper.showDetailProduct(category1,productId);
+    public DetailProductDTO showDetailProduct(String category1,String category2,Integer productId) {
+        return productMapper.showDetailProduct(category1,category2,productId);
     }
 
 }

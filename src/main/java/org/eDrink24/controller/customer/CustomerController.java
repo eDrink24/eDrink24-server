@@ -30,6 +30,8 @@ public class CustomerController {
         // 입력된 비번은 반드시 암호해해야 된다.
         String ecrptPW = new BCryptPasswordEncoder().encode(customer.getPw());
         customer.setPw(ecrptPW);
+        // 회원가입 초기엔 본인 주소를 현재 위치로 설정
+        customer.setCurrentLocation(customer.getAddress1());
         log.info("customer: {}", customer);
         CustomerDTO saveCustomer = customerService.saveCustomer(customer);
 

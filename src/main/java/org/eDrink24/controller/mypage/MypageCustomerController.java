@@ -18,6 +18,7 @@ public class MypageCustomerController {
     public CustomerDTO selectCustomerMyPage(@PathVariable String loginId) {
         CustomerDTO customerDTO = customerService.selectCustomerByLoginId(loginId);
         customerDTO.setPw(null);
+        customerDTO.setRole(null);
         return customerDTO;
     }
 }

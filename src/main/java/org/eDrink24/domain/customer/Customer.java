@@ -21,10 +21,10 @@ public class Customer {
     @Column(name = "userName", nullable = false, length = 20)
     private String userName;
 
-    @Column(name = "loginId", nullable = false, length = 20)
+    @Column(name = "loginId", nullable = false, length = 50)
     private String loginId;
 
-    @Column(name = "pw", nullable = false, length = 60)
+    @Column(name = "pw", nullable = false, length = 100)
     private String pw;
 
     @Column(name = "gender", nullable = false, length = 10)
@@ -42,10 +42,10 @@ public class Customer {
     @Column(name = "postalCode", nullable = false, length = 20)
     private String postalCode;
 
-    @Column(name = "address1", nullable = false, length = 20)
+    @Column(name = "address1", nullable = false, length = 50)
     private String address1;
 
-    @Column(name = "address2", nullable = false, length = 20)
+    @Column(name = "address2", nullable = false, length = 30)
     private String address2;
 
     @Column(name = "currentLocation", length = 50)

@@ -42,28 +42,35 @@
         </foreach>
     </insert>
 
+    <!-- 사용자 ID에 해당하는 모든 basketItem 데이터 삭제 -->
+    <delete id="deleteBasketItems" parameterType="hashmap">
+        DELETE FROM basketItem
+        WHERE basketId IN
+        <foreach open="(" close=")" collection="basketIds" item="basketId" separator="," >
+            #{basketId}
+        </foreach>
 
+    </delete>
 
+    <!-- userId에 해당하는 basket 데이터 삭제 -->
+    <delete id="deleteBasket" parameterType="hashmap">
+        DELETE FROM basket
+        WHERE basketId IN
+        <foreach open="(" close=")" collection="basketIds" item="basketId" separator="," >
+            #{basketId}
+        </foreach>
+    </delete>
 
+    <!-- 장바구니 저장 -->
+    <insert id="saveNotPurchasedBasket" parameterType="BasketDTO">
+        INSERT INTO basket (basketId, userId)
+        VALUES (#{basketId}, #{userId})
+    </insert>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <!-- 장바구니 아이템 저장 -->
+    <insert id="saveNotPurchasedBasketItem" parameterType="BasketItemDTO">
+        INSERT INTO basketItem (itemId, basketId, productId, defaultImage, productName, price, basketQuantity)
+        VALUES (#{itemId}, #{basketId}, #{productId}, #{defaultImage}, #{productName}, #{price}, #{basketQuantity})
+    </insert>
 
 </mapper>

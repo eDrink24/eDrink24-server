@@ -21,9 +21,9 @@ public class CouponController {
   }
 
     // 쿠폰 목록 조회
-    @GetMapping("/showAllCoupon/loginId/{loginId}")
-    public ResponseEntity<List<CouponDTO>> showAllCoupon(@PathVariable String loginId) {
-        List<CouponDTO> coupons = couponService.showAllCoupon(loginId);
+    @GetMapping("/showAllCoupon/userId/{userId}")
+    public ResponseEntity<List<CouponDTO>> showAllCoupon(@PathVariable Integer userId) {
+        List<CouponDTO> coupons = couponService.showAllCoupon(userId);
         return ResponseEntity.ok(coupons);
     }
 

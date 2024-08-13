@@ -25,9 +25,9 @@
     </update>
 
     <!-- 없으면 장바구니 목록에 추가 -->
-    <insert id="saveBasketItem" parameterType="map">
+     <insert id="saveBasketItem" parameterType="BasketItemDTO">
         insert into basketItem (basketId, productId, defaultImage, productName, price, basketQuantity)
-        values (#{basketId}, #{items.productId}, #{items.defaultImage}, #{items.productName}, #{items.price}, #{items.basketQuantity})
+        values (#{items.basketId}, #{items.productId}, #{items.defaultImage}, #{items.productName}, #{items.price}, #{items.basketQuantity})
     </insert>
 
     <select id="showProductInBasket" parameterType="Integer" resultMap="BasketDTOMap">

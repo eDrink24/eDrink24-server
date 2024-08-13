@@ -11,6 +11,7 @@ import org.apache.ibatis.type.Alias;
 @Setter
 @ToString
 public class BasketItemDTO {
+
     private Integer itemId;
     private Integer basketId;
     private Integer productId;

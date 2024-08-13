@@ -16,7 +16,7 @@ public class CouponServiceImpl implements CouponService {
    }
 
     @Override
-    public List<CouponDTO> showAllCoupon(String loginId) {
-        return couponMapper.showAllCoupon(loginId);
+    public List<CouponDTO> showAllCoupon(Integer userId) {
+        return couponMapper.showAllCoupon(userId);
     }
 }

@@ -61,4 +61,9 @@ public class BasketController {
         basketService.deleteProductByBasketIdInBasket(userId,basketId);
     }
 
+    // 장바구니에서 수량 변경하면 DB에 basketQuantitiy가 변경
+    @PutMapping(value = {"/updateBasketQuantity2"})
+    public void updateBasketQuantity2(@RequestBody BasketItemDTO basketItemDTO) {
+        basketService.updateBasketQuantity2(basketItemDTO.getProductId(),basketItemDTO.getBasketId(), basketItemDTO.getBasketQuantity());
+    }
 }

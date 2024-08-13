@@ -1,6 +1,7 @@
 package org.eDrink24.controller.basket;
 
 import org.eDrink24.dto.basket.BasketDTO;
+import org.eDrink24.dto.basket.BasketItemDTO;
 import org.eDrink24.service.basket.BasketService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -40,6 +41,11 @@ public class BasketController {
     @GetMapping(value = {"/showProductInBasket/{userId}"})
     public List<BasketDTO> showProductInBasket(@PathVariable Integer userId) {
         return basketService.showProductInBasket(userId);
+    }
+
+    @GetMapping(value = {"/getBasketItems/{basketId}"})
+    public List<BasketItemDTO> getBasketItems(@PathVariable Integer basketId) {
+        return basketService.getBasketItems(basketId);
     }
 
     // 장바구니에 있는 모든 목록 삭제하기

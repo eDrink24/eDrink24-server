@@ -22,6 +22,7 @@ public class BasketServiceImpl implements BasketService {
 
 
     @Override
+    @Transactional
     public void saveProductToBasket(BasketDTO basketDTO) {
 
         System.out.println(">>>>>>>>>>>>>>>>>>>>." + basketDTO);
@@ -44,6 +45,7 @@ public class BasketServiceImpl implements BasketService {
                 basketMapper.updateBasketQuantity(items.getProductId(),items.getBasketQuantity());
             }else {
                 // 장바구니에 제품이 존재하지 않으면 새로 추가
+                items.setBasketId(basketId); // basketId를 BasketItemDTO에 설정
                 basketMapper.saveBasketItem(basketId, items);
             }
         }
@@ -74,6 +76,11 @@ public class BasketServiceImpl implements BasketService {
     public void deleteProductByBasketIdInBasket(Integer userId, Integer basketId) {
         basketMapper.deleteSelectedBasketItems(basketId);
         basketMapper.deleteSelectedBasket(userId, basketId);
+    }
+
+    @Override
+    public List<BasketItemDTO> getBasketItems(Integer basketId) {
+        return basketMapper.getBasketItems(basketId);
     }
 
 }

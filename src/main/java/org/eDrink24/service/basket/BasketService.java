@@ -14,5 +14,5 @@ public interface BasketService {
     public void deleteAllProductInBasket(Integer userId);
     public void deleteProductByBasketIdInBasket(Integer userId,Integer basketId);
     public List<BasketItemDTO> getBasketItems(Integer basketId);
-
+    public void updateBasketQuantity2(Integer productId, Integer basketId,Integer basketQuantity);
 }

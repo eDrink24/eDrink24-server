@@ -51,8 +51,8 @@ public class Customer {
     @Column(name = "currentLocation", length = 50)
     private String currentLocation;
 
-    @Column(name = "currentStore", length = 50)
-    private String currentStore;
+    @Column(name = "currentStoreId", length = 50)
+    private Integer currentStoreId;
 
     @Column(name = "totalPoint", nullable = false)
     private Integer totalPoint = 0;

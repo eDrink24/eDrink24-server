@@ -35,4 +35,7 @@ public interface BasketMapper {
     // 장바구니 선택 삭제 (부모테이블 삭제)
     public void deleteSelectedBasket(Integer userId,Integer basketId);
 
+    //장바구니에서 수량 증가나 감소시키면 DB에 basketQuantity가 업데이트 됨.
+    public void updateBasketQuantity2(Integer productId, Integer basketId,Integer basketQuantity);
+
 }

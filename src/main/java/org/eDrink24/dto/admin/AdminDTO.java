@@ -2,8 +2,9 @@ package org.eDrink24.dto.admin;
 
 import lombok.*;
 import org.apache.ibatis.type.Alias;
-
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Alias("AdminDTO")
@@ -25,9 +26,5 @@ public class AdminDTO {
     private String changeStatus;
     private LocalDateTime changeDate;
     private Integer orderQuantity;
-
-    /*
-    select o.ordersId, o.storeId, o.userId, o.productId, o.orderDate, o.isCompleted, oh.changeStatus,oh.changeDate
-     */
 
 }

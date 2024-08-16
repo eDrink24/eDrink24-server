@@ -154,6 +154,9 @@ public class KakaoLoginServiceImpl implements KakaoLoginService {
             response.put("token", token);
             response.put("loginId", customerDTO.getLoginId());
             response.put("userId", customerDTO.getUserId());
+            // 위치정보 업데이트
+            response.put("currentLocation", customerDTO.getCurrentLocation());
+            response.put("currentStoreId", customerDTO.getCurrentStoreId());
             return ResponseEntity.ok(response);
         } else {
             Map<String, Object> response = new HashMap<>();

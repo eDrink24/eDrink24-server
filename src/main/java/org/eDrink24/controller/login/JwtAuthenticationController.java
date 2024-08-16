@@ -68,11 +68,17 @@ public class JwtAuthenticationController {
             Map<String, Object> response = new HashMap<>();
             response.put("token", token);
             response.put("userId", customerDTO.getUserId());
+            response.put("loginId", customerDTO.getLoginId());
+            response.put("currentLocation", customerDTO.getCurrentLocation());
+            response.put("currentStoreId", customerDTO.getCurrentStoreId());
             return ResponseEntity.ok(response);
         } else {
             Map<String, Object> response = new HashMap<>();
             response.put("token", null);
             response.put("userId", null);
+            response.put("loginId", null);
+            response.put("currentLocation", null);
+            response.put("currentStoreId", null);
             return ResponseEntity.status(401).body(response); // Unauthorized
         }
     }

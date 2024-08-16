@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 
 @Service
@@ -32,6 +33,13 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public CustomerDTO selectCustomerByLoginId(String loginId) {
         return customerMapper.selectCustomerMyPage(loginId);
+    }
+
+    @Override
+    public CustomerDTO findByUserId(Integer userId) {
+        Customer customer = customerRepository.findByUserId(userId);
+        CustomerDTO customerDTO = modelMapper.map(customer, CustomerDTO.class);
+        return customerDTO;
     }
 
     @Override

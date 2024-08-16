@@ -40,7 +40,7 @@ public class OrderController {
         System.out.print("222222222222222222" + orderTransactionDTO);
 
         try {
-            orderService.deleteBasketAndItem(orderTransactionDTO, userId );
+            orderService.deleteBasketAndItem(orderTransactionDTO, userId);
             return ResponseEntity.ok("Purchase successful");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

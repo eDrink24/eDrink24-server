@@ -27,7 +27,7 @@ public class UpdateCustomerController {
     // 사용자 매장, 현재위치 수정
     @PostMapping("/api/updateCustomerToStore")
     public ResponseEntity<String> updateCustomerToStore(@RequestBody Map<String, Object> data) {
-        Integer customerId = (Integer) data.get("customerId");
+        Integer userId = (Integer) data.get("userId");
         String currentLocation = (String) data.get("currentLocation");
         Integer currentStoreId = (Integer) data.get("currentStoreId");
 
@@ -36,7 +36,7 @@ public class UpdateCustomerController {
         et.begin();
 
         try {
-            Customer customer = em.find(Customer.class, customerId);
+            Customer customer = em.find(Customer.class, userId);
             customer.setCurrentLocation(currentLocation);
             customer.setCurrentStoreId(currentStoreId);
             em.merge(customer);

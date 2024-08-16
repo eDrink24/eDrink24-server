@@ -22,16 +22,8 @@ public class InventoryDTO {
     private Integer quantity;
     private String productName;
 
-    InventoryDTO(Integer storeId, Integer productId, Integer quantity) {
-        this.storeId = storeId;
-        this.productId = productId;
-        this.quantity = quantity;
-    }
-
-
     /*
     select i.inventoryId, i.storeId, i.productId, i.quantity, p.productName
     from INVENTORY i join Product p on i.productId = p.productId;
      */
-
 }

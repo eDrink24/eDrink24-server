@@ -32,7 +32,7 @@ public class CustomerController {
         customer.setPw(ecrptPW);
         // 회원가입 초기엔 본인 주소를 현재 위치로 설정
         customer.setCurrentLocation(customer.getAddress1());
-        log.info("customer: {}", customer);
+
         CustomerDTO saveCustomer = customerService.saveCustomer(customer);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()

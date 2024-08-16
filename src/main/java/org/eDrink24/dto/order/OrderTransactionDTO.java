@@ -4,6 +4,7 @@ import lombok.*;
 import org.apache.ibatis.type.Alias;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Alias("OrderTransactionDTO")
@@ -19,7 +20,7 @@ public class OrderTransactionDTO {
     private Integer storeId;
     private Integer userId;
     private Integer productId;
-    private LocalDate orderDate;
+    private LocalDateTime orderDate;
     private LocalDate pickupDate;
     private Boolean isCompleted;
     private String orderStatus;
@@ -27,7 +28,7 @@ public class OrderTransactionDTO {
 
     private Integer ordersId;
     private String changeStatus;
-    private LocalDate changeDate;
+    private LocalDateTime changeDate;
 
     private Integer basketId;
     private Integer itemId;
@@ -36,7 +37,7 @@ public class OrderTransactionDTO {
     private Integer price;
     private Integer basketQuantity;
 
-    OrderTransactionDTO (Integer storeId, Integer userId, Integer productId, LocalDate orderDate, LocalDate pickupDate,
+    OrderTransactionDTO (Integer storeId, Integer userId, Integer productId, LocalDateTime orderDate, LocalDate pickupDate,
               Boolean isCompleted, String orderStatus, Integer orderQuantity) {
 
         this.storeId = storeId;
@@ -49,7 +50,7 @@ public class OrderTransactionDTO {
         this.orderQuantity = orderQuantity;
     }
 
-    OrderTransactionDTO (Integer ordersId, String changeStatus, LocalDate changeDate) {
+    OrderTransactionDTO (Integer ordersId, String changeStatus, LocalDateTime changeDate) {
 
         this.ordersId = ordersId;
         this.changeStatus = changeStatus;

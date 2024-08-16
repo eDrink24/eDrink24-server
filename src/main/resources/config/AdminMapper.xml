@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.eDrink24.config.AdminOrderMapper">
+<mapper namespace="org.eDrink24.config.AdminMapper">
 
     <!-- 발주신청시 매장 내 해당재고 갯수 증가 -->
     <update id="updateInventoryQuantity" parameterType="InventoryDTO">

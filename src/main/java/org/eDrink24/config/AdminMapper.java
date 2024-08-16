@@ -1,15 +1,12 @@
 package org.eDrink24.config;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.eDrink24.dto.Inventory.InventoryDTO;
-import org.eDrink24.dto.basket.BasketDTO;
-import org.eDrink24.dto.basket.BasketItemDTO;
 
 import java.util.List;
 
 @Mapper
-public interface AdminOrderMapper {
+public interface AdminMapper {
 
     // 발주신청시 매장 내 해당재고 갯수 증가
     public void updateInventoryQuantity(InventoryDTO inventoryDTO);

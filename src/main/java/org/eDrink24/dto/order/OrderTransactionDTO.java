@@ -23,6 +23,7 @@ public class OrderTransactionDTO {
     private LocalDate pickupDate;
     private Boolean isCompleted;
     private String orderStatus;
+    private Integer orderQuantity;
 
     private Integer ordersId;
     private String changeStatus;
@@ -36,7 +37,7 @@ public class OrderTransactionDTO {
     private Integer basketQuantity;
 
     OrderTransactionDTO (Integer storeId, Integer userId, Integer productId, LocalDate orderDate, LocalDate pickupDate,
-              Boolean isCompleted, String orderStatus) {
+              Boolean isCompleted, String orderStatus, Integer orderQuantity) {
 
         this.storeId = storeId;
         this.userId = userId;
@@ -45,6 +46,7 @@ public class OrderTransactionDTO {
         this.pickupDate = pickupDate;
         this.isCompleted = isCompleted;
         this.orderStatus = orderStatus;
+        this.orderQuantity = orderQuantity;
     }
 
     OrderTransactionDTO (Integer ordersId, String changeStatus, LocalDate changeDate) {

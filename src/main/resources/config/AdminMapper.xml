@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.eDrink24.config.AdminOrderMapper">
+
+    <!-- 발주신청시 매장 내 해당재고 갯수 증가 -->
+    <update id="updateInventoryQuantity" parameterType="InventoryDTO">
+        update INVENTORY
+        set quantity = quantity + #{quantity}
+        where productId=#{productId} and storeId=#{storeId}
+    </update>
+
+    <!-- 장바구니 목록에 이미 존재하는지 확인 -->
+    <select id="checkInventoryProduct" parameterType="Integer" resultType="InventoryDTO">
+        select inventoryId, storeId, productId, quantity
+        from INVENTORY
+        where productId=#{productId} and storeId=#{storeId}
+    </select>
+
+    <!-- 해당재고 없으면 INVENTORY에 추가 -->
+    <insert id="addProductToInventory" parameterType="InventoryDTO">
+        insert into INVENTORY (storeId, productId, quantity)
+        values (#{storeId}, #{productId}, #{quantity})
+    </insert>
+
+
+    <!-- 발주완료 목록 조회 -->
+    <select id="showAdminOrderPage" parameterType = "Integer" resultType="InventoryDTO">
+        select i.inventoryId, i.storeId, i.productId, i.quantity, p.productName
+        from INVENTORY i join Product p on i.productId = p.productId
+        where i.storeId=#{storeId} and i.productId=#{productId}
+    </select>
+
+
+</mapper>
+

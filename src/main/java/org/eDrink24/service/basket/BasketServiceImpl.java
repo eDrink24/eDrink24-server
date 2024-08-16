@@ -83,4 +83,9 @@ public class BasketServiceImpl implements BasketService {
         return basketMapper.getBasketItems(basketId);
     }
 
+    @Override
+    public void updateBasketQuantity2(Integer productId, Integer basketId, Integer basketQuantity) {
+        basketMapper.updateBasketQuantity2(productId, basketId, basketQuantity);
+    }
+
 }

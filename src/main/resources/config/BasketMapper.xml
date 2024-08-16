@@ -72,5 +72,12 @@
         where userId=#{userId} and basketId=#{basketId}
     </delete>
 
+    <update id="updateBasketQuantity2" parameterType="map">
+        update basketItem
+        set basketQuantity = #{basketQuantity}
+        where productId=#{productId}
+        and basketId=#{basketId}
+    </update>
+
 </mapper>
 

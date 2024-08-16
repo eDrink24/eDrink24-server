@@ -33,6 +33,53 @@
         where i.storeId=#{storeId} and i.productId=#{productId}
     </select>
 
+    <update id="changeIsCompleted" parameterType="Integer">
+        update orders
+        set isCompleted=true
+        where ordersId=#{ordersId}
+    </update>
+
+    <update id="ChangeStatusAndDate" parameterType="Integer">
+        update orderhistory
+        set changeStatus="PICKUPED", changeDate=NOW()
+        where ordersId=#{ordersId}
+    </update>
+
+    <!-- 현재 order페이지에서 선택하는 매장의 storeId와 DB에 들어가있는 storeId가 달라서
+     일단은 productId만 같으면 수량이 줄어들도록 구현해놨음.
+     나중에 storeId가 일치하게 되면 밑에 주석으로 나둔 부분 풀어서 실행하면
+     storeId와  productId가 일치하는 것만 수량이 업데이트되게 하면됨.-->
+    <update id="changeInventoryQuantity" parameterType="map">
+        UPDATE inventory
+        SET quantity = quantity - (
+        SELECT orderQuantity
+        FROM orders
+        WHERE ordersId = #{ordersId}
+        )
+        WHERE productId = (
+        SELECT productId
+        FROM orders
+        WHERE ordersId = #{ordersId}
+        )
+<!--        AND storeId = (-->
+<!--        SELECT storeId-->
+<!--        FROM orders-->
+<!--        WHERE ordersId = #{ordersId}-->
+<!--        )-->
+    </update>
+
+
+    <select id="showPickupCompletedPage" resultType="AdminDTO">
+        select o.ordersId, o.storeId, o.userId, o.productId, o.orderDate, o.isCompleted, oh.changeStatus,oh.changeDate, o.orderQuantity
+        from orders o join orderhistory oh on o.ordersId = oh.ordersId
+        where o.isCompleted=true
+    </select>
+
+    <select id="showPickupPage" resultType="AdminDTO">
+        select o.ordersId, o.storeId, o.userId, o.productId, o.orderDate, o.isCompleted, oh.changeStatus,oh.changeDate, o.orderQuantity
+        from orders o join orderhistory oh on o.ordersId = oh.ordersId
+        where o.isCompleted=false
+    </select>
 
 </mapper>
 

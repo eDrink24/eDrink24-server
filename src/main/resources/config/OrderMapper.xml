@@ -25,11 +25,11 @@
 
     <!-- 결제하기(ORDERS 테이블에 저장) -->
     <insert id="buyProduct" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="ordersId">
-        INSERT INTO ORDERS (storeId, userId, productId, orderDate, isCompleted, orderStatus, orderQuantity)
+        INSERT INTO ORDERS (storeId, userId, productId, orderDate, pickupDate, isCompleted, orderStatus, orderQuantity)
         VALUES
         <foreach collection="list" item="order" separator=",">
             (#{order.storeId}, #{order.userId}, #{order.productId}, #{order.orderDate},
-             #{order.isCompleted}, #{order.orderStatus}, #{order.orderQuantity})
+            #{order.pickupDate}, #{order.isCompleted}, #{order.orderStatus}, #{order.orderQuantity})
         </foreach>
     </insert>
 

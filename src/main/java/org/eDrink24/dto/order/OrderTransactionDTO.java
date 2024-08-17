@@ -21,6 +21,7 @@ public class OrderTransactionDTO {
     private Integer userId;
     private Integer productId;
     private LocalDateTime orderDate;
+    private LocalDateTime pickupDate;
     private Boolean isCompleted;
     private String orderStatus;
     private Integer orderQuantity;

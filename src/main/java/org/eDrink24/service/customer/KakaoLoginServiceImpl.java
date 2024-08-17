@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
+import org.eDrink24.config.kakaoConfig.KakaoConfig;
 import org.eDrink24.domain.customer.Customer;
 import org.eDrink24.dto.customer.CustomerDTO;
 import org.eDrink24.dto.kakaoLogin.KakaoAccountDTO;
@@ -37,11 +38,14 @@ public class KakaoLoginServiceImpl implements KakaoLoginService {
     private final CustomerRepository customerRepository;
     private final ModelMapper modelMapper;
     private final JwtTokenService jwtTokenService;
+    private KakaoConfig kakaoConfig;
 
-    public KakaoLoginServiceImpl(CustomerRepository customerRepository, ModelMapper modelMapper, JwtTokenService jwtTokenService) {
+    public KakaoLoginServiceImpl(CustomerRepository customerRepository, ModelMapper modelMapper,
+                                 JwtTokenService jwtTokenService, KakaoConfig kakaoConfig) {
         this.customerRepository = customerRepository;
         this.modelMapper = modelMapper;
         this.jwtTokenService = jwtTokenService;
+        this.kakaoConfig = kakaoConfig;
     }
 
     // 카카오로부터 회원 토큰 받아오기
@@ -54,10 +58,10 @@ public class KakaoLoginServiceImpl implements KakaoLoginService {
         // Http Response Body 객체 생성
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "authorization_code"); //카카오 공식문서 기준 authorization_code 로 고정
-        params.add("client_id", "2f25295b72df000c44a49a90bf05edc4"); // 카카오 Dev 앱 REST API 키
-        params.add("redirect_uri", "http://localhost:3000/eDrink24/login/oauth2/callback/kakao"); // 카카오 Dev redirect uri
+        params.add("client_id", kakaoConfig.getClientId()); // 카카오 Dev 앱 REST API 키
+        params.add("redirect_uri", kakaoConfig.getRedirectUri()); // 카카오 Dev redirect uri
         params.add("code", code); // 프론트에서 인가코드 요청시 받은 인가코드값
-        params.add("client_secret", "hVNQohnAyIqNRoREa8Odw9N6KgpfxkFL"); // 카카오 Dev 카카오 로그인 Client Secret
+        params.add("client_secret", kakaoConfig.getClientSecret()); // 카카오 Dev 카카오 로그인 Client Secret
 
         // 헤더와 바디 합치기 위해 Http Entity 객체 생성
         HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);

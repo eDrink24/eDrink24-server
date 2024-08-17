@@ -21,4 +21,8 @@ public class Store {
     private String storeAddress;
     @Column(name = "storePhoneNum")
     private String storePhoneNum;
+    @Column(name = "latitude")
+    private Double latitude;
+    @Column(name = "longitude")
+    private Double longitude;
 }

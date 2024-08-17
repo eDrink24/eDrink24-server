@@ -19,6 +19,13 @@ public class StoreServiceImpl implements StoreService {
     private ModelMapper modelMapper;
 
     @Override
+    public StoreDTO findByStoreId(int storeId) {
+        Store store = storeRepository.findByStoreId(storeId);
+        StoreDTO storeDTO = modelMapper.map(store, StoreDTO.class);
+        return storeDTO;
+    }
+
+    @Override
     public List<StoreDTO> findAllStores() {
         List<Store> stores = storeRepository.findAll();
         return stores.stream()

@@ -19,6 +19,8 @@ public class StoreDTO {
     private String storeName;
     private String storeAddress;
     private String storePhoneNum;
+    private Double latitude;
+    private Double longitude;
 
 }
 

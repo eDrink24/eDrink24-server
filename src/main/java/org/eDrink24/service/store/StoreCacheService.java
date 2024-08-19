@@ -6,6 +6,7 @@ import org.eDrink24.repository.store.StoreRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -23,7 +24,13 @@ public class StoreCacheService {
     @Autowired
     private RedisTemplate<String, Object> redisStoreTemplate;
 
-    @PostConstruct // 서버실행 시에 바로 캐싱
+    @PostConstruct
+    public void init() {
+        cacheStore();
+    }
+
+    // 서버실행 시에 바로 캐싱
+    @Scheduled(cron = "0 0 0 * * ?")
     public void cacheStore() {
         List<Store> stores = storeRepository.findAll();
         List<StoreDTO> storesDTO = stores.stream()

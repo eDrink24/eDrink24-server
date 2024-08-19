@@ -1,8 +1,6 @@
 package org.eDrink24.service.admin;
 
 import org.eDrink24.dto.Inventory.InventoryDTO;
-import org.eDrink24.dto.basket.BasketDTO;
-import org.eDrink24.dto.basket.BasketItemDTO;
 
 import java.util.List;
 
@@ -17,8 +15,11 @@ public interface AdminOrderService {
     // 해당재고 없으면 INVENTORY에 추가
     public void addProductToInventory(InventoryDTO inventoryDTO);
 
+    // 발주내역 adminOrderHistory에 추가
+    public void addAdminOrderHistory(InventoryDTO inventoryDTO);
+
     // 발주완료 목록 조회
-    public List<InventoryDTO> showAdminOrderPage(Integer storeId, Integer productId);
+    public List<InventoryDTO> showAdminOrderList(Integer storeId);
 
     public void updateOrInsertInventory(Integer productId,Integer storeId, InventoryDTO inventoryDTO);
 

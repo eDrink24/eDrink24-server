@@ -25,12 +25,18 @@
         values (#{storeId}, #{productId}, #{quantity})
     </insert>
 
+    <!-- 해당재고 없으면 INVENTORY에 추가 -->
+    <insert id="addAdminOrderHistory" parameterType="InventoryDTO">
+        insert into adminOrderHistory (storeId, productId, productName, adminOrderQuantity)
+        values (#{storeId}, #{productId}, #{productName}, #{adminOrderQuantity})
+    </insert>
+
 
     <!-- 발주완료 목록 조회 -->
-    <select id="showAdminOrderPage" parameterType = "Integer" resultType="InventoryDTO">
-        select i.inventoryId, i.storeId, i.productId, i.quantity, p.productName
-        from INVENTORY i join Product p on i.productId = p.productId
-        where i.storeId=#{storeId} and i.productId=#{productId}
+    <select id="showAdminOrderList" parameterType = "Integer" resultType="InventoryDTO">
+        select storeId, productId, productName, adminOrderQuantity
+        from adminOrderHistory
+        where storeId=#{storeId}
     </select>
 
     <update id="changeIsCompleted" parameterType="Integer">

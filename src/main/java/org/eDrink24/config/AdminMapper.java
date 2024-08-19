@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.eDrink24.dto.Inventory.InventoryDTO;
 import org.apache.ibatis.annotations.Param;
 import org.eDrink24.dto.admin.AdminDTO;
+
 import java.util.List;
 
 @Mapper
@@ -18,8 +19,11 @@ public interface AdminMapper {
     // 해당재고 없으면 INVENTORY에 추가
     public void addProductToInventory(InventoryDTO inventoryDTO);
 
+    // 발주내역 adminOrderHistory에 추가
+    public void addAdminOrderHistory(InventoryDTO inventoryDTO);
+
     // 발주완료 목록 조회
-    public List<InventoryDTO> showAdminOrderPage(Integer storeId, Integer productId);
+    public List<InventoryDTO> showAdminOrderList(Integer storeId);
 
     // 픽업완료버튼 클릭 시 IsCompleted true로 변경,
     public int changeIsCompleted(@Param("ordersId") Integer ordersId);

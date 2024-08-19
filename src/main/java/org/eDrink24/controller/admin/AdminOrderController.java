@@ -2,11 +2,7 @@ package org.eDrink24.controller.admin;
 
 
 import org.eDrink24.dto.Inventory.InventoryDTO;
-import org.eDrink24.dto.basket.BasketDTO;
-import org.eDrink24.dto.order.OrderTransactionDTO;
 import org.eDrink24.service.admin.AdminOrderService;
-import org.eDrink24.service.basket.BasketService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,9 +30,9 @@ public class AdminOrderController {
         }
     }
 
-    @GetMapping(value = {"/showAdminOrderPage/{storeId}/{productId}"})
-    public List<InventoryDTO> showAdminOrderPage(@PathVariable Integer storeId, @PathVariable Integer productId) {
-        return adminOrderService.showAdminOrderPage(storeId, productId);
+    @GetMapping(value = {"/showAdminOrderList/{storeId}"})
+    public List<InventoryDTO> showAdminOrderList(@PathVariable Integer storeId) {
+        return adminOrderService.showAdminOrderList(storeId);
     }
 
 }

@@ -36,8 +36,13 @@ public class AdminOrderServiceImpl implements AdminOrderService {
     }
 
     @Override
-    public List<InventoryDTO> showAdminOrderPage(Integer storeId, Integer productId) {
-        return adminMapper.showAdminOrderPage(storeId, productId);
+    public void addAdminOrderHistory(InventoryDTO inventoryDTO) {
+        adminMapper.addAdminOrderHistory(inventoryDTO);
+    }
+
+    @Override
+    public List<InventoryDTO> showAdminOrderList(Integer storeId) {
+        return adminMapper.showAdminOrderList(storeId);
     }
 
     @Transactional
@@ -51,6 +56,8 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         } else {
             adminMapper.addProductToInventory(inventoryDTO);
         }
+
+        adminMapper.addAdminOrderHistory(inventoryDTO);
 
     }
 

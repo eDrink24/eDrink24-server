@@ -25,6 +25,7 @@ public class OrderTransactionDTO {
     private Boolean isCompleted;
     private String orderStatus;
     private Integer orderQuantity;
+    private String pickupType;
 
     private Integer ordersId;
     private String changeStatus;

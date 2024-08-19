@@ -21,11 +21,7 @@ public class InventoryServiceImpl implements InventoryService {
     public List<InventoryDTO> findAllByStoreId(int storeId) {
         List<Inventory> inventories = inventoryRepository.findAllByStoreId(storeId);
         return inventories.stream()
-                .map(this::convertToDTO)
+                .map(inventory -> modelMapper.map(inventory, InventoryDTO.class))
                 .collect(Collectors.toList());
-    }
-
-    public InventoryDTO convertToDTO(Inventory inventory) {
-        return modelMapper.map(inventory, InventoryDTO.class);
     }
 }

@@ -38,4 +38,6 @@ public interface BasketMapper {
     //장바구니에서 수량 증가나 감소시키면 DB에 basketQuantity가 업데이트 됨.
     public void updateBasketQuantity2(Integer productId, Integer basketId,Integer basketQuantity);
 
+    public Integer existsProductInInventory(Integer storeId, Integer productId);
+
 }

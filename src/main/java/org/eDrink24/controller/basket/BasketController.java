@@ -66,4 +66,10 @@ public class BasketController {
     public void updateBasketQuantity2(@RequestBody BasketItemDTO basketItemDTO) {
         basketService.updateBasketQuantity2(basketItemDTO.getProductId(),basketItemDTO.getBasketId(), basketItemDTO.getBasketQuantity());
     }
+
+    @GetMapping("/checkInventory/{storeId}/{productId}")
+    public boolean checkInventory(@PathVariable Integer storeId, @PathVariable Integer productId) {
+        return basketService.existsProductInInventory(storeId, productId);
+    }
+
 }

@@ -79,5 +79,11 @@
         and basketId=#{basketId}
     </update>
 
+    <select id="existsProductInInventory" parameterType="map" resultType="Integer">
+        SELECT COUNT(*)
+        FROM INVENTORY
+        WHERE storeId = #{storeId} AND productId = #{productId}
+    </select>
+
 </mapper>
 

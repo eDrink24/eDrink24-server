@@ -88,4 +88,9 @@ public class BasketServiceImpl implements BasketService {
         basketMapper.updateBasketQuantity2(productId, basketId, basketQuantity);
     }
 
+    @Override
+    public boolean existsProductInInventory(Integer storeId, Integer productId) {
+        return basketMapper.existsProductInInventory(storeId, productId) > 0;
+    }
+
 }

@@ -26,5 +26,6 @@ public class AdminDTO {
     private String changeStatus;
     private LocalDateTime changeDate;
     private Integer orderQuantity;
+    private String pickupType;
 
 }

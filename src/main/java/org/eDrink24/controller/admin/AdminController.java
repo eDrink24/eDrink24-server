@@ -29,6 +29,6 @@ public class AdminController {
 
     @GetMapping(value = {"/showPickupPage"})
     public List<AdminDTO> showPickupPage() {
-        return adminService.showPickupPage();
+        return adminService.showTodayPickupPage();
     }
 }

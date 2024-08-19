@@ -6,7 +6,7 @@
 <mapper namespace="org.eDrink24.config.OrderMapper">
 
     <!-- 장바구니에 담긴 상품 불러오기 -->
-    <select id="showAllBasket" parameterType="String" resultType="BasketDTO">
+    <select id="showOrderList" parameterType="Integer" resultType="OrderTransactionDTO">
       select
         BASKET.basketId,
         BASKET.userId,
@@ -22,55 +22,5 @@
                               where loginId=#{loginId}
                              )
     </select>
-
-    <!-- 결제하기(ORDERS 테이블에 저장) -->
-    <insert id="buyProduct" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="ordersId">
-        INSERT INTO ORDERS (storeId, userId, productId, orderDate, pickupDate, isCompleted, orderStatus, orderQuantity)
-        VALUES
-        <foreach collection="list" item="order" separator=",">
-            (#{order.storeId}, #{order.userId}, #{order.productId}, #{order.orderDate},
-            #{order.pickupDate}, #{order.isCompleted}, #{order.orderStatus}, #{order.orderQuantity})
-        </foreach>
-    </insert>
-
-    <!-- 결제내역 저장(ORDERSHISTORY 테이블에 저장) -->
-    <insert id="saveBuyHistory" parameterType="java.util.List">
-        INSERT INTO ORDERHISTORY (ordersId, changeStatus, changeDate)
-        VALUES
-        <foreach collection="list" item="orderHistory" separator=",">
-            (#{orderHistory.ordersId}, #{orderHistory.changeStatus}, #{orderHistory.changeDate})
-        </foreach>
-    </insert>
-
-    <!-- 사용자 ID에 해당하는 모든 basketItem 데이터 삭제 -->
-    <delete id="deleteBasketItems" parameterType="hashmap">
-        DELETE FROM basketItem
-        WHERE basketId IN
-        <foreach open="(" close=")" collection="basketIds" item="basketId" separator="," >
-            #{basketId}
-        </foreach>
-
-    </delete>
-
-    <!-- userId에 해당하는 basket 데이터 삭제 -->
-    <delete id="deleteBasket" parameterType="hashmap">
-        DELETE FROM basket
-        WHERE basketId IN
-        <foreach open="(" close=")" collection="basketIds" item="basketId" separator="," >
-            #{basketId}
-        </foreach>
-    </delete>
-
-    <!-- 장바구니 저장 -->
-    <insert id="saveNotPurchasedBasket" parameterType="BasketDTO">
-        INSERT INTO basket (basketId, userId)
-        VALUES (#{basketId}, #{userId})
-    </insert>
-
-    <!-- 장바구니 아이템 저장 -->
-    <insert id="saveNotPurchasedBasketItem" parameterType="BasketItemDTO">
-        INSERT INTO basketItem (itemId, basketId, productId, defaultImage, productName, price, basketQuantity)
-        VALUES (#{itemId}, #{basketId}, #{productId}, #{defaultImage}, #{productName}, #{price}, #{basketQuantity})
-    </insert>
 
 </mapper>

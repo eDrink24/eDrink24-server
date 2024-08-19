@@ -29,11 +29,7 @@ public class StoreServiceImpl implements StoreService {
     public List<StoreDTO> findAllStores() {
         List<Store> stores = storeRepository.findAll();
         return stores.stream()
-                .map(this::convertToDTO)
+                .map(store -> modelMapper.map(store, StoreDTO.class))
                 .collect(Collectors.toList());
-    }
-
-    private StoreDTO convertToDTO(Store store) {
-        return modelMapper.map(store, StoreDTO.class);
     }
 }

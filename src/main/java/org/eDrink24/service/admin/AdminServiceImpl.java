@@ -32,7 +32,7 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    public List<AdminDTO> showPickupPage() {
-        return adminMapper.showPickupPage();
+    public List<AdminDTO> showTodayPickupPage() {
+        return adminMapper.showTodayPickupPage();
     }
 }

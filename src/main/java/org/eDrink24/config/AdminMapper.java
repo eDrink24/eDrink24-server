@@ -22,6 +22,9 @@ public interface AdminMapper {
     // 발주내역 adminOrderHistory에 추가
     public void addAdminOrderHistory(InventoryDTO inventoryDTO);
 
+    // 발주시 픽업유형 변경
+    public void updatePickupType(InventoryDTO inventoryDTO);
+
     // 발주완료 목록 조회
     public List<InventoryDTO> showAdminOrderList(Integer storeId);
 
@@ -39,5 +42,8 @@ public interface AdminMapper {
 
     // 즉시픽업페이지에서 즉시픽업이 아직 이루어지지 않은 것만 보여줌. (isCompleted가 false)
     public List<AdminDTO> showTodayPickupPage();
+
+    public List<AdminDTO> showReservationPickupPage();
+
 
 }

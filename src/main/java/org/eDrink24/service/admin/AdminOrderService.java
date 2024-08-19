@@ -1,6 +1,7 @@
 package org.eDrink24.service.admin;
 
 import org.eDrink24.dto.Inventory.InventoryDTO;
+import org.eDrink24.dto.admin.AdminDTO;
 
 import java.util.List;
 
@@ -18,10 +19,15 @@ public interface AdminOrderService {
     // 발주내역 adminOrderHistory에 추가
     public void addAdminOrderHistory(InventoryDTO inventoryDTO);
 
+    // 발주시 픽업유형 변경
+    public void updatePickupType(InventoryDTO inventoryDTO);
+
     // 발주완료 목록 조회
     public List<InventoryDTO> showAdminOrderList(Integer storeId);
 
     public void updateOrInsertInventory(Integer productId,Integer storeId, InventoryDTO inventoryDTO);
+
+    public List<AdminDTO> showReservationPickupPage();
 
 
 }

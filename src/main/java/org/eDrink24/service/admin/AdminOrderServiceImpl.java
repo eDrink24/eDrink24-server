@@ -2,6 +2,7 @@ package org.eDrink24.service.admin;
 
 import org.eDrink24.config.AdminMapper;
 import org.eDrink24.dto.Inventory.InventoryDTO;
+import org.eDrink24.dto.admin.AdminDTO;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -41,6 +42,11 @@ public class AdminOrderServiceImpl implements AdminOrderService {
     }
 
     @Override
+    public void updatePickupType(InventoryDTO inventoryDTO) {
+        adminMapper.updatePickupType(inventoryDTO);
+    }
+
+    @Override
     public List<InventoryDTO> showAdminOrderList(Integer storeId) {
         return adminMapper.showAdminOrderList(storeId);
     }
@@ -58,7 +64,13 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         }
 
         adminMapper.addAdminOrderHistory(inventoryDTO);
+        adminMapper.updatePickupType(inventoryDTO);
 
+    }
+
+    @Override
+    public List<AdminDTO> showReservationPickupPage() {
+        return adminMapper.showReservationPickupPage();
     }
 
 }

@@ -8,5 +8,5 @@ import java.util.List;
 public interface AdminService {
     public void updateStateAfterCompletedPickup(Integer ordersId);
     public List<AdminDTO> showPickupCompletedPage();
-    public List<AdminDTO> showPickupPage();
+    public List<AdminDTO> showTodayPickupPage();
 }

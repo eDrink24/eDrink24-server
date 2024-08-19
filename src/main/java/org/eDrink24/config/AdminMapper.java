@@ -38,6 +38,6 @@ public interface AdminMapper {
     public List<AdminDTO> showPickupCompletedPage();
 
     // 즉시픽업페이지에서 즉시픽업이 아직 이루어지지 않은 것만 보여줌. (isCompleted가 false)
-    public List<AdminDTO> showPickupPage();
+    public List<AdminDTO> showTodayPickupPage();
 
 }

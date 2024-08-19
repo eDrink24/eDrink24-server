@@ -4,13 +4,15 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 @MapperScan("org.eDrink24.config")
+@EnableScheduling
 public class EDrink24ServerApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(EDrink24ServerApplication.class, args);
 	}
@@ -27,6 +29,4 @@ public class EDrink24ServerApplication {
 		};
 	}
 
-	// Test
-	// Test-giuk
 }

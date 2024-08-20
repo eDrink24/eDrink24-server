@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,13 +51,35 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Transactional
-    public void buyProductAndSaveHistory(List<OrderTransactionDTO> orderTransactionDTO) {
+    public void buyProductAndSaveHistory(List<OrderTransactionDTO> orderTransactionDTO, Integer userId, Integer couponId) {
         if (orderTransactionDTO != null && !orderTransactionDTO.isEmpty()) {
             // 주문 저장
             orderMapper.buyProduct(orderTransactionDTO);
 
             // 주문 내역 저장
             orderMapper.saveBuyHistory(orderTransactionDTO);
+
+            // 포인트 적립
+            HashMap<String , Integer> map = new HashMap<>();
+            map.put("userId", userId);
+            map.put("addedPoint", orderTransactionDTO.get(0).getTotalPoint());
+            orderMapper.addTotalPoint(map);
+
+            // 포인트 차감
+            HashMap<String , Integer> map1 = new HashMap<>();
+            map1.put("userId", userId);
+            map1.put("pointAmount", orderTransactionDTO.get(0).getPointAmount());
+            orderMapper.reduceTotalPoint(map1);
+
+            couponId = orderTransactionDTO.get(0).getCouponId();
+            System.out.println("FFFFFFFFFFFFFFFFFF"+couponId);
+            // 쿠폰이 사용된 경우에만 업데이트
+            if (couponId != null) {
+                HashMap<String, Integer> map2 = new HashMap<>();
+                map2.put("couponId", couponId);
+                map2.put("userId", userId);
+                orderMapper.deleteUsedCoupon(map2);
+            }
         }
     }
 
@@ -122,6 +145,20 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    @Override
+    public void addTotalPoint(HashMap<String , Integer> map) {
+        orderMapper.addTotalPoint(map);
+    }
+
+    @Override
+    public void reduceTotalPoint(HashMap<String, Integer> map1) {
+        orderMapper.reduceTotalPoint(map1);
+    }
+
+    @Override
+    public void deleteUsedCoupon(HashMap<String, Integer> map2) {
+        orderMapper.deleteUsedCoupon(map2);
+    }
 
 
 }

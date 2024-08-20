@@ -26,6 +26,10 @@ public class OrderTransactionDTO {
     private String orderStatus;
     private Integer orderQuantity;
     private String pickupType;
+    private Integer orderAmount;
+    private Integer pointAmount;
+    private Integer totalPoint;
+    private Integer couponId;
 
     private Integer ordersId;
     private String changeStatus;

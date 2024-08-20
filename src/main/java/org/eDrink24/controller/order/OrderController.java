@@ -21,10 +21,11 @@ public class OrderController {
     // 결제하기(ORDERS, ORDERHISTORY 테이블에 저장)
     @PostMapping("/showAllBasket/userId/{userId}/buyProductAndSaveHistory")
     public ResponseEntity<String> buyProductAndSaveHistory(@RequestBody List<OrderTransactionDTO> orderTransactionDTO,
-                                                           @PathVariable Integer userId) {
+                                                           @PathVariable Integer userId, Integer couponId) {
         System.out.print("111111111111111" + orderTransactionDTO);
         try {
-            orderService.buyProductAndSaveHistory(orderTransactionDTO);
+            orderService.buyProductAndSaveHistory(orderTransactionDTO, userId, couponId);
+            System.out.print("3333333333333" + orderTransactionDTO);
             //orderService.deleteBasketAndItem(orderTransactionDTO);
             return ResponseEntity.ok("Purchase successful");
         } catch (Exception e) {

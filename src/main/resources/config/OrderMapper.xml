@@ -25,11 +25,11 @@
 
     <!-- 결제하기(ORDERS 테이블에 저장) -->
     <insert id="buyProduct" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="ordersId">
-        INSERT INTO ORDERS (storeId, userId, productId, orderDate, pickupDate, isCompleted, orderStatus, orderQuantity, pickupType)
+        INSERT INTO ORDERS (storeId, userId, productId, orderDate, pickupDate, isCompleted, orderStatus, orderQuantity, pickupType, orderAmount)
         VALUES
         <foreach collection="list" item="order" separator=",">
             (#{order.storeId}, #{order.userId}, #{order.productId}, #{order.orderDate},
-            #{order.pickupDate}, #{order.isCompleted}, #{order.orderStatus}, #{order.orderQuantity}, #{order.pickupType})
+            #{order.pickupDate}, #{order.isCompleted}, #{order.orderStatus}, #{order.orderQuantity}, #{order.pickupType}, #{order.orderAmount})
         </foreach>
     </insert>
 
@@ -72,5 +72,28 @@
         INSERT INTO basketItem (itemId, basketId, productId, defaultImage, productName, price, basketQuantity)
         VALUES (#{itemId}, #{basketId}, #{productId}, #{defaultImage}, #{productName}, #{price}, #{basketQuantity})
     </insert>
+
+    <!-- 결제금액의 1%만큼 포인트 적립 -->
+    <update id="addTotalPoint" parameterType="hashmap">
+        UPDATE CUSTOMER c
+        JOIN ORDERS o ON c.userId = o.userId
+        SET c.totalPoint = c.totalPoint + #{addedPoint}
+        WHERE o.userId = #{userId};
+    </update>
+
+    <!-- 사용한 포인트 차감 -->
+    <update id="reduceTotalPoint" parameterType="hashmap">
+        UPDATE CUSTOMER c
+        JOIN ORDERS o ON c.userId = o.userId
+        SET c.totalPoint = c.totalPoint - #{pointAmount}
+        WHERE o.userId = #{userId};
+    </update>
+
+    <!-- 사용한 쿠폰 used값 1로 변경 -->
+    <update id="deleteUsedCoupon" parameterType="hashmap">
+        UPDATE coupon
+        SET `used` = 1, `useDate` = NOW()
+        WHERE couponId = #{couponId} and userId = #{userId}
+    </update>
 
 </mapper>

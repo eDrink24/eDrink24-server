@@ -16,6 +16,7 @@ import java.time.LocalDate;
 @ToString
 public class CouponDTO {
 
+    private Integer couponId;
     private Integer userId;
     private Integer discountAmount;
     private LocalDate issueDate;

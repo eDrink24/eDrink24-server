@@ -36,4 +36,9 @@ public class AdminOrderController {
         return adminOrderService.showReservationPickupPage();
     }
 
+    @GetMapping(value = {"/showAdminOrderList/{storeId}"})
+    public List<InventoryDTO> showAdminOrderList(@PathVariable Integer storeId) {
+        return adminOrderService.showAdminOrderList(storeId);
+    }
+
 }

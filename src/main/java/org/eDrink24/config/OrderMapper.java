@@ -39,5 +39,14 @@ public interface OrderMapper {
 
     public void saveNotPurchasedBasketItem(Integer basketId, BasketItemDTO items);
 
+    // 결제금액 1%만큼 customer테이블 totalPoint에 적립
+    public void addTotalPoint(HashMap<String , Integer> map);
+
+    // 사용한 포인트 차감
+    public void reduceTotalPoint(HashMap<String , Integer> map1);
+
+    // 사용된 쿠폰 처리
+    public void deleteUsedCoupon(HashMap<String , Integer> map2);
+
 
 }

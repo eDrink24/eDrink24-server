@@ -8,18 +8,15 @@
     <!-- 쿠폰 목록 조회 -->
     <select id="showAllCoupon" parameterType="Integer" resultType="CouponDTO">
       select
-        coupon.userId,
-        coupon.discountAmount,
-        coupon.issueDate,
-        coupon.endDate,
-        coupon.useDate,
-        coupon.used
+        couponId,
+        userId,
+        discountAmount,
+        issueDate,
+        endDate,
+        useDate,
+        used
       from coupon
-      JOIN CUSTOMER ON coupon.userId = CUSTOMER.userId
-        WHERE coupon.userId = ( select userId
-        from CUSTOMER
-        where loginId=#{loginId}
-        )
+      WHERE userId = #{userId}
     </select>
 
 

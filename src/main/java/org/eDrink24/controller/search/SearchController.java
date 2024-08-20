@@ -22,7 +22,6 @@ public class SearchController {
     public ResponseEntity<List<ProductDTO>> searchProduct(@PathVariable String keyword) {
         try {
             List<ProductDTO> products = searchService.searchProducts(keyword);
-            log.info(products.toString());
             if (products.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.eDrink24.config.ReviewMapper">
+
+    <select id="showProductReview" resultType="ReviewDTO" parameterType="Integer">
+        select o.userId, o.productId, r.ordersId, r.content, r.enrolledDate, r.modifiedDate, r.reviewImage, r.rating, r.sugarRating, r.acidityRating, r.throatRating
+        from reviews r join orders o on r.ordersId=o.ordersId
+        where o.productId=#{productId}
+    </select>
+
+    <!-- 주문내역에 changeStatus가 PICKUPED인지 확인 -->
+    <select id="isOrderPickuped" resultType="boolean" parameterType="Integer">
+        SELECT CASE WHEN COUNT(*) > 0 THEN TRUE ELSE FALSE END
+        FROM orderhistory
+        WHERE ordersId = #{ordersId}
+        AND changeStatus = 'PICKUPED'
+    </select>
+
+    <insert id="insertReview" parameterType="ReviewDTO">
+        <!-- 주문 상태가 PICKUPED 인지 확인 -->
+        <selectKey keyProperty="isPickuped" resultType="boolean" order="BEFORE"> <!-- order="BEFORE"는 insert문이 실행되기전에 이 쿼리를 실행한다는 의미 -->
+            SELECT CASE WHEN COUNT(*) > 0 THEN TRUE ELSE FALSE END
+            FROM orderhistory
+            WHERE ordersId = #{ordersId}
+            AND changeStatus = 'PICKUPED'
+        </selectKey>
+
+        <!-- 상태가 PICKUPED인 경우에만 리뷰 삽입 -->
+        <if test="isPickuped">
+            INSERT INTO reviews (ordersId, content, enrolledDate, reviewImage, rating, sugarRating, acidityRating, throatRating)
+            VALUES (#{ordersId}, #{content}, NOW(), #{reviewImage}, #{rating}, #{sugarRating}, #{acidityRating}, #{throatRating})
+        </if>
+    </insert>
+</mapper>
+

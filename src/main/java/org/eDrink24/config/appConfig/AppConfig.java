@@ -1,4 +1,4 @@
-package org.eDrink24.config;
+package org.eDrink24.config.appConfig;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

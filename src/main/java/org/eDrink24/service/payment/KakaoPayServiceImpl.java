@@ -42,8 +42,8 @@ public class KakaoPayServiceImpl implements  KakaoPayService {
         params.put("total_amount", "2200");
         params.put("tax_free_amount", "0");
         params.put("approval_url", client_url+"/order/approval");
-        params.put("cancel_url", client_url);
-        params.put("fail_url", client_url);
+        params.put("cancel_url", client_url+"/order/cancelOrFail");
+        params.put("fail_url", client_url+"/order/cancelOrFail");
 
         HttpEntity<Map<String, Object>> body = new HttpEntity<>(params, headers);
         ResponseEntity<Map<String, Object>> response = restTemplate.exchange(

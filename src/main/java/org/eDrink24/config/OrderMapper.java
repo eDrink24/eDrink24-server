@@ -48,5 +48,8 @@ public interface OrderMapper {
     // 사용된 쿠폰 처리
     public void deleteUsedCoupon(HashMap<String , Integer> map2);
 
+    // 주문내역 조회
+    public List<OrderTransactionDTO> showOrderHistory(Integer userId);
+
 
 }

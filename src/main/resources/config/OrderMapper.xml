@@ -100,14 +100,16 @@
     <select id="showOrderHistory" parameterType="Integer" resultType="orderTransactionDTO">
         SELECT
         o.orderDate,
+        o.ordersId,
+        o.productId,
         p.defaultImage,
         p.productName,
         o.orderQuantity,
         p.price
         FROM orders o
         JOIN product p ON o.productId = p.productId
-        WHERE userId = 6
-        GROUP BY o.orderDATE, p.defaultImage, p.productName,o.orderQuantity,p.price
+        WHERE userId = #{userId}
+        GROUP BY o.orderDATE, p.defaultImage, p.productName,o.orderQuantity,p.price,o.ordersId,o.productId
         ORDER BY o.orderDATE DESC;
     </select>
 

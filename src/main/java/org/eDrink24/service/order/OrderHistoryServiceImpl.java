@@ -8,6 +8,7 @@ import org.eDrink24.dto.order.OrderTransactionDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,5 +26,10 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
     @Override
     public List<OrderTransactionDTO> showOrderHistory(Integer userId) {
         return orderMapper.showOrderHistory(userId);
+    }
+
+    @Override
+    public List<OrderTransactionDTO> showOrderHistoryDetails(Integer userId, LocalDateTime orderDate) {
+        return orderMapper.showOrderHistoryDetails(userId, orderDate);
     }
 }

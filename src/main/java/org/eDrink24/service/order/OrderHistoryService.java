@@ -13,4 +13,7 @@ public interface OrderHistoryService {
     // 주문내역 조회
     public List<OrderTransactionDTO> showOrderHistory(Integer userId);
 
+    // 주문상세내역 조회
+    public List<OrderTransactionDTO> showOrderHistoryDetails(Integer userId, LocalDateTime orderDate);
+
 }

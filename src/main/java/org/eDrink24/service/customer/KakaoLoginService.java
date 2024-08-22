@@ -1,7 +1,6 @@
 package org.eDrink24.service.customer;
 
 import org.eDrink24.dto.customer.CustomerDTO;
-import org.eDrink24.dto.kakaoLogin.KakaoLoginResponseDTO;
 import org.eDrink24.dto.kakaoLogin.KakaoTokenDTO;
 import org.springframework.http.ResponseEntity;
 

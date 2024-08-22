@@ -47,4 +47,9 @@ public class ProductServiceImpl implements  ProductService {
         return productMapper.showDetailProduct(category1,category2,productId);
     }
 
+    @Override
+    public String findProductNameByProductId(int productId) {
+        return productMapper.findProductNameByProductId(productId);
+    }
+
 }

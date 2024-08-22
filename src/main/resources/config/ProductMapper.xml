@@ -7,7 +7,7 @@
 
 
 	<!-- 상품 정렬 -->
-<select id="productFilter" parameterType="map" resultType="ProductDTO">
+	<select id="productFilter" parameterType="map" resultType="ProductDTO">
 		SELECT * FROM Product
 		ORDER BY
 		<choose>
@@ -52,4 +52,7 @@
 		where p.category1=#{category1} and p.category2=#{category2} and p.productId=#{productId}
 	</select>
 
+	<select id="findProductNameByProductId" resultType="String" parameterType="int">
+		select productName from product where productId = #{productId}
+	</select>
 </mapper>

@@ -105,12 +105,35 @@
         p.defaultImage,
         p.productName,
         o.orderQuantity,
+        o.pickupType,
         p.price
         FROM orders o
         JOIN product p ON o.productId = p.productId
         WHERE userId = #{userId}
-        GROUP BY o.orderDATE, p.defaultImage, p.productName,o.orderQuantity,p.price,o.ordersId,o.productId
+        GROUP BY o.orderDATE, p.defaultImage, p.productName,o.orderQuantity,p.price,o.ordersId,o.productId,o.pickupType
         ORDER BY o.orderDATE DESC;
+    </select>
+
+    <!-- 주문상세내역 조회 -->
+    <select id="showOrderHistoryDetails" parameterType="map" resultType="orderTransactionDTO">
+        SELECT
+        o.orderDate,
+        o.ordersId,
+        o.productId,
+        p.defaultImage,
+        p.productName,
+        o.orderQuantity,
+        o.pickupType,
+        s.storeName,
+        o.isCompleted,
+        oh.changeDate,
+        o.orderAmount,
+        p.price
+        FROM orders o
+        JOIN product p ON o.productId = p.productId
+        JOIN orderHistory oh ON o.ordersId = oh.ordersId
+        JOIN store s ON o.storeId = s.storeId
+        WHERE o.userId = #{userId} AND  o.orderDate = #{orderDate}
     </select>
 
 </mapper>

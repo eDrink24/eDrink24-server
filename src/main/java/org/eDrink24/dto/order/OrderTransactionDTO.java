@@ -30,6 +30,7 @@ public class OrderTransactionDTO {
     private Integer pointAmount;
     private Integer totalPoint;
     private Integer couponId;
+    private String storeName;
 
     private Integer ordersId;
     private String changeStatus;

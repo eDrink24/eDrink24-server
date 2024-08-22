@@ -23,4 +23,5 @@ public interface ProductService {
     // 제품 사진 누르면 해당 제품 상세 설명 보여줌.
     public DetailProductDTO showDetailProduct(String category1,String category2,Integer productId);
 
+    public String findProductNameByProductId(int productId);
 }

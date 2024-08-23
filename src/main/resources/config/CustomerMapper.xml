@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.eDrink24.config.CustomerMapper">
+
+    <insert id="saveCustomer" parameterType="CustomerDTO">
+        insert into customer ( loginId, pw, userName, birthdate, gender,
+            phoneNum, email, postalCode, address1, address2, linkedId)
+        values (#{loginId}, #{pw}, #{userName}, #{birthdate}, #{gender},
+            #{phoneNum}, #{email}, #{postalCode}, #{address1}, #{address2}, #{linkedId})
+    </insert>
+
+    <select id="selectCustomerMyPage" resultType="CustomerDTO" parameterType="string">
+        select *
+        from customer
+        where loginId=#{loginId}
+    </select>
+    
+    <update id="updateCustomerToMyPage" parameterType="CustomerDTO">
+        update customer
+        set pw=#{pw}, phoneNum=#{phoneNum}, email=#{email}, postalCode=#{postalCode}, address1=#{address1}, address2=#{address2}
+        where loginId=#{loginId}
+    </update>
+
+    <select id="customerIdCheck" resultType="CustomerDTO" parameterType="string">
+        select userName, loginId, gender, birthdate, phoneNum, email, postalCode, address1, address2, currentLocation, currentStoreId, totalPoint, role
+        from customer
+        where loginId=#{loginId}
+    </select>
+    
+</mapper>

@@ -1,9 +1,8 @@
 package org.eDrink24.domain.product;
 
 import lombok.*;
-
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @AllArgsConstructor
@@ -12,51 +11,40 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-@Table(name = "PRODUCT")
+@Table(name = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "productId")
+    @Column(name = "productId")  // Database column name
     private Integer productId;
 
-    @Column(name = "productImageId", nullable = true)
-    private Integer productImageId;
-
-    @Column (name = "productName", nullable = false, length = 30)
+    @Column(name = "productName", nullable = false)  // Database column name
     private String productName;
 
-    @Column(name = "category1", nullable = false, length = 20)
+    @Column(name = "category1", nullable = false)  // Database column name
     private String category1;
 
-    @Column(name = "category2", length = 20)
+    @Column(name = "category2", nullable = false)  // Database column name
     private String category2;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "promotionId")  // Database column name
+    private Integer promotionId;
+
+    @Column(name = "price", nullable = false)  // Database column name
     private Integer price;
 
-    @Column(name = "releaseDate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date releaseDate;
+    @Column(name = "defaultImage")  // Database column name
+    private String defaultImage;
 
-    @Column(name = "rating", nullable = false)
-    private Integer rating;
-
-    @Column(name = "countReview", nullable = false)
-    private Integer countReview;
-
-    @Column(name = "countDibs", nullable = false)
+    @Column(name = "countDibs")  // Database column name
     private Integer countDibs;
 
-    @Column(name = "image", length = 100)
-    private String image;
-
-    @Column(name = "isPromotion")
-    private Boolean isPromotion;
-
-    @Column(name = "isCoupon")
+    @Column(name = "isCoupon")  // Database column name
     private Boolean isCoupon;
 
-    @Column(name = "isPoint")
+    @Column(name = "isPoint")  // Database column name
     private Boolean isPoint;
 
+    @Column(name = "enrollDate")  // Database column name
+    private LocalDate enrollDate;
 }

@@ -1,9 +1,13 @@
 package org.eDrink24.dto.product;
 
+import org.apache.ibatis.type.Alias;
 import lombok.*;
+import org.apache.ibatis.type.Alias;
+import java.time.LocalDate;
 
-import java.util.Date;
 
+@Alias("ProductDTO")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -11,18 +15,17 @@ import java.util.Date;
 @Setter
 @ToString
 public class ProductDTO {
+
     private Integer productId;
-    private Integer productImageId;
     private String productName;
     private String category1;
     private String category2;
+    private Integer promotionId;
     private Integer price;
-    private Date releaseDate;
-    private Integer rating;
-    private Integer countReview;
-    private Integer countDibs;
-    private String image;
-    private Boolean isPromotion;
+    private String defaultImage;
+    private String countDibs;
     private Boolean isCoupon;
     private Boolean isPoint;
+    private LocalDate enrollDate;
+
 }

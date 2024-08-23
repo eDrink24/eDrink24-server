@@ -32,3 +32,14 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Deploy to EC2
+        run: |
+          echo "${{ secrets.EC2_SSH_KEY }}" > /tmp/ec2_key.pem
+          chmod 600 /tmp/ec2_key.pem
+          ssh -o StrictHostKeyChecking=no -i /tmp/ec2_key.pem ec2-user@15.152.212.79 << 'EOF'
+          docker pull young5097/edrink24-server:latest
+          docker stop $(docker ps -q --filter ancestor=young5097/edrink24-server:latest)
+          docker rm $(docker ps -a -q --filter ancestor=young5097/edrink24-server:latest)
+          docker run -d -p 8090:8090 young5097/edrink24-server:latest
+          EOF

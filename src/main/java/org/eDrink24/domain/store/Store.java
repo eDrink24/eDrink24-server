@@ -11,8 +11,10 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
+@Table(name = "store")
 public class Store {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "storeId" , nullable = false)
     private Integer storeId;
     @Column(name = "storeName", nullable = false)

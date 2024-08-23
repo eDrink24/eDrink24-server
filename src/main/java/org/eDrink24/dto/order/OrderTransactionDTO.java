@@ -43,8 +43,18 @@ public class OrderTransactionDTO {
     private Integer price;
     private Integer basketQuantity;
 
+    private Integer reviewsId;
+    private String content;
+    private LocalDateTime enrolledDate;
+    private LocalDateTime modifiedDate;
+    private String reviewImage;
+    private Integer rating;
+    private Integer sugarRating;
+    private Integer acidityRating;
+    private Integer throatRating;
+
     OrderTransactionDTO (Integer storeId, Integer userId, Integer productId, LocalDateTime orderDate,
-              Boolean isCompleted, String orderStatus, Integer orderQuantity) {
+                         Boolean isCompleted, String orderStatus, Integer orderQuantity) {
 
         this.storeId = storeId;
         this.userId = userId;

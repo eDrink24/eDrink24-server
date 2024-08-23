@@ -18,5 +18,11 @@ public interface ReviewMapper {
     public Boolean isOrderPickuped(Integer orderId);
 
     // 주문상태가 PICKUPED이면 리뷰 저장
-    public int insertReview(ReviewDTO reviewDTO);
+    public Integer insertReview(ReviewDTO reviewDTO);
+
+    // 내가 작성한 리뷰 확인하기
+    public List<ReviewDTO> checkMyReview(Integer userId, Integer reviewsId);
+
+    // 내가 작성한 리뷰 수정하기
+    public Integer fixReviewContent(ReviewDTO reviewDTO);
 }

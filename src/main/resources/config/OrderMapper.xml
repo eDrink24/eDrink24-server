@@ -99,19 +99,26 @@
     <!-- 주문내역 조회 -->
     <select id="showOrderHistory" parameterType="Integer" resultType="orderTransactionDTO">
         SELECT
-        o.orderDate,
-        o.ordersId,
-        o.productId,
-        p.defaultImage,
-        p.productName,
-        o.orderQuantity,
-        o.pickupType,
-        p.price
-        FROM orders o
-        JOIN product p ON o.productId = p.productId
+        orders.ordersId,
+        orders.productId,
+        orders.orderDate,
+        orders.orderType,
+        product.defaultImage,
+        product.productName,
+        orders.orderQuantity,
+        product.price,
+        reviews.reviewsId,
+        reviews.rating,
+        reviews.sugarRating,
+        reviews.acidityRating,
+        reviews.throatRating,
+        reviews.modifiedDate
+        from orders
+        left join product on orders.productId=product.productId
+        left join reviews on orders.ordersId = reviews.ordersId
         WHERE userId = #{userId}
-        GROUP BY o.orderDATE, p.defaultImage, p.productName,o.orderQuantity,p.price,o.ordersId,o.productId,o.pickupType
-        ORDER BY o.orderDATE DESC;
+        GROUP BY orders.ordersId, orders.productId, orders.orderDATE, orders.orderType, product.defaultImage, product.productName,orders.orderQuantity,product.price, reviews.reviewsId
+        ORDER BY orders.orderDATE DESC
     </select>
 
     <!-- 주문상세내역 조회 -->

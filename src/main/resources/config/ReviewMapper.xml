@@ -5,10 +5,33 @@
 
 <mapper namespace="org.eDrink24.config.ReviewMapper">
 
+    <!-- 제품에 대한 리뷰 확인 -->
     <select id="showProductReview" resultType="ReviewDTO" parameterType="Integer">
-        select o.userId, o.productId, r.ordersId, r.content, r.enrolledDate, r.modifiedDate, r.reviewImage, r.rating, r.sugarRating, r.acidityRating, r.throatRating
-        from reviews r join orders o on r.ordersId=o.ordersId
+        select c.userName, r.reviewsId, r.content, r.enrolledDate, r.modifiedDate, r.rating, r.sugarRating, r.acidityRating, r.throatRating
+        from orders o
+        join customer c on o.userId = c.userId
+        join reviews r on o.ordersId=r.ordersId
         where o.productId=#{productId}
+    </select>
+
+    <!-- 내가 작성한 리뷰 확인하기 -->
+    <select id="checkMyReview" resultType="ReviewDTO" parameterType="map">
+        SELECT
+        orders.userId,
+        product.defaultImage,
+        product.productName,
+        reviews.reviewsId,
+        reviews.content,
+        reviews.enrolledDate,
+        reviews.rating,
+        reviews.sugarRating,
+        reviews.acidityRating,
+        reviews.throatRating,
+        reviews.modifiedDate
+        from orders
+        left join product on orders.productId=product.productId
+        left join reviews on orders.ordersId = reviews.ordersId
+        WHERE orders.userId = #{userId} and reviews.reviewsId=#{reviewsId}
     </select>
 
     <!-- 주문내역에 changeStatus가 PICKUPED인지 확인 -->
@@ -34,5 +57,19 @@
             VALUES (#{ordersId}, #{content}, NOW(), #{reviewImage}, #{rating}, #{sugarRating}, #{acidityRating}, #{throatRating})
         </if>
     </insert>
+
+    <update id="fixReviewContent" parameterType="ReviewDTO">
+        update reviews
+        set rating=#{rating},
+            sugarRating=#{sugarRating},
+            acidityRating=#{acidityRating},
+            throatRating=#{throatRating},
+            content=#{content},
+            modifiedDate=NOW()
+        where reviewsId=#{reviewsId}
+    </update>
+
+
+
 </mapper>
 

@@ -17,13 +17,17 @@ import java.time.LocalDateTime;
 public class ReviewDTO {
 
     private Integer userId;
+    private String userName;
+    private Integer reviewsId;
     private Integer ordersId;
     private Integer productId;
+    private String defaultImage;
+    private String productName;
     private String content;
     private LocalDateTime enrolledDate;
     private LocalDateTime modifiedDate;
     private String reviewImage;
-    private Integer rating;
+    private Double rating;
     private Integer sugarRating;
     private Integer acidityRating;
     private Integer throatRating;

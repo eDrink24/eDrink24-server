@@ -3,6 +3,8 @@ package org.eDrink24.dto.product;
 import org.apache.ibatis.type.Alias;
 import lombok.*;
 import org.apache.ibatis.type.Alias;
+import org.eDrink24.dto.review.ReviewDTO;
+
 import java.time.LocalDate;
 
 
@@ -27,5 +29,7 @@ public class ProductDTO {
     private Boolean isCoupon;
     private Boolean isPoint;
     private LocalDate enrollDate;
+    private Double rating;
+
 
 }

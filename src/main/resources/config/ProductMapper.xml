@@ -34,16 +34,56 @@
 
   
     <select id="showProductByCategory1" resultType="ProductDTO" parameterType="string">
-        select productId, productName, category1, category2, price, defaultImage, countDibs, enrollDate
-        from product
-        where category1=#{category1}
+		select
+		product.productId,
+		product.defaultImage,
+		product.productName,
+		product.category1,
+		product.category2,
+		product.price,
+		product.countDibs,
+		product.enrollDate,
+		round(avg(reviews.rating),1) as rating
+		from orders
+		right join product on orders.productId=product.productId
+		left join reviews on orders.ordersId = reviews.ordersId
+		where category1=#{category1}
+		group by product.productId,
+		product.defaultImage,
+		product.productName,
+		product.category1,
+		product.category2,
+		product.price,
+		product.countDibs,
+		product.enrollDate
+		order by product.productId asc
     </select>
 
   
     <select id="showProductByCategory2" resultType="ProductDTO" parameterType="string">
-        select productId, productName, category1, category2, price, defaultImage, countDibs, enrollDate
-        from product
-        where category2=#{category2}
+		select
+		product.productId,
+		product.defaultImage,
+		product.productName,
+		product.category1,
+		product.category2,
+		product.price,
+		product.countDibs,
+		product.enrollDate,
+		round(avg(reviews.rating),1) as rating
+		from orders
+		right join product on orders.productId=product.productId
+		left join reviews on orders.ordersId = reviews.ordersId
+		where category2=#{category2}
+		group by product.productId,
+		product.defaultImage,
+		product.productName,
+		product.category1,
+		product.category2,
+		product.price,
+		product.countDibs,
+		product.enrollDate
+		order by product.productId asc
     </select>
 
 	<select id="showDetailProduct" resultType="DetailProductDTO" parameterType="map">
@@ -55,4 +95,5 @@
 	<select id="findProductNameByProductId" resultType="String" parameterType="int">
 		select productName from product where productId = #{productId}
 	</select>
+
 </mapper>

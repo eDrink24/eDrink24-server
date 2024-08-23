@@ -8,7 +8,7 @@
 
 	<!-- 상품 정렬 -->
 	<select id="productFilter" parameterType="map" resultType="ProductDTO">
-		SELECT * FROM Product
+		SELECT * FROM product
 		ORDER BY
 		<choose>
 			<!-- test 속성 뒤의 조건식이 참일때 <when>블록 실행 -->

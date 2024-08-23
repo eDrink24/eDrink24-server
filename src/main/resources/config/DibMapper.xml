@@ -17,10 +17,10 @@
         dibs.userId,
         dibs.productId
       from dibs
-      JOIN Product ON dibs.productId = Product.productId
-      JOIN CUSTOMER ON dibs.userId = CUSTOMER.userId
+      JOIN product ON dibs.productId = product.productId
+      JOIN customer ON dibs.userId = customer.userId
         WHERE dibs.userId = ( select userId
-        from CUSTOMER
+        from customer
         where loginId=#{loginId}
         )
     </select>

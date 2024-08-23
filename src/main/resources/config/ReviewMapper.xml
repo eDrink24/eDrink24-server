@@ -37,7 +37,7 @@
     <!-- 주문내역에 changeStatus가 PICKUPED인지 확인 -->
     <select id="isOrderPickuped" resultType="boolean" parameterType="Integer">
         SELECT CASE WHEN COUNT(*) > 0 THEN TRUE ELSE FALSE END
-        FROM orderhistory
+        FROM orderHistory
         WHERE ordersId = #{ordersId}
         AND changeStatus = 'PICKUPED'
     </select>
@@ -46,7 +46,7 @@
         <!-- 주문 상태가 PICKUPED 인지 확인 -->
         <selectKey keyProperty="isPickuped" resultType="boolean" order="BEFORE"> <!-- order="BEFORE"는 insert문이 실행되기전에 이 쿼리를 실행한다는 의미 -->
             SELECT CASE WHEN COUNT(*) > 0 THEN TRUE ELSE FALSE END
-            FROM orderhistory
+            FROM orderHistory
             WHERE ordersId = #{ordersId}
             AND changeStatus = 'PICKUPED'
         </selectKey>

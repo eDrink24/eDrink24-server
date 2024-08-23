@@ -8,16 +8,16 @@
     <!-- 장바구니에 담긴 상품 불러오기 -->
     <select id="showAllBasket" parameterType="String" resultType="BasketDTO">
         select
-        BASKET.basketId,
-        BASKET.userId,
-        Product.defaultImage,
-        Product.productName,
-        Product.price,
-        BASKET.productId,
-        BASKET.basketQuantity
-        from BASKET
-        JOIN Product ON BASKET.productId = Product.productId
-        WHERE BASKET.userId = ( select userId
+        basket.basketId,
+        basket.userId,
+        product.defaultImage,
+        product.productName,
+        product.price,
+        basket.productId,
+        basket.basketQuantity
+        from basket
+        JOIN product ON BASKET.productId = product.productId
+        WHERE basket.userId = ( select userId
         from customer
         where loginId=#{loginId}
         )
@@ -25,7 +25,7 @@
 
     <!-- 결제하기(ORDERS 테이블에 저장) -->
     <insert id="buyProduct" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="ordersId">
-        INSERT INTO ORDERS (storeId, userId, productId, orderDate, pickupDate, isCompleted, orderStatus, orderQuantity, pickupType, orderAmount)
+        insert into orders (storeId, userId, productId, orderDate, pickupDate, isCompleted, orderStatus, orderQuantity, pickupType, orderAmount)
         VALUES
         <foreach collection="list" item="order" separator=",">
             (#{order.storeId}, #{order.userId}, #{order.productId}, #{order.orderDate},
@@ -35,7 +35,7 @@
 
     <!-- 결제내역 저장(ORDERSHISTORY 테이블에 저장) -->
     <insert id="saveBuyHistory" parameterType="java.util.List">
-        INSERT INTO ORDERHISTORY (ordersId, changeStatus, changeDate)
+        INSERT INTO orderHistory (ordersId, changeStatus, changeDate)
         VALUES
         <foreach collection="list" item="orderHistory" separator=",">
             (#{orderHistory.ordersId}, #{orderHistory.changeStatus}, #{orderHistory.changeDate})
@@ -75,16 +75,16 @@
 
     <!-- 결제금액의 1%만큼 포인트 적립 -->
     <update id="addTotalPoint" parameterType="hashmap">
-        UPDATE CUSTOMER c
-        JOIN ORDERS o ON c.userId = o.userId
+        UPDATE customer c
+        JOIN orders o ON c.userId = o.userId
         SET c.totalPoint = c.totalPoint + #{addedPoint}
         WHERE o.userId = #{userId};
     </update>
 
     <!-- 사용한 포인트 차감 -->
     <update id="reduceTotalPoint" parameterType="hashmap">
-        UPDATE CUSTOMER c
-        JOIN ORDERS o ON c.userId = o.userId
+        UPDATE customer c
+        JOIN orders o ON c.userId = o.userId
         SET c.totalPoint = c.totalPoint - #{pointAmount}
         WHERE o.userId = #{userId};
     </update>

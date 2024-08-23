@@ -57,6 +57,7 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public String findByUserNameAndEmail(String userName, String email) {
         Customer customer = customerRepository.findByUserNameAndEmail(userName, email);
+        System.out.println(customer);
         String loginId = customer.getLoginId();
         return loginId;
     }

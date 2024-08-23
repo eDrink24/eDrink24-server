@@ -33,6 +33,7 @@ public class StoreCacheService {
     @Scheduled(cron = "0 0 0 * * ?")
     public void cacheStore() {
         List<Store> stores = storeRepository.findAll();
+        System.out.println("Stores: " + stores);
         List<StoreDTO> storesDTO = stores.stream()
                 .map(store -> modelMapper.map(store, StoreDTO.class))
                 .collect(Collectors.toList());

@@ -37,15 +37,11 @@ jobs:
           echo "${{ secrets.DOCKER_PASSWORD }}" | sudo docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
           sudo docker pull young5097/edrink24-server:latest
           
-          CONTAINER_ID=$(sudo docker ps -q --filter "ancestor=young5097/edrink24-server:latest" --filter "publish=8090")
-          if [ ! -z "$CONTAINER_ID" ]; then
-            sudo docker stop $CONTAINER_ID
-            sudo docker rm $CONTAINER_ID
-          else
-            echo "No container is using port 8090"
-          fi
+          # Stop and remove all containers
+          sudo docker stop $(sudo docker ps -a -q) || true
+          sudo docker rm $(sudo docker ps -a -q) || true
           
-
+          # Run the new container
           sudo docker run -d -p 8090:8090 young5097/edrink24-server:latest
           EOF
 

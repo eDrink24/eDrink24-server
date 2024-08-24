@@ -36,8 +36,13 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i /tmp/ec2_key.pem ec2-user@15.152.201.149 << 'EOF'
           echo "${{ secrets.DOCKER_PASSWORD }}" | sudo docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
           sudo docker pull young5097/edrink24-server:latest
-          sudo docker stop $(sudo docker ps -q --filter ancestor=young5097/edrink24-server:latest) || true
-          sudo docker rm $(sudo docker ps -a -q --filter ancestor=young5097/edrink24-server:latest) || true
+          
+          RUNNING_CONTAINER_ID=$(sudo docker ps -q --filter ancestor=young5097/edrink24-server:latest)
+          if [ ! -z "$RUNNING_CONTAINER_ID" ]; then
+            sudo docker stop $RUNNING_CONTAINER_ID
+            sudo docker rm $RUNNING_CONTAINER_ID
+          fi
+
           sudo docker run -d -p 8090:8090 young5097/edrink24-server:latest
           EOF
 

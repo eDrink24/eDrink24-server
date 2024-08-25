@@ -25,7 +25,7 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
         public CustomerDTO saveCustomer(CustomerDTO customer) {
-        log.info("실행 여부 확인");
+        log.info("실행 여부 확인 : " + customer.toString() );
         int n = customerMapper.saveCustomer(customer);
         return customer;
     }

@@ -24,7 +24,12 @@ public class DibServiceImpl implements DibService {
     }
 
     @Override
-    public List<DibDTO> showAllDibs(String loginId) {
-        return dibMapper.showAllDibs(loginId);
+    public void cancelDIb(Integer userId, Integer productId) {
+        dibMapper.cancelDIb(userId, productId);
+    }
+
+    @Override
+    public List<DibDTO> showAllDibs(Integer userId) {
+        return dibMapper.showAllDibs(userId);
     }
 }

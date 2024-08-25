@@ -11,18 +11,27 @@
       VALUES ( #{userId}, #{productId} )
     </insert>
 
+    <!-- 상품 찜 취소(dibs 테이블에서 삭제) -->
+    <delete id="cancelDIb" parameterType="map">
+        DELETE FROM dibs
+        WHERE userId = #{userId} AND productId = #{productId}
+    </delete>
+
     <!-- 찜 목록 조회 -->
-    <select id="showAllDibs" parameterType="String" resultType="DibDTO">
-      select DISTINCT
-        dibs.userId,
-        dibs.productId
-      from dibs
-      JOIN Product ON dibs.productId = Product.productId
-      JOIN CUSTOMER ON dibs.userId = CUSTOMER.userId
-        WHERE dibs.userId = ( select userId
-        from CUSTOMER
-        where loginId=#{loginId}
-        )
+    <select id="showAllDibs" parameterType="Integer" resultType="DibDTO">
+      SELECT
+        d.userId,
+        d.productId,
+        p.productName,
+        p.category1,
+        p.category2,
+        p.price,
+        p.defaultImage,
+        p.countDibs,
+        p.enrollDate
+      FROM dibs d
+      JOIN product p ON d.productId = p.productId
+      WHERE d.userId = #{userId}
     </select>
 
 

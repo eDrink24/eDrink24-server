@@ -7,4 +7,5 @@ import java.util.List;
 public interface StoreService {
     public StoreDTO findByStoreId(int storeId);
     public List<StoreDTO> findAllStores();
+    public StoreDTO checkBrNum(Integer storeId, Long brNum);
 }

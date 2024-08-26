@@ -18,15 +18,20 @@ public class DibDTO {
 
     private Integer userId;
     private Integer productId;
+    private String productName;
+    private String category1;
+    private String category2;
+    private Integer promotionId;
+    private Integer price;
+    private String defaultImage;
+    private String countDibs;
+    private Boolean isCoupon;
+    private Boolean isPoint;
+    private LocalDate enrollDate;
+
 
     /*
-    CREATE TABLE `dibs` (
-    `DibsId` INT NOT NULL AUTO_INCREMENT,
-    `userId` INT NOT NULL,
-    `productId` INT NOT NULL,
-    PRIMARY KEY (`DibsId`),
-    FOREIGN KEY (`userId`) REFERENCES `CUSTOMER`(`userId`),
-    FOREIGN KEY (`productId`) REFERENCES `Product`(`productId`)
+    productId, productName, category1, category2, price, defaultImage, countDibs, enrollDate
 );
      */
 

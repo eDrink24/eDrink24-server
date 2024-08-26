@@ -7,6 +7,7 @@ import org.eDrink24.service.customer.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -50,5 +51,16 @@ public class CustomerController {
             return ResponseEntity.status(409).body("이 아이디는 사용불가합니다.");
         }
         return ResponseEntity.ok("이 아이디는 사용가능합니다.");
+    }
+
+    // 사업자등록번호 일치 시 brNum저장, role "점주"로 업데이트
+    @PostMapping(value = "/api/updateToManager")
+    public ResponseEntity<String> updateToManager(@RequestBody CustomerDTO customerDTO) {
+        try {
+        customerService.updateToManager(customerDTO);
+        return new ResponseEntity<>("점주로 계정전환 성공", HttpStatus.CREATED);
+        }catch (Exception e) {
+        return new ResponseEntity<>("점주로 계정전환 실패: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

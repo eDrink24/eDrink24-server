@@ -4,19 +4,26 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.eDrink24.config.CustomerMapper">
 
-    <insert id="saveCustomer" parameterType="CustomerDTO">
+    <insert id="saveCustomer" parameterType="CustomerDTO" useGeneratedKeys="true" keyProperty="userId">
         insert into customer ( loginId, pw, userName, birthdate, gender,
-            phoneNum, email, postalCode, address1, address2, linkedId)
+        phoneNum, email, postalCode, address1, address2, currentLocation, currentStoreId, linkedId)
         values (#{loginId}, #{pw}, #{userName}, #{birthdate}, #{gender},
-            #{phoneNum}, #{email}, #{postalCode}, #{address1}, #{address2}, #{linkedId})
+        #{phoneNum}, #{email}, #{postalCode}, #{address1}, #{address2},
+        #{currentLocation}, #{currentStoreId}, #{linkedId})
     </insert>
+
+    <insert id="addSignupCoupon" parameterType="Integer">
+        INSERT INTO coupon (userId, discountAmount, issueDate, endDate)
+        VALUES (#{userId}, 3000, NOW(), DATE_ADD(NOW(), INTERVAL 30 DAY))
+    </insert>
+
 
     <select id="selectCustomerMyPage" resultType="CustomerDTO" parameterType="string">
         select *
         from customer
         where loginId=#{loginId}
     </select>
-    
+
     <update id="updateCustomerToMyPage" parameterType="CustomerDTO">
         update customer
         set pw=#{pw}, phoneNum=#{phoneNum}, email=#{email}, postalCode=#{postalCode}, address1=#{address1}, address2=#{address2}
@@ -28,5 +35,5 @@
         from customer
         where loginId=#{loginId}
     </select>
-    
+
 </mapper>

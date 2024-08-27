@@ -1,7 +1,6 @@
 package org.eDrink24.config;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.eDrink24.dto.basket.BasketDTO;
 
 import org.eDrink24.dto.basket.BasketItemDTO;
@@ -10,8 +9,6 @@ import org.eDrink24.dto.order.OrderTransactionDTO;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 
 @Mapper
 public interface OrderMapper {
@@ -54,6 +51,9 @@ public interface OrderMapper {
 
     // 주문상세내역 조회
     public List<OrderTransactionDTO> showOrderHistoryDetails(Integer userId, LocalDateTime orderDate);
+
+    // 포인트 상세 테이블에 저장
+    public void savePointDetails(List<OrderTransactionDTO> orderTransactionDTO);
 
 
 }

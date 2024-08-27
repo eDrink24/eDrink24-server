@@ -1,10 +1,8 @@
 package org.eDrink24.service.point;
 
-import org.eDrink24.config.CouponMapper;
 import org.eDrink24.config.PointMapper;
-import org.eDrink24.dto.coupon.CouponDTO;
-import org.eDrink24.dto.order.OrderTransactionDTO;
-import org.eDrink24.service.coupon.CouponService;
+import org.eDrink24.dto.point.PointDTO;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,4 +20,10 @@ public class PointServiceImpl implements PointService {
     public Integer showTotalPoint(Integer userId) {
         return pointMapper.showTotalPoint(userId);
     }
+
+    @Override
+    public List<PointDTO> showPoint(Integer userId) {
+       return pointMapper.showPoint(userId);
+    }
+
 }

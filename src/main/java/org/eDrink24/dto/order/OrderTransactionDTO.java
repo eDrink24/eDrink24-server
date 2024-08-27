@@ -53,6 +53,11 @@ public class OrderTransactionDTO {
     private Integer acidityRating;
     private Integer throatRating;
 
+    private Integer pointDetailsId;
+    private LocalDateTime saveDate;
+    private Integer point;
+
+
     OrderTransactionDTO (Integer storeId, Integer userId, Integer productId, LocalDateTime orderDate,
                          Boolean isCompleted, String orderStatus, Integer orderQuantity) {
 

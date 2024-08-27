@@ -42,6 +42,15 @@
         </foreach>
     </insert>
 
+    <!-- pointdetails테이블에 저장 -->
+    <insert id="savePointDetails" parameterType="java.util.List">
+        INSERT INTO pointdetails (ordersId, saveDate, point)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.ordersId}, #{item.saveDate}, #{item.point})
+        </foreach>
+    </insert>
+
     <!-- 사용자 ID에 해당하는 모든 basketItem 데이터 삭제 -->
     <delete id="deleteBasketItems" parameterType="hashmap">
         DELETE FROM basketItem

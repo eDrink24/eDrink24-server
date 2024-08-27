@@ -17,7 +17,6 @@
         VALUES (#{userId}, 3000, NOW(), DATE_ADD(NOW(), INTERVAL 30 DAY))
     </insert>
 
-
     <select id="selectCustomerMyPage" resultType="CustomerDTO" parameterType="string">
         select *
         from customer
@@ -36,6 +35,11 @@
         where loginId=#{loginId}
     </select>
 
+    <select id="findUserNameByUserId" resultType="string" parameterType="int">
+        select userName from customer where userId=#{userId}
+    </select>
+
+
     <update id="saveBrNum" parameterType="CustomerDTO">
         UPDATE customer
         SET brNum = #{brNum}
@@ -47,5 +51,14 @@
         set role="점주"
         where brNum=#{brNum}
     </update>
-    
+
+
+    <select id="findMyStore" parameterType="Long" resultType="int">
+        SELECT store.storeId
+        FROM customer
+        JOIN store ON customer.brNum = store.brNum
+        WHERE customer.role = "점주"
+    </select>
+
+
 </mapper>

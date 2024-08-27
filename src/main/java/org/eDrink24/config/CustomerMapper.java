@@ -16,4 +16,10 @@ public interface CustomerMapper {
 
     public int saveBrNum(CustomerDTO customerDTO);
     public int updateRole(@Param("brNum") Long brNum);
+
+    // id-> userName
+    public String findUserNameByUserId(int userId);
+
+    // 점주 : 본인매장반환
+    public int findMyStore(long brNum);
 }

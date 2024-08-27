@@ -76,6 +76,11 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
+    public String findByUserNameById(int userId) {
+        return customerMapper.findUserNameByUserId(userId);
+    }
+
+    @Override
     public void updateToManager(CustomerDTO customerDTO) {
         customerMapper.saveBrNum(customerDTO);
 
@@ -85,5 +90,10 @@ public class CustomerServiceImpl implements CustomerService{
         } else {
             throw new RuntimeException("사업자 등록번호가 설정되지 않았습니다.");
         }
+    }
+
+    @Override
+    public int findMyStore(long brNum) {
+        return customerMapper.findMyStore(brNum);
     }
 }

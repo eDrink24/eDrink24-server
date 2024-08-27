@@ -19,6 +19,7 @@ public class AdminOrderController {
         this.adminOrderService = adminOrderService;
     }
 
+    // 발주시, 물건이 있으면 update, 없으면 insert
     @PostMapping(value = {"/updateOrInsertInventory/{storeId}/{productId}"})
     public ResponseEntity<String> updateOrInsertInventory(@PathVariable Integer productId, @PathVariable Integer storeId,
                                                             @RequestBody InventoryDTO inventoryDTO) {
@@ -31,6 +32,7 @@ public class AdminOrderController {
         }
     }
 
+    // 예약픽업발주 신청 가져오기
     @GetMapping(value = {"/showReservationPickupPage"})
     public List<AdminDTO> showReservationPickupPage() {
         return adminOrderService.showReservationPickupPage();

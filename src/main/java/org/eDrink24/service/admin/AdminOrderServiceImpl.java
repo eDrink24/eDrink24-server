@@ -1,6 +1,8 @@
 package org.eDrink24.service.admin;
 
 import org.eDrink24.config.AdminMapper;
+import org.eDrink24.config.CustomerMapper;
+import org.eDrink24.config.ProductMapper;
 import org.eDrink24.dto.Inventory.InventoryDTO;
 import org.eDrink24.dto.admin.AdminDTO;
 import org.springframework.stereotype.Service;
@@ -13,11 +15,13 @@ import java.util.List;
 @Transactional
 public class AdminOrderServiceImpl implements AdminOrderService {
 
-
     AdminMapper adminMapper;
-
-    public AdminOrderServiceImpl(AdminMapper adminMapper) {
+    CustomerMapper customerMapper;
+    ProductMapper productMapper;
+    public AdminOrderServiceImpl(AdminMapper adminMapper, CustomerMapper customerMapper, ProductMapper productMapper) {
         this.adminMapper = adminMapper;
+        this.customerMapper = customerMapper;
+        this.productMapper = productMapper;
     }
 
 
@@ -70,7 +74,14 @@ public class AdminOrderServiceImpl implements AdminOrderService {
 
     @Override
     public List<AdminDTO> showReservationPickupPage() {
-        return adminMapper.showReservationPickupPage();
+        List<AdminDTO> adminList = adminMapper.showReservationPickupPage();
+        for (AdminDTO admin : adminList) {
+            Integer userId = admin.getUserId();
+            Integer productId = admin.getProductId();
+            admin.setUserName(customerMapper.findUserNameByUserId(userId));
+            admin.setProductName(productMapper.findProductNameByProductId(productId));
+        }
+        return adminList;
     }
 
 }

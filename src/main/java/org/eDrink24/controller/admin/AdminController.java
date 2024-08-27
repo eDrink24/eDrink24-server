@@ -22,11 +22,13 @@ public class AdminController {
         return ResponseEntity.noContent().build();
     }
 
+    // 즉시픽업 완료내역
     @GetMapping(value = {"/showPickupCompletedPage"})
     public List<AdminDTO> showPickupCompletedPage() {
         return adminService.showPickupCompletedPage();
     }
 
+    // 즉시픽업 신청내역
     @GetMapping(value = {"/showPickupPage"})
     public List<AdminDTO> showTodayPickupPage() {
         return adminService.showTodayPickupPage();

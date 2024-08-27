@@ -76,6 +76,11 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
+    public String findByUserNameById(int userId) {
+        return customerMapper.findUserNameByUserId(userId);
+    }
+
+    @Override
     public void updateToManager(CustomerDTO customerDTO) {
         customerMapper.saveBrNum(customerDTO);
 

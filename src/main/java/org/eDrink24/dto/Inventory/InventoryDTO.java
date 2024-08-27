@@ -20,9 +20,9 @@ public class InventoryDTO {
     private Integer storeId;
     private Integer productId;
     private Integer quantity;
-    private String productName;
     private Integer adminOrderHistoryId;
     private Integer AdminOrderQuantity;
+    private String productName;
 
     /*
     select i.inventoryId, i.storeId, i.productId, i.quantity, p.productName

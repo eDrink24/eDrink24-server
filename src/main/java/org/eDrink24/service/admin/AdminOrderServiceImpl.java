@@ -51,15 +51,18 @@ public class AdminOrderServiceImpl implements AdminOrderService {
     }
 
     @Override
-    public List<InventoryDTO> showAdminOrderList(Integer storeId) {
-        return adminMapper.showAdminOrderList(storeId);
+    public List<InventoryDTO> showAdminOrderList(int storeId) {
+        List<InventoryDTO> inventorList = adminMapper.showAdminOrderList(storeId);
+        for (InventoryDTO inventory : inventorList) {
+            Integer productId = inventory.getProductId();
+            inventory.setProductName(productMapper.findProductNameByProductId(productId));
+        };
+        return inventorList;
     }
 
     @Transactional
     public void updateOrInsertInventory(Integer productId,Integer storeId, InventoryDTO inventoryDTO) {
-
         InventoryDTO existingInventory = adminMapper.checkInventoryProduct(productId, storeId);
-        System.out.println("AAAAAAAA :" + existingInventory);
 
         if (existingInventory != null) {
             adminMapper.updateInventoryQuantity(inventoryDTO);
@@ -73,8 +76,8 @@ public class AdminOrderServiceImpl implements AdminOrderService {
     }
 
     @Override
-    public List<AdminDTO> showReservationPickupPage() {
-        List<AdminDTO> adminList = adminMapper.showReservationPickupPage();
+    public List<AdminDTO> showReservationPickupPage(int storeId) {
+        List<AdminDTO> adminList = adminMapper.showReservationPickupPage(storeId);
         for (AdminDTO admin : adminList) {
             Integer userId = admin.getUserId();
             Integer productId = admin.getProductId();

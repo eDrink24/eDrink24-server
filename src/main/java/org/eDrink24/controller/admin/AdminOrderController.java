@@ -23,7 +23,6 @@ public class AdminOrderController {
     @PostMapping(value = {"/updateOrInsertInventory/{storeId}/{productId}"})
     public ResponseEntity<String> updateOrInsertInventory(@PathVariable Integer productId, @PathVariable Integer storeId,
                                                             @RequestBody InventoryDTO inventoryDTO) {
-
         try {
             adminOrderService.updateOrInsertInventory(productId, storeId, inventoryDTO);
             return ResponseEntity.ok("Admin Order successful");
@@ -33,13 +32,13 @@ public class AdminOrderController {
     }
 
     // 예약픽업발주 신청 가져오기
-    @GetMapping(value = {"/showReservationPickupPage"})
-    public List<AdminDTO> showReservationPickupPage() {
-        return adminOrderService.showReservationPickupPage();
+    @GetMapping(value = {"/showReservationPickupPage/{storeId}"})
+    public List<AdminDTO> showReservationPickupPage(@PathVariable int storeId) {
+        return adminOrderService.showReservationPickupPage(storeId);
     }
 
     @GetMapping(value = {"/showAdminOrderList/{storeId}"})
-    public List<InventoryDTO> showAdminOrderList(@PathVariable Integer storeId) {
+    public List<InventoryDTO> showAdminOrderList(@PathVariable int storeId) {
         return adminOrderService.showAdminOrderList(storeId);
     }
 

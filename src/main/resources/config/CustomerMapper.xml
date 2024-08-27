@@ -36,4 +36,16 @@
         where loginId=#{loginId}
     </select>
 
+    <update id="saveBrNum" parameterType="CustomerDTO">
+        UPDATE customer
+        SET brNum = #{brNum}
+        WHERE userId = #{userId}
+    </update>
+
+    <update id="updateRole" parameterType="Long">
+        update customer
+        set role="점주"
+        where brNum=#{brNum}
+    </update>
+    
 </mapper>

@@ -74,4 +74,16 @@ public class CustomerServiceImpl implements CustomerService{
         CustomerDTO customerDTO = modelMapper.map(customer, CustomerDTO.class);
         return customerDTO;
     }
+
+    @Override
+    public void updateToManager(CustomerDTO customerDTO) {
+        customerMapper.saveBrNum(customerDTO);
+
+        Long brNum = customerDTO.getBrNum();
+        if (brNum != null) {
+            customerMapper.updateRole(brNum);
+        } else {
+            throw new RuntimeException("사업자 등록번호가 설정되지 않았습니다.");
+        }
+    }
 }

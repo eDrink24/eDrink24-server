@@ -19,4 +19,8 @@ public interface CustomerService {
     public String findByUserNameAndEmail(String userName, String email);
     // 비밀번호 찾기
     public CustomerDTO findByLoginIdAndEmail(String loginId, String email);
+
+    // 사업자등록번호 일치 시 brNum저장, role "점주"로 업데이트
+    public void updateToManager(CustomerDTO customerDTO);
+
 }

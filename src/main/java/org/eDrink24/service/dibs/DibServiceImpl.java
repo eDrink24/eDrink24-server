@@ -24,8 +24,18 @@ public class DibServiceImpl implements DibService {
     }
 
     @Override
+    public void addCountDibs(Integer productId) {
+        dibMapper.addCountDibs(productId);
+    }
+
+    @Override
     public void cancelDIb(Integer userId, Integer productId) {
         dibMapper.cancelDIb(userId, productId);
+    }
+
+    @Override
+    public void deleteCountDibs(Integer productId) {
+        dibMapper.deleteCountDibs(productId);
     }
 
     @Override

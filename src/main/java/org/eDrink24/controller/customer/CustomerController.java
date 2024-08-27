@@ -35,6 +35,8 @@ public class CustomerController {
         customer.setCurrentLocation(customer.getAddress1());
 
         CustomerDTO saveCustomer = customerService.saveCustomer(customer);
+        System.out.println("KKKKKKKKKKKKKKKKK" + saveCustomer);
+        customerService.addSignupCoupon(customer.getUserId());
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{userid}")

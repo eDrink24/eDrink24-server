@@ -28,6 +28,7 @@ public class DibController {
         System.out.println("ADADDADADDA" + dibDTO);
         try {
             dibService.addDibs(dibDTO);
+            dibService.addCountDibs(dibDTO.getProductId());
             return ResponseEntity.ok("Add Dib successful");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -40,6 +41,7 @@ public class DibController {
 
         try {
             dibService.cancelDIb(userId, productId);
+            dibService.deleteCountDibs(productId);
             return ResponseEntity.ok("Delete Dib successful");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

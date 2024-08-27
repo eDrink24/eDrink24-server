@@ -43,6 +43,11 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
+    public void addSignupCoupon(Integer userId) {
+        customerMapper.addSignupCoupon(userId);
+    }
+
+    @Override
     public int updateCustomerToMyPage(CustomerDTO customerDTO) {
         int n = customerMapper.updateCustomerToMyPage(customerDTO);
         return n;

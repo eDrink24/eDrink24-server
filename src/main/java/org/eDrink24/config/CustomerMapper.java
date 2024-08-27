@@ -19,4 +19,7 @@ public interface CustomerMapper {
 
     // id-> userName
     public String findUserNameByUserId(int userId);
+
+    // 점주 : 본인매장반환
+    public int findMyStore(long brNum);
 }

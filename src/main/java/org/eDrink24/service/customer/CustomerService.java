@@ -25,4 +25,7 @@ public interface CustomerService {
     // 사업자등록번호 일치 시 brNum저장, role "점주"로 업데이트
     public void updateToManager(CustomerDTO customerDTO);
 
+    // 점주 -> 본인매장id찾기
+    public int findMyStore(long brNum);
+
 }

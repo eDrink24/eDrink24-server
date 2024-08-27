@@ -91,4 +91,9 @@ public class CustomerServiceImpl implements CustomerService{
             throw new RuntimeException("사업자 등록번호가 설정되지 않았습니다.");
         }
     }
+
+    @Override
+    public int findMyStore(long brNum) {
+        return customerMapper.findMyStore(brNum);
+    }
 }

@@ -52,4 +52,13 @@
         where brNum=#{brNum}
     </update>
 
+
+    <select id="findMyStore" parameterType="Long" resultType="int">
+        SELECT store.storeId
+        FROM customer
+        JOIN store ON customer.brNum = store.brNum
+        WHERE customer.role = "점주"
+    </select>
+
+
 </mapper>

@@ -65,4 +65,13 @@ public class CustomerController {
         return new ResponseEntity<>("점주로 계정전환 실패: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping(value = "/api/findMyStore")
+    public ResponseEntity<Integer> findMyStore(@RequestBody Long brNum) {
+        try {
+            return ResponseEntity.ok(customerService.findMyStore(brNum));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
 }

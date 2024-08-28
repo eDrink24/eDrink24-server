@@ -26,6 +26,7 @@ public class StoreDTO {
     private String storePhoneNum;
     private Double latitude;
     private Double longitude;
+    private Long brNum;
 
 }
 

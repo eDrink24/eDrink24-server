@@ -42,6 +42,11 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
+    public void addSignupCoupon(Integer userId) {
+        customerMapper.addSignupCoupon(userId);
+    }
+
+    @Override
     public int updateCustomerToMyPage(CustomerDTO customerDTO) {
         int n = customerMapper.updateCustomerToMyPage(customerDTO);
         return n;
@@ -67,5 +72,27 @@ public class CustomerServiceImpl implements CustomerService{
         Customer customer = customerRepository.findByLoginIdAndEmail(loginId, email);
         CustomerDTO customerDTO = modelMapper.map(customer, CustomerDTO.class);
         return customerDTO;
+    }
+
+    @Override
+    public String findByUserNameById(int userId) {
+        return customerMapper.findUserNameByUserId(userId);
+    }
+
+    @Override
+    public void updateToManager(CustomerDTO customerDTO) {
+        customerMapper.saveBrNum(customerDTO);
+
+        Long brNum = customerDTO.getBrNum();
+        if (brNum != null) {
+            customerMapper.updateRole(brNum);
+        } else {
+            throw new RuntimeException("사업자 등록번호가 설정되지 않았습니다.");
+        }
+    }
+
+    @Override
+    public int findMyStore(long brNum) {
+        return customerMapper.findMyStore(brNum);
     }
 }

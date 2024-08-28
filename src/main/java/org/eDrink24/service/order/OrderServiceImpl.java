@@ -59,6 +59,9 @@ public class OrderServiceImpl implements OrderService {
             // 주문 내역 저장
             orderMapper.saveBuyHistory(orderTransactionDTO);
 
+            // pointDetails 테이블에 저장
+            orderMapper.savePointDetails(orderTransactionDTO);
+
             // 포인트 적립
             HashMap<String , Integer> map = new HashMap<>();
             map.put("userId", userId);

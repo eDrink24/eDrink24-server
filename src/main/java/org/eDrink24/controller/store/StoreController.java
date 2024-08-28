@@ -24,7 +24,6 @@ public class StoreController {
     public ResponseEntity<StoreDTO> findStore(@PathVariable("storeId") int storeId) {
         try {
             StoreDTO storeDTO = storeService.findByStoreId(storeId);
-            log.info(storeDTO.toString());
             return ResponseEntity.ok(storeDTO);
         } catch (NoSuchElementException e) {
             // 특정 예외 상황 처리: 매장을 찾지 못한 경우
@@ -46,5 +45,16 @@ public class StoreController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
+    }
+
+    @GetMapping("/api/checkBrNum/{storeId}/{brNum}")
+    public ResponseEntity<StoreDTO> checkBrNum(@PathVariable Integer storeId, @PathVariable Long brNum) {
+        StoreDTO storeDTO =storeService.checkBrNum(storeId, brNum);
+        if(storeDTO == null) {
+            return ResponseEntity.status(404).body(new StoreDTO());
+        } else{
+            return  ResponseEntity.ok(storeDTO);
+        }
+
     }
 }

@@ -11,4 +11,14 @@
 	  where userId = #{userId}
     </select>
 
+    <!-- 마이페이지에서 포인트 클릭 시 개별 포인트 내역 보여줌 -->
+    <select id="showPoint" parameterType="Integer" resultType="PointDTO">
+        select c.userName, p.productName,p.defaultImage, pd.saveDate, p.price , pd.point
+        from orders o
+        join customer c on c.userId=o.userId
+        join pointdetails pd on o.ordersId=pd.ordersId
+        join product p on o.productId=p.productId
+        where o.userId = #{userId};
+    </select>
+
 </mapper>

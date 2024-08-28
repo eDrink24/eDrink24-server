@@ -28,4 +28,7 @@ public class AdminDTO {
     private Integer orderQuantity;
     private String pickupType;
 
+    private String userName;
+    private String productName;
+
 }

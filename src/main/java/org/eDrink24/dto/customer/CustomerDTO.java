@@ -36,4 +36,5 @@ public class CustomerDTO {
     private Integer totalPoint;
     private String role;
     private Long linkedId;
+    private Long brNum;
 }

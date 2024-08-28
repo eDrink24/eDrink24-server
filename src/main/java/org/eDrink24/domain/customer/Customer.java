@@ -63,4 +63,8 @@ public class Customer {
 
     @Column(name = "linkedId", nullable = true, length = 100)
     private Long linkedId;
+
+    @Column(name="brNum", nullable = false)
+    private Long brNum;
+
 }

@@ -23,11 +23,11 @@ public interface AdminOrderService {
     public void updatePickupType(InventoryDTO inventoryDTO);
 
     // 발주완료 목록 조회
-    public List<InventoryDTO> showAdminOrderList(Integer storeId);
+    public List<InventoryDTO> showAdminOrderList(int storeId);
 
     public void updateOrInsertInventory(Integer productId,Integer storeId, InventoryDTO inventoryDTO);
 
-    public List<AdminDTO> showReservationPickupPage();
+    public List<AdminDTO> showReservationPickupPage(int storeId);
 
 
 }

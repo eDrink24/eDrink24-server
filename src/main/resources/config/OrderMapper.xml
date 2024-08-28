@@ -140,6 +140,7 @@
         p.productName,
         o.orderQuantity,
         o.pickupType,
+        o.storeId,
         s.storeName,
         o.isCompleted,
         oh.changeDate,

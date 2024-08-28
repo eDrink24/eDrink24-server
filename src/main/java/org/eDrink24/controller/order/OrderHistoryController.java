@@ -37,7 +37,6 @@ public class OrderHistoryController {
         LocalDateTime formattedOrderDate = LocalDateTime.parse(orderDate, formatter);
 
         List<OrderTransactionDTO> orderHistoryDetails = orderHistoryService.showOrderHistoryDetails(userId, formattedOrderDate);
-        System.out.println("Order Details: " + orderHistoryDetails);
         return ResponseEntity.ok(orderHistoryDetails);
     }
 

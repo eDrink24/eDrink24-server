@@ -44,7 +44,7 @@
 
     <!-- pointdetails테이블에 저장 -->
     <insert id="savePointDetails" parameterType="java.util.List">
-        INSERT INTO pointdetails (ordersId, saveDate, point)
+        INSERT INTO pointDetails (ordersId, saveDate, point)
         VALUES
         <foreach collection="list" item="item" separator=",">
             (#{item.ordersId}, #{item.saveDate}, #{item.point})

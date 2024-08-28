@@ -16,7 +16,7 @@
         select c.userName, p.productName,p.defaultImage, pd.saveDate, p.price , pd.point
         from orders o
         join customer c on c.userId=o.userId
-        join pointdetails pd on o.ordersId=pd.ordersId
+        join pointDetails pd on o.ordersId=pd.ordersId
         join product p on o.productId=p.productId
         where o.userId = #{userId};
     </select>

@@ -126,8 +126,8 @@
         left join product on orders.productId=product.productId
         left join reviews on orders.ordersId = reviews.ordersId
         WHERE userId = #{userId}
-        GROUP BY orders.ordersId, orders.productId, orders.orderDATE, orders.pickupType, product.defaultImage, product.productName,orders.orderQuantity,product.price, reviews.reviewsId
-        ORDER BY orders.orderDATE DESC
+        GROUP BY orders.ordersId, orders.productId, orders.orderDate, orders.pickupType, product.defaultImage, product.productName,orders.orderQuantity,product.price, reviews.reviewsId
+        ORDER BY orders.orderDate DESC
     </select>
 
     <!-- 주문상세내역 조회 -->

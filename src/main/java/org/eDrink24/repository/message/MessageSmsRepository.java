@@ -28,10 +28,4 @@ public class MessageSmsRepository {
     public void removeSmsCertification(String phoneNum) {
         stringRedisTemplate.delete(phoneNum);
     }
-
-    public boolean hasKey(String phoneNum) {
-        return Boolean.TRUE.equals(stringRedisTemplate.hasKey(phoneNum));
-    }
-
-
 }

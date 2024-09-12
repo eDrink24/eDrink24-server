@@ -8,11 +8,11 @@
     <!-- 장바구니에 담긴 상품 불러오기 -->
     <select id="showAllStore" resultType="StoreDTO">
       select
-        STORE.storeId,
-        STORE.storeName,
-        STORE.storeAddress,
-        STORE.storePhoneNum
-      from STORE
+        store.storeId,
+        store.storeName,
+        store.storeAddress,
+        store.storePhoneNum
+      from store
     </select>
 
     <!-- 사업자등록번호가 존재하는지 확인 -->

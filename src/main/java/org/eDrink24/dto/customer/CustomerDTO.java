@@ -32,7 +32,7 @@ public class CustomerDTO {
     private String address1;
     private String address2;
     private String currentLocation;
-    private Integer currentStoreId;
+    private Integer currentStoreId=0;
     private Integer totalPoint;
     private String role;
     private Long linkedId;

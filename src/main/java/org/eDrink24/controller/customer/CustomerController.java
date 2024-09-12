@@ -27,12 +27,8 @@ public class CustomerController {
     // 회원가입
     @PostMapping(value={"/signup"})
     public ResponseEntity<CustomerDTO> signup(@Valid @RequestBody CustomerDTO customer) {
-
-        // 입력된 비번은 반드시 암호해해야 된다.
         String ecrptPW = new BCryptPasswordEncoder().encode(customer.getPw());
         customer.setPw(ecrptPW);
-        // 회원가입 초기엔 본인 주소를 현재 위치로 설정
-        customer.setCurrentLocation(customer.getAddress1());
 
         CustomerDTO saveCustomer = customerService.saveCustomer(customer);
         System.out.println("KKKKKKKKKKKKKKKKK" + saveCustomer);

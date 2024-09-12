@@ -81,7 +81,7 @@
 
     <select id="existsProductInInventory" parameterType="map" resultType="Integer">
         SELECT COUNT(*)
-        FROM INVENTORY
+        FROM inventory
         WHERE storeId = #{storeId} AND productId = #{productId}
     </select>
 

@@ -5,6 +5,7 @@ import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,9 @@ public class MessageSmsUtil {
     @Value("${coolsms.api.fromNumber}")
     private String fromNumber;
 
+    @Autowired
+    Random rand;
+
     private DefaultMessageService defaultMessageService;
 
     @PostConstruct
@@ -30,10 +34,15 @@ public class MessageSmsUtil {
     }
 
     public String createCertificateCode() {
-        String createCertificateCode = new Random().ints(6, 0, 10)
-                .mapToObj(Integer::toString)
-                .collect(Collectors.joining());
-        return createCertificateCode;
+//        String createCertificateCode = new Random().ints(6, 0, 10)
+//                .mapToObj(Integer::toString)
+//                .collect(Collectors.joining());
+        // 원시타입을 사용하는 경우 => stack 메모리에 할당되는데 참조(래퍼타입)+데이터크기가 클때(병렬 처리가 효과적일 때 )
+        StringBuilder createCertificateCode = new StringBuilder();
+        for (int i = 0; i < 6; i++) {
+            createCertificateCode.append(rand.nextInt(10));
+        }
+        return createCertificateCode.toString();
     };
 
     // SingleMessageSentResponse

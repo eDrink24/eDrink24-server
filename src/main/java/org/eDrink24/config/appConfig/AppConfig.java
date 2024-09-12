@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Random;
+
 @Configuration
 public class AppConfig {
     @Bean
@@ -14,4 +16,6 @@ public class AppConfig {
     }
     @Bean
     public ModelMapper modelMapper() { return new ModelMapper(); }
+    @Bean
+    public Random rand() { return new Random(); }
 }

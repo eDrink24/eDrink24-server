@@ -30,7 +30,6 @@ public class MessageSmsUtil {
     }
 
     public String createCertificateCode() {
-        Random rand = new Random();
         String createCertificateCode = new Random().ints(6, 0, 10)
                 .mapToObj(Integer::toString)
                 .collect(Collectors.joining());

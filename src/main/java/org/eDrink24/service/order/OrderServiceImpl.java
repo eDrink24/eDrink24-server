@@ -1,7 +1,9 @@
 package org.eDrink24.service.order;
 
 import org.eDrink24.config.BasketMapper;
+import org.eDrink24.config.InventoryMapper;
 import org.eDrink24.config.OrderMapper;
+import org.eDrink24.dto.Inventory.InventoryDTO;
 import org.eDrink24.dto.basket.BasketDTO;
 import org.eDrink24.dto.basket.BasketItemDTO;
 import org.eDrink24.dto.order.OrderTransactionDTO;
@@ -17,12 +19,14 @@ import java.util.stream.Collectors;
 @Service
 public class OrderServiceImpl implements OrderService {
 
+    InventoryMapper inventoryMapper;
     OrderMapper orderMapper;
     BasketMapper basketMapper;
 
-    public OrderServiceImpl(OrderMapper orderMapper, BasketMapper basketMapper) {
+    public OrderServiceImpl(OrderMapper orderMapper, BasketMapper basketMapper, InventoryMapper inventoryMapper) {
         this.orderMapper = orderMapper;
         this.basketMapper = basketMapper;
+        this.inventoryMapper = inventoryMapper;
     }
 
     @Override
@@ -53,18 +57,29 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public void buyProductAndSaveHistory(List<OrderTransactionDTO> orderTransactionDTO, Integer userId, Integer couponId) {
         if (orderTransactionDTO != null && !orderTransactionDTO.isEmpty()) {
-            // 주문 저장
-            orderMapper.buyProduct(orderTransactionDTO);
-
             for (OrderTransactionDTO orderTransaction : orderTransactionDTO) {
                 int storeId = orderTransaction.getStoreId();
                 int productId = orderTransaction.getProductId();
-                String pickupType = orderTransaction.getPickupType();
                 int quantity = orderTransaction.getOrderQuantity();
-                if (pickupType.equals("TODAY")) {
+                String pickupType = orderTransaction.getPickupType();
 
+                Map<String, Integer> map = new HashMap<>();
+                map.put("storeId", storeId);
+                map.put("productId", productId);
+                map.put("quantity", quantity);
+
+                // 재고감소는 오늘픽업일때만, 예약픽업은 점주의 발주처리가 완료되어야 재고가 생김
+                if (!pickupType.equals("TODAY")) {
+                    InventoryDTO inventory = inventoryMapper.findInventoryForUpdate(map);
+                    if(inventory==null || inventory.getQuantity() < quantity) {
+                        throw new IllegalArgumentException("재고 부족으로 주문불가"); // 나중에 전역예외처리 필요. 발생하면 아래 코드 실행X
+                    }
+                    inventoryMapper.updateInventory(map);
                 }
             }
+
+            // 주문 저장
+            orderMapper.buyProduct(orderTransactionDTO);
 
             // 주문 내역 저장
             orderMapper.saveBuyHistory(orderTransactionDTO);
@@ -84,7 +99,8 @@ public class OrderServiceImpl implements OrderService {
             map1.put("pointAmount", orderTransactionDTO.get(0).getPointAmount());
             orderMapper.reduceTotalPoint(map1);
 
-            couponId = orderTransactionDTO.get(0).getCouponId();;
+            couponId = orderTransactionDTO.get(0).getCouponId();
+
             // 쿠폰이 사용된 경우에만 업데이트
             if (couponId != null) {
                 HashMap<String, Integer> map2 = new HashMap<>();

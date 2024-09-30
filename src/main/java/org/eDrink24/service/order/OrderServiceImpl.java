@@ -56,6 +56,16 @@ public class OrderServiceImpl implements OrderService {
             // 주문 저장
             orderMapper.buyProduct(orderTransactionDTO);
 
+            for (OrderTransactionDTO orderTransaction : orderTransactionDTO) {
+                int storeId = orderTransaction.getStoreId();
+                int productId = orderTransaction.getProductId();
+                String pickupType = orderTransaction.getPickupType();
+                int quantity = orderTransaction.getOrderQuantity();
+                if (pickupType.equals("TODAY")) {
+
+                }
+            }
+
             // 주문 내역 저장
             orderMapper.saveBuyHistory(orderTransactionDTO);
 
@@ -74,8 +84,7 @@ public class OrderServiceImpl implements OrderService {
             map1.put("pointAmount", orderTransactionDTO.get(0).getPointAmount());
             orderMapper.reduceTotalPoint(map1);
 
-            couponId = orderTransactionDTO.get(0).getCouponId();
-            System.out.println("FFFFFFFFFFFFFFFFFF"+couponId);
+            couponId = orderTransactionDTO.get(0).getCouponId();;
             // 쿠폰이 사용된 경우에만 업데이트
             if (couponId != null) {
                 HashMap<String, Integer> map2 = new HashMap<>();

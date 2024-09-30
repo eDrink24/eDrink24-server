@@ -28,7 +28,9 @@ public class AdminServiceImpl implements AdminService{
     public void updateStateAfterCompletedPickup(Integer ordersId) {
         adminMapper.ChangeStatusAndDate(ordersId);
         adminMapper.changeIsCompleted(ordersId);
-        adminMapper.changeInventoryQuantity(ordersId);
+
+        // 픽업완료처리 했을때 수량 바뀜 => 주문 시에 처리해얄듯
+        // adminMapper.changeInventoryQuantity(ordersId);
     }
 
     @Override

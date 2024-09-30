@@ -35,7 +35,7 @@ public class OrderTests {
     public void ConcurrencyTest() throws InterruptedException {
         int storeId = 1331;
         int productId = 81;
-        int orderQuantity = 3;
+        int orderQuantity = 1;
 
         Map<String, Integer> map = new HashMap<>();
         map.put("storeId", storeId);
@@ -43,10 +43,12 @@ public class OrderTests {
         map.put("quantity", orderQuantity);
 
         // 동시성 테스트를 위한 스레드 동기화
-        CountDownLatch latch = new CountDownLatch(3);
+        CountDownLatch startLatch = new CountDownLatch(1);
+        CountDownLatch endLatch = new CountDownLatch(5);
 
         Runnable task = () -> {
             try {
+                startLatch.await(); // 모든 스레드가 준비될 때까지 대기
                 InventoryDTO inventory = inventoryMapper.findInventoryForUpdate(map);
                 if (inventory == null || inventory.getQuantity() < orderQuantity) {
                     System.out.println("재고 부족으로 주문 불가");
@@ -57,7 +59,7 @@ public class OrderTests {
             } catch (Exception e) {
                 System.out.println("예외 발생: " + e.getMessage());
             } finally {
-                latch.countDown();
+                endLatch.countDown(); // 스레드 작업 종료 시 endLatch 감소
             }
         };
 
@@ -65,12 +67,20 @@ public class OrderTests {
         Thread thread1 = new Thread(task);
         Thread thread2 = new Thread(task);
         Thread thread3 = new Thread(task);
+        Thread thread4 = new Thread(task);
+        Thread thread5 = new Thread(task);
 
         thread1.start();
         thread2.start();
         thread3.start();
+        thread4.start();
+        thread5.start();
 
-        latch.await();
+
+        Thread.sleep(1000); // 모든 스레드가 시작될 준비를 할 때까지 대기
+        startLatch.countDown(); // 모든 스레드를 동시에 시작
+
+        endLatch.await();
 
         // 결과 확인
         System.out.println("동시성 테스트 완료");

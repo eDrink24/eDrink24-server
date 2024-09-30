@@ -6,7 +6,7 @@
 <mapper namespace="org.eDrink24.config.InventoryMapper">
     <select id="findInventoryForUpdate" parameterType="map" resultType="InventoryDTO">
         SELECT * FROM inventory
-        WHERE store_id = #{storeId} AND product_id = #{productId}
+        WHERE storeId = #{storeId} AND productId = #{productId}
         FOR UPDATE <!--해당 레코드를 잠금 처리. 트랜잭션이 끝나면 풀림-->
     </select>
 

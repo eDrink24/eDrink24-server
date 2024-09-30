@@ -57,19 +57,20 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public void buyProductAndSaveHistory(List<OrderTransactionDTO> orderTransactionDTO, Integer userId, Integer couponId) {
         if (orderTransactionDTO != null && !orderTransactionDTO.isEmpty()) {
+
             for (OrderTransactionDTO orderTransaction : orderTransactionDTO) {
-                int storeId = orderTransaction.getStoreId();
-                int productId = orderTransaction.getProductId();
-                int quantity = orderTransaction.getOrderQuantity();
-                String pickupType = orderTransaction.getPickupType();
-
-                Map<String, Integer> map = new HashMap<>();
-                map.put("storeId", storeId);
-                map.put("productId", productId);
-                map.put("quantity", quantity);
-
                 // 재고감소는 오늘픽업일때만, 예약픽업은 점주의 발주처리가 완료되어야 재고가 생김
+                String pickupType = orderTransaction.getPickupType();
                 if (!pickupType.equals("TODAY")) {
+                    int storeId = orderTransaction.getStoreId();
+                    int productId = orderTransaction.getProductId();
+                    int quantity = orderTransaction.getOrderQuantity();
+
+                    Map<String, Integer> map = new HashMap<>();
+                    map.put("storeId", storeId);
+                    map.put("productId", productId);
+                    map.put("quantity", quantity);
+
                     InventoryDTO inventory = inventoryMapper.findInventoryForUpdate(map);
                     if(inventory==null || inventory.getQuantity() < quantity) {
                         throw new IllegalArgumentException("재고 부족으로 주문불가"); // 나중에 전역예외처리 필요. 발생하면 아래 코드 실행X

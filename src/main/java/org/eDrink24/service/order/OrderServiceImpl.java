@@ -7,6 +7,7 @@ import org.eDrink24.dto.Inventory.InventoryDTO;
 import org.eDrink24.dto.basket.BasketDTO;
 import org.eDrink24.dto.basket.BasketItemDTO;
 import org.eDrink24.dto.order.OrderTransactionDTO;
+import org.eDrink24.excpetion.NotEnoughStock.NotEnoughStockException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,7 +76,7 @@ public class OrderServiceImpl implements OrderService {
                     System.out.println(inventory);
                     if(inventory==null || inventory.getQuantity() < quantity) {
                         System.out.println("!error!");
-                        throw new IllegalArgumentException("재고 부족으로 주문불가"); // 나중에 전역예외처리 필요. 발생하면 아래 코드 실행X
+                        throw new NotEnoughStockException("매장재고부족"); // 나중에 전역예외처리 필요. 발생하면 아래 코드 실행X
                     }
                     inventoryMapper.updateInventory(map);
                 }

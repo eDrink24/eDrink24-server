@@ -25,7 +25,6 @@ public class OrderController {
 
         try {
             orderService.buyProductAndSaveHistory(orderTransactionDTO, userId, couponId);
-            //orderService.deleteBasketAndItem(orderTransactionDTO);
             return ResponseEntity.ok("Purchase successful");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

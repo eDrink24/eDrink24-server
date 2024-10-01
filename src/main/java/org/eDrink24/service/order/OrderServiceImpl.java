@@ -58,59 +58,62 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public void buyProductAndSaveHistory(List<OrderTransactionDTO> orderTransactionDTO, Integer userId, Integer couponId) {
         if (orderTransactionDTO != null && !orderTransactionDTO.isEmpty()) {
+            try {
+                for (OrderTransactionDTO orderTransaction : orderTransactionDTO) {
+                    // 재고감소는 오늘픽업일때만, 예약픽업은 점주의 발주처리가 완료되어야 재고가 생김
+                    String pickupType = orderTransaction.getPickupType();
+                    if (pickupType.equals("TODAY")) {
+                        int storeId = orderTransaction.getStoreId();
+                        int productId = orderTransaction.getProductId();
+                        int quantity = orderTransaction.getOrderQuantity();
 
-            for (OrderTransactionDTO orderTransaction : orderTransactionDTO) {
-                // 재고감소는 오늘픽업일때만, 예약픽업은 점주의 발주처리가 완료되어야 재고가 생김
-                String pickupType = orderTransaction.getPickupType();
-                if (pickupType.equals("TODAY")) {
-                    int storeId = orderTransaction.getStoreId();
-                    int productId = orderTransaction.getProductId();
-                    int quantity = orderTransaction.getOrderQuantity();
+                        Map<String, Integer> map = new HashMap<>();
+                        map.put("storeId", storeId);
+                        map.put("productId", productId);
+                        map.put("quantity", quantity);
 
-                    Map<String, Integer> map = new HashMap<>();
-                    map.put("storeId", storeId);
-                    map.put("productId", productId);
-                    map.put("quantity", quantity);
+                        InventoryDTO inventory = inventoryMapper.findInventoryForUpdate(map);
 
-                    InventoryDTO inventory = inventoryMapper.findInventoryForUpdate(map);
-                    System.out.println(inventory);
-                    if(inventory==null || inventory.getQuantity() < quantity) {
-                        System.out.println("!error!");
-                        throw new NotEnoughStockException("매장재고부족"); // 나중에 전역예외처리 필요. 발생하면 아래 코드 실행X
+                        if (inventory == null || inventory.getQuantity() < quantity) {
+                            System.out.println("!error!");
+                            throw new NotEnoughStockException("매장재고부족");
+                        }
+                        inventoryMapper.updateInventory(map);
                     }
-                    inventoryMapper.updateInventory(map);
                 }
-            }
 
-            // 주문 저장
-            orderMapper.buyProduct(orderTransactionDTO);
+                // 주문 저장
+                orderMapper.buyProduct(orderTransactionDTO);
 
-            // 주문 내역 저장
-            orderMapper.saveBuyHistory(orderTransactionDTO);
+                // 주문 내역 저장
+                orderMapper.saveBuyHistory(orderTransactionDTO);
 
-            // pointDetails 테이블에 저장
-            orderMapper.savePointDetails(orderTransactionDTO);
+                // pointDetails 테이블에 저장
+                orderMapper.savePointDetails(orderTransactionDTO);
 
-            // 포인트 적립
-            HashMap<String , Integer> map = new HashMap<>();
-            map.put("userId", userId);
-            map.put("addedPoint", orderTransactionDTO.get(0).getTotalPoint());
-            orderMapper.addTotalPoint(map);
+                // 포인트 적립
+                HashMap<String, Integer> map = new HashMap<>();
+                map.put("userId", userId);
+                map.put("addedPoint", orderTransactionDTO.get(0).getTotalPoint());
+                orderMapper.addTotalPoint(map);
 
-            // 포인트 차감
-            HashMap<String , Integer> map1 = new HashMap<>();
-            map1.put("userId", userId);
-            map1.put("pointAmount", orderTransactionDTO.get(0).getPointAmount());
-            orderMapper.reduceTotalPoint(map1);
+                // 포인트 차감
+                HashMap<String, Integer> map1 = new HashMap<>();
+                map1.put("userId", userId);
+                map1.put("pointAmount", orderTransactionDTO.get(0).getPointAmount());
+                orderMapper.reduceTotalPoint(map1);
 
-            couponId = orderTransactionDTO.get(0).getCouponId();
+                couponId = orderTransactionDTO.get(0).getCouponId();
 
-            // 쿠폰이 사용된 경우에만 업데이트
-            if (couponId != null) {
-                HashMap<String, Integer> map2 = new HashMap<>();
-                map2.put("couponId", couponId);
-                map2.put("userId", userId);
-                orderMapper.deleteUsedCoupon(map2);
+                // 쿠폰이 사용된 경우에만 업데이트
+                if (couponId != null) {
+                    HashMap<String, Integer> map2 = new HashMap<>();
+                    map2.put("couponId", couponId);
+                    map2.put("userId", userId);
+                    orderMapper.deleteUsedCoupon(map2);
+                }
+            } catch (NotEnoughStockException e) {
+                throw e; // GlobalExceptionHandler로 처리이임
             }
         }
     }

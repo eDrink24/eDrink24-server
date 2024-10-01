@@ -1,10 +1,13 @@
 package org.eDrink24.service.order;
 
 import org.eDrink24.config.BasketMapper;
+import org.eDrink24.config.InventoryMapper;
 import org.eDrink24.config.OrderMapper;
+import org.eDrink24.dto.Inventory.InventoryDTO;
 import org.eDrink24.dto.basket.BasketDTO;
 import org.eDrink24.dto.basket.BasketItemDTO;
 import org.eDrink24.dto.order.OrderTransactionDTO;
+import org.eDrink24.excpetion.NotEnoughStock.NotEnoughStockException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,12 +20,14 @@ import java.util.stream.Collectors;
 @Service
 public class OrderServiceImpl implements OrderService {
 
+    InventoryMapper inventoryMapper;
     OrderMapper orderMapper;
     BasketMapper basketMapper;
 
-    public OrderServiceImpl(OrderMapper orderMapper, BasketMapper basketMapper) {
+    public OrderServiceImpl(OrderMapper orderMapper, BasketMapper basketMapper, InventoryMapper inventoryMapper) {
         this.orderMapper = orderMapper;
         this.basketMapper = basketMapper;
+        this.inventoryMapper = inventoryMapper;
     }
 
     @Override
@@ -53,35 +58,62 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public void buyProductAndSaveHistory(List<OrderTransactionDTO> orderTransactionDTO, Integer userId, Integer couponId) {
         if (orderTransactionDTO != null && !orderTransactionDTO.isEmpty()) {
-            // 주문 저장
-            orderMapper.buyProduct(orderTransactionDTO);
+            try {
+                for (OrderTransactionDTO orderTransaction : orderTransactionDTO) {
+                    // 재고감소는 오늘픽업일때만, 예약픽업은 점주의 발주처리가 완료되어야 재고가 생김
+                    String pickupType = orderTransaction.getPickupType();
+                    if (pickupType.equals("TODAY")) {
+                        int storeId = orderTransaction.getStoreId();
+                        int productId = orderTransaction.getProductId();
+                        int quantity = orderTransaction.getOrderQuantity();
 
-            // 주문 내역 저장
-            orderMapper.saveBuyHistory(orderTransactionDTO);
+                        Map<String, Integer> map = new HashMap<>();
+                        map.put("storeId", storeId);
+                        map.put("productId", productId);
+                        map.put("quantity", quantity);
 
-            // pointDetails 테이블에 저장
-            orderMapper.savePointDetails(orderTransactionDTO);
+                        InventoryDTO inventory = inventoryMapper.findInventoryForUpdate(map);
 
-            // 포인트 적립
-            HashMap<String , Integer> map = new HashMap<>();
-            map.put("userId", userId);
-            map.put("addedPoint", orderTransactionDTO.get(0).getTotalPoint());
-            orderMapper.addTotalPoint(map);
+                        if (inventory == null || inventory.getQuantity() < quantity) {
+                            System.out.println("!error!");
+                            throw new NotEnoughStockException("매장재고부족");
+                        }
+                        inventoryMapper.updateInventory(map);
+                    }
+                }
 
-            // 포인트 차감
-            HashMap<String , Integer> map1 = new HashMap<>();
-            map1.put("userId", userId);
-            map1.put("pointAmount", orderTransactionDTO.get(0).getPointAmount());
-            orderMapper.reduceTotalPoint(map1);
+                // 주문 저장
+                orderMapper.buyProduct(orderTransactionDTO);
 
-            couponId = orderTransactionDTO.get(0).getCouponId();
-            System.out.println("FFFFFFFFFFFFFFFFFF"+couponId);
-            // 쿠폰이 사용된 경우에만 업데이트
-            if (couponId != null) {
-                HashMap<String, Integer> map2 = new HashMap<>();
-                map2.put("couponId", couponId);
-                map2.put("userId", userId);
-                orderMapper.deleteUsedCoupon(map2);
+                // 주문 내역 저장
+                orderMapper.saveBuyHistory(orderTransactionDTO);
+
+                // pointDetails 테이블에 저장
+                orderMapper.savePointDetails(orderTransactionDTO);
+
+                // 포인트 적립
+                HashMap<String, Integer> map = new HashMap<>();
+                map.put("userId", userId);
+                map.put("addedPoint", orderTransactionDTO.get(0).getTotalPoint());
+                orderMapper.addTotalPoint(map);
+
+                // 포인트 차감
+                HashMap<String, Integer> map1 = new HashMap<>();
+                map1.put("userId", userId);
+                map1.put("pointAmount", orderTransactionDTO.get(0).getPointAmount());
+                orderMapper.reduceTotalPoint(map1);
+
+                couponId = orderTransactionDTO.get(0).getCouponId();
+
+                // 쿠폰이 사용된 경우에만 업데이트
+                if (couponId != null) {
+                    HashMap<String, Integer> map2 = new HashMap<>();
+                    map2.put("couponId", couponId);
+                    map2.put("userId", userId);
+                    orderMapper.deleteUsedCoupon(map2);
+                }
+            } catch (NotEnoughStockException e) {
+                throw e; // GlobalExceptionHandler로 처리이임
             }
         }
     }

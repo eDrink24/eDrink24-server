@@ -31,7 +31,6 @@ public class CustomerController {
         customer.setPw(ecrptPW);
 
         CustomerDTO saveCustomer = customerService.saveCustomer(customer);
-        System.out.println("KKKKKKKKKKKKKKKKK" + saveCustomer);
         customerService.addSignupCoupon(customer.getUserId());
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()

@@ -22,15 +22,8 @@ public class OrderController {
     @PostMapping("/showAllBasket/userId/{userId}/buyProductAndSaveHistory")
     public ResponseEntity<String> buyProductAndSaveHistory(@RequestBody List<OrderTransactionDTO> orderTransactionDTO,
                                                            @PathVariable Integer userId, Integer couponId) {
-
-        try {
-            orderService.buyProductAndSaveHistory(orderTransactionDTO, userId, couponId);
-            //orderService.deleteBasketAndItem(orderTransactionDTO);
-            return ResponseEntity.ok("Purchase successful");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error processing purchase: " + e.getMessage());
-        }
+        orderService.buyProductAndSaveHistory(orderTransactionDTO, userId, couponId);
+        return ResponseEntity.ok("Purchase successful");
     }
 
     @DeleteMapping("/showAllBasket/userId/{userId}/deleteBasketAndItem")

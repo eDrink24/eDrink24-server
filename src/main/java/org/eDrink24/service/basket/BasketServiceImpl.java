@@ -25,8 +25,6 @@ public class BasketServiceImpl implements BasketService {
     @Transactional
     public void saveProductToBasket(BasketDTO basketDTO) {
 
-        System.out.println(">>>>>>>>>>>>>>>>>>>>." + basketDTO);
-
         //부모 테이블에 저장
         basketMapper.saveBasket(basketDTO);
         // 부모 테이블에 저장 후 자동 생성된 basketId 설정
